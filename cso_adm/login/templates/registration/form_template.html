@@ -1,0 +1,16 @@
+<span>
+    {% if form.errors %}
+        <span style="color:red;">Your username or password is incorrect. Note that both fields are case sensitive!</span>
+        <span style="color:red;"><b>Is Caps Lock on?</b></span>
+    {% endif %}
+</span>
+{% for field in form %}
+<div>
+    <span>
+        {{ field.label_tag }}
+    </span>
+    <div class="field">
+        {{ field }}
+    </div>
+</div>
+{% endfor %}

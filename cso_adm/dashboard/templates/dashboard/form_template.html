@@ -1,0 +1,15 @@
+<!--<span>-->
+    <!--{% if form.errors %}-->
+    <!--&lt;!&ndash;<span>Your username or password is incorrect.</span>&ndash;&gt;-->
+    <!--{% endif %}-->
+<!--</span>-->
+{% for field in form %}
+<div>
+    <!--<div>-->
+        <!--{{ field.label_tag }}-->
+    <!--</div>-->
+    <div>
+        {{ field }}
+    </div>
+</div>
+{% endfor %}
