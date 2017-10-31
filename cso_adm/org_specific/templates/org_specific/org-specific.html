@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSO Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link href="../../static/css/theme.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/css/scrollbar-style.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/css/table-style.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/css/pseudo.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/css/modal-style.css" rel="stylesheet" type="text/css" />
+        
+        <script src="../../static/dashboard/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <!--<script src="js/angular.js" type="text/javascript"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <script src="../../static/dashboard/js/normalize.js" type="text/javascript"></script>
+        <script src="../../static/dashboard/js/modal.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <!-- THE MODAL OVERLAY -->
+        <div id="modal-wrapper">
+            <i class="fa fa-times close"></i>
+            <div id="modal-details-wrapper">
+                <ul class="tab-wrapper">
+                    <li class="active" data-id="genActs">General Activity Details</li>
+                    <li data-id="submission">Submission Details</li>
+                    <li data-id="csoDetails">CSO Details</li>
+                    <!--<li class="closeModal"><i class="fa fa-times" aria-hidden="true"></i></li>-->
+                </ul>
+                <div class="content-wrapper visible" id="genActs">
+                    <div>
+                        <b>Activity Title</b>
+                        <p>{{modalActivity}}</p>
+                    </div>
+                    <div>
+                        <b>Organization Name</b>
+                        <p>{{modalOrg}}</p>
+                    </div>
+                    <div>
+                        <b>Tie-up Organization</b>
+                        <p>{{modalTieUp}}</p>
+                    </div>
+                    <div>
+                        <b>ENP</b>
+                        <p>{{modalEnp}}</p>
+                    </div>
+                    <div>
+                        <b>ENMP</b>
+                        <p>{{modalEnmp}}</p>
+                    </div>
+                    <div>
+                        <b>ANP</b>
+                        <p>{{modalAnp}}</p>
+                    </div>
+                    <div>
+                        <b>ANMP</b>
+                        <p>{{modalAnmp}}</p>
+                    </div>
+                </div>
+                <div class="content-wrapper" id="submission">
+                    <div>
+                        <b>Timestamp</b>
+                        <p>{{modalTimeS | date:'medium'}}</p>
+                    </div>
+                    <div>
+                        <b>Type of Submission</b>
+                        <p>{{modalSubType}}</p>
+                    </div>
+                    <div>
+                        <b>Submitted by</b>
+                        <p>{{modalSubBy}}</p>
+                    </div>
+                    <div>
+                        <b>Contact Number</b>
+                        <p>{{modalContact}}</p>
+                    </div>
+                    <div>
+                        <b>Email Address</b>
+                        <p>{{modalEmail}}</p>
+                    </div>
+                </div>
+                <div class="content-wrapper" id="csoDetails">
+                    <form id="modalForm" method="post">
+                        <!--{% verbatim %}-->
+                        <input type="hidden" name="id" value="{{modalId}}"/>
+                        <div>
+                            <b>Activity Title</b>
+                            <p>{{modalActivity}}</p>
+                        </div>
+                        <div>
+                            <b>Status</b>
+                            <!--{% endverbatim %}-->
+                            <!--{% if user.is_authenticated %}-->
+                            <p id="submitStatus" contenteditable="true">
+                                <!--{% else %}-->
+                            <!--<p id="submitStatus" contenteditable="false">-->
+                                <!--{% endif %}-->
+                                <!--{% verbatim %}-->
+                                {{modalStatus}}</p>
+                        </div>
+                        <div>
+                            <b>Checked by</b>
+                            <!--{% endverbatim %}-->
+                            <!--{% if user.is_authenticated %}-->
+                            <p id="submitCB" contenteditable="true">
+                                <!--{% else %}-->
+                            <!--<p id="submitCB" contenteditable="false">-->
+                                <!--{% endif %}-->
+                                <!--{% verbatim %}-->
+                                {{modalChckedBy}}</p>
+                        </div>
+                        <div>
+                            <b>Date Checked</b>
+                            <p id="submitDC" contenteditable="false">{{modalDateChcked}}</p>
+                        </div>
+                        <div>
+                            <b>Remarks</b>
+                            <!--{% endverbatim %}-->
+                            <!--{% if user.is_authenticated %}-->
+                            <p id="submitRemarks" contenteditable="true">
+                                <!--{% else %}-->
+                            <!--<p id="submitRemarks" contenteditable="false">-->
+                                <!--{% endif %}-->
+                                <!--{% verbatim %}-->
+                                {{modalRemarks}}</p>
+                        </div>
+                        <br/>
+                        <!--{% endverbatim %}-->
+                        <!--{% if user.is_authenticated %}-->
+                        <input type="submit" value="Save"/>
+                        <input id="discard" type="button" value="Discard" class="hallow"/>
+                        <!--{% csrf_token %}-->
+                        <!--<button type="submit" class="button grey">Discard</button>-->
+                        <!--<button type="submit" class="button">Save</button>-->
+                        <!--{% endif %}-->
+                    </form>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <p><b>CSO</b>Dashboard</p>
+            <input type="text" id="search" placeholder="Search Post-acts..." />
+            <ul>
+                <li>Home</li>
+                <li class="active">Organization List</li>
+            </ul>
+            <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+        </nav>
+        <header>
+            <h1 class="org-name">LA SALLE COMPUTER SOCIETY (LSCS)</h1>
+            <div class="status">
+                <div>
+                    <p>Early Complete</p>
+                    <h2>112</h2>
+                </div>
+                <div>
+                    <p>Late Complete</p>
+                    <h2>22</h2>
+                </div>
+                <div>
+                    <p>Early Incomplete</p>
+                    <h2>13</h2>
+                </div>
+                <div>
+                    <p>Late Incomplete</p>
+                    <h2>112</h2>
+                </div>
+                <div>
+                    <p>Pended</p>
+                    <h2>4</h2>
+                </div>
+                <div>
+                    <p>Not Checked</p>
+                    <h2>0</h2>
+                </div>
+            </div>
+        </header>
+        <section class="filter-wrapper">
+            <span>Month:</span>
+            <select>
+                <option>All Months</option>
+                <option>January</option>
+                <option>February</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+            </select>
+            
+            <span>Term:</span>
+            <select>
+                <option>All Terms</option>
+                <option>Term 1</option>
+                <option>Term 2</option>
+                <option>Term 3</option>
+                <option>Yearlong</option>
+            </select>
+            
+            <span>Type:</span>
+            <select>
+                <option>All types</option>
+                <option>Pending</option>
+                <option>Initial Pending</option>
+                <option>Submission</option>
+                <option>Initial Submission</option>
+            </select>
+            
+            <span>Status:</span>
+            <select>
+                <option>All Status</option>
+                <option>Pending</option>
+                <option>Early Complete</option>
+                <option>Late Complete</option>
+                <option>Early Incomplete</option>
+                <option>Late Incomplete</option>
+            </select>
+            
+            <span>Checked by:</span>
+            <select>
+                <option>Hordy Mojica</option>
+                <option>Julianne Sy</option>
+                <option>Kristel Tan</option>
+            </select>
+        </section>
+        <section class="fill">
+            <table cellspacing="0" cellpadding="0" border="0" class="post-acts-table">
+                <tr class="headers">
+                    <th></th>
+                    <th>Timestamp</th>
+                    <th>Activity Title</th>
+                    <th>Submission Type</th>
+                    <th>Status</th>
+                    <th>Checked By</th>
+                    <th>Date Checked</th>
+                </tr>
+                
+                <tr>
+                    <td>1</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Build It Up!</td>
+                    <td>Initial Submission</td>
+                    <td>P</td>
+                    <td>Krystel Tan</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Annual Mechanical Engineering Conference</td>
+                    <td>Pended</td>
+                    <td>P</td>
+                    <td>Julianne Sy</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Build It Up!</td>
+                    <td>Initial Submission</td>
+                    <td>P</td>
+                    <td>Krystel Tan</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Annual Mechanical Engineering Conference</td>
+                    <td>Pended</td>
+                    <td>P</td>
+                    <td>Julianne Sy</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Build It Up!</td>
+                    <td>Initial Submission</td>
+                    <td>P</td>
+                    <td>Krystel Tan</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Annual Mechanical Engineering Conference</td>
+                    <td>Pended</td>
+                    <td>P</td>
+                    <td>Julianne Sy</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Build It Up!</td>
+                    <td>Initial Submission</td>
+                    <td>P</td>
+                    <td>Krystel Tan</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Annual Mechanical Engineering Conference</td>
+                    <td>Pended</td>
+                    <td>P</td>
+                    <td>Julianne Sy</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Build It Up!</td>
+                    <td>Initial Submission</td>
+                    <td>P</td>
+                    <td>Krystel Tan</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Annual Mechanical Engineering Conference</td>
+                    <td>Pended</td>
+                    <td>P</td>
+                    <td>Julianne Sy</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Build It Up!</td>
+                    <td>Initial Submission</td>
+                    <td>P</td>
+                    <td>Krystel Tan</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2017/10/18 13:21</td>
+                    <td>Annual Mechanical Engineering Conference</td>
+                    <td>Pended</td>
+                    <td>P</td>
+                    <td>Julianne Sy</td>
+                    <td>2017/10/12 18:00</td>
+                </tr>
+            </table>
+        </section>
+    </body>
+</html>
