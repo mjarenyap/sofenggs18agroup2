@@ -1,18 +1,16 @@
 import json
-import pytz
 
+import pytz
+from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.utils import timezone
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
 # Create your views here.
 from django.urls import reverse
+from django.utils import timezone
 from django.views import View
-from django.views.generic import UpdateView
 
 from dashboard.models import Activity, PostActsLog, Organization
-from dashboard.forms import UserForm, UpdatePostActsForm
 
 
 # def index(request):
@@ -27,7 +25,8 @@ from dashboard.forms import UserForm, UpdatePostActsForm
 def create(org, activity, log):
     s = '{'
     s = s + "'postActsLogID' : '" + str(log.id) + "',"
-    s = s + "'timestamp' : '" + str(log.timestamp.astimezone(pytz.timezone('Asia/Manila')).strftime('%Y/%m/%d %H:%M:%S')) + "',"
+    s = s + "'timestamp' : '" + str(
+        log.timestamp.astimezone(pytz.timezone('Asia/Manila')).strftime('%Y/%m/%d %H:%M:%S')) + "',"
     s = s + "'activityTitle' : '" + activity.title + "',"
     s = s + "'orgName' : '" + org.shortname + "',"
     s = s + "'term' : '" + activity.term + "',"
@@ -35,7 +34,8 @@ def create(org, activity, log):
     s = s + "'status' : '" + log.status + "',"
     s = s + "'checkedBy' : '" + log.checkedBy + "',"
     if log.dateChecked is not None:
-        s = s + "'dateChecked' : '" + str(log.dateChecked.astimezone(pytz.timezone('Asia/Manila')).strftime('%Y/%m/%d %H:%M:%S')) + "',"
+        s = s + "'dateChecked' : '" + str(
+            log.dateChecked.astimezone(pytz.timezone('Asia/Manila')).strftime('%Y/%m/%d %H:%M:%S')) + "',"
     else:
         s = s + "'dateChecked' : '',"
     if activity.tieupOrgs == "":
@@ -83,12 +83,9 @@ def save_post_acts(request):
 
 
 class UserFormView(View):
-    form_class = UserForm
     template_name = 'dashboard/index.html'
 
     def get(self, request):
-        form = self.form_class(None)
-
         activities_sets = "[ "
         for org in Organization.objects.all():
             org_acts = Activity.objects.filter(organization=org)
@@ -101,17 +98,15 @@ class UserFormView(View):
         activities_sets += "]"
         context = {
             "activities": activities_sets,
-            "form": form
         }
 
         return render(request, self.template_name, context)
 
     # process form data
     def post(self, request):
-        form = self.form_class(request.POST)
-
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
+        logouts = request.POST.get('logout', False)
 
         # If the username and password objects exist in the request dictionary, then it is a login POST
         if username is not False and password is not False:
@@ -133,14 +128,16 @@ class UserFormView(View):
 
                 activities_sets = activities_sets[:-1]
                 activities_sets += "]"
+
                 context = {
                     "activities": activities_sets,
-                    "form": form
                 }
 
+                messages.error(request, 'Sign in failed. Your username or password is incorrect.')
+
                 return render(request, self.template_name, context)
-        else:
-            # If not, then it is a logout POST
+        elif logouts is not False:
+            # If not, but contains a logout object, then it is a logout POST
             logout(request)
 
             # Retrieve activities
@@ -156,7 +153,8 @@ class UserFormView(View):
             activities_sets += "]"
             context = {
                 "activities": activities_sets,
-                "form": form
             }
 
             return render(request, self.template_name, context)
+        else:
+            return redirect('page_404:test_url')

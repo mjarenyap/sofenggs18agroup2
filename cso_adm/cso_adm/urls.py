@@ -13,8 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url, include, handler404
 from django.contrib import admin
+
+from page_404 import views
 
 # This file maps all top-level urls to their respective web pages
 # These url patterns are based on the sitemap (c) Julianne Tan
@@ -39,12 +41,12 @@ urlpatterns = [
 
     # [Settings]
     # This app provides users with configuration options
-    #url(r'^settings/', include('page_settings.urls')),
+    # url(r'^settings/', include('page_settings.urls')),
 
     # [404 page]
     # This app is prompted in case users attempt to access non-existing pages
     # todo contruct invalid expression for this app
-    url(r'^page-not-found/', include('page_404.urls'))
+    url(r'^page-not-found/', include('page_404.urls')),
 
     # [Login]
     # This app provides a facility for the user to login

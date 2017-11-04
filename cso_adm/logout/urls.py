@@ -7,5 +7,5 @@ app_name = 'logout'
 
 urlpatterns = [
     # /logout/
-    # url(r'^$', auth_views.logout, name='logout'),
+    url(r'^$', auth_views.logout, name='logout'),
 ]

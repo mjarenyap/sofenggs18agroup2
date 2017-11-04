@@ -24,9 +24,14 @@ input#search:focus{
     background-image: url('../assets/icons/search-active.svg');
 }
 
+input[type="text"]:focus, input[type="password"]:focus{
+    border-color: #738bd7;
+}
+
 button.hallow:hover{
     color: white;
-    background-color: #738bd7;
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
 }
 
 button:hover, input[type="submit"]:hover{
@@ -57,7 +62,7 @@ select:hover{
 /* transition */
 nav ul li:hover, header i#hamburger, button.hallow, table.post-acts-table tr:hover,
 input#search, button, input[type="submit"], input[type="button"], select,
-section.filter-wrapper{
+section.filter-wrapper, input{
     transition: ease all 0.3s;
 	-webkit-transition: ease all 0.3s;
 	-o-transition: ease all 0.3s;

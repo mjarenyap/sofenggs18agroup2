@@ -34,6 +34,10 @@ button:hover, input[type="submit"]:hover{
     border-color: var(--theme-dark-accent);
 }
 
+input[type="text"]:focus, input[type="password"]:focus{
+    border-color: #738bd7;
+}
+
 header i#hamburger:hover{
     color: var(--theme-dark-neutral);
 }

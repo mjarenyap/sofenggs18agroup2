@@ -174,3 +174,29 @@ nav ul li.active{
     color: var(--theme-color);
     border-bottom: 2px solid var(--theme-color);
 }
+
+nav button.active{
+    color: white;
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
+}
+
+form#sign-in{
+    position: fixed;
+    top: 50px;
+    display: none;
+    right: 10%;
+    background-color: var(--theme-light-neutral);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 11px var(--theme-grey-neutral-2);
+}
+
+form#sign-in input{
+    width: 250px;
+}
+
+form#sign-in p{
+    font-size: 0.83em;
+    text-transform: uppercase;
+}

@@ -16,6 +16,7 @@
 
         <script src="../../static/dashboard/js/normalize.js" type="text/javascript"></script>
         <script src="../../static/dashboard/js/modal.js" type="text/javascript"></script>
+        <script src="../../static/dashboard/js/sign-in.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- THE MODAL OVERLAY -->
@@ -142,11 +143,19 @@
             <p><b>CSO</b>Dashboard</p>
             <input type="text" id="search" placeholder="Search Post-acts..." />
             <ul>
-                <li>Home</li>
-                <li class="active">Organization List</li>
+                <a href="/"><li>Home</li></a>
+                <a href="/organization-list"><li class="active">Organization List</li></a>
             </ul>
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
         </nav>
+        <form id="sign-in">
+            <p>Username</p>
+            <input type="text" placeholder="username" id="username" />
+            <p>Password</p>
+            <input type="password" placeholder="password" id="password" />
+            <br/><br/>
+            <button>Sign in</button>
+        </form>
         <header>
             <h1 class="org-name">LA SALLE COMPUTER SOCIETY (LSCS)</h1>
             <div class="status">

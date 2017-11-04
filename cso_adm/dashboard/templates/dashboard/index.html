@@ -1,295 +1,327 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>CSO Dashboard</title>
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <link href="../../static/dashboard/css/theme.css" rel="stylesheet" type="text/css" />
-        <link href="../../static/dashboard/css/scrollbar-style.css" rel="stylesheet" type="text/css" />
-        <link href="../../static/dashboard/css/table-style.css" rel="stylesheet" type="text/css" />
-        <link href="../../static/dashboard/css/pseudo.css" rel="stylesheet" type="text/css" />
-        <link href="../../static/dashboard/css/modal-style.css" rel="stylesheet" type="text/css" />
+<head>
+    <title>CSO Dashboard</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link href="../../static/dashboard/css/theme.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/dashboard/css/scrollbar-style.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/dashboard/css/table-style.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/dashboard/css/pseudo.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/dashboard/css/modal-style.css" rel="stylesheet" type="text/css"/>
 
-        <!-- Javascript -->
-        <script src="../../static/dashboard/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <!--<script src="js/angular.js" type="text/javascript"></script>-->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        
-        <script src="../../static/dashboard/js/normalize.js" type="text/javascript"></script>
-        <script src="../../static/dashboard/js/modal.js" type="text/javascript"></script>
-        <script src="../../static/dashboard/js/js-angular-filter.js" type="text/javascript"></script>
-    </head>
-    <body ng-app="dashboardApp" ng-controller="mainController">
-        <!--<script>
-            var sortApp = angular.module('sortApp', []);
-        </script>
-        <script type="text/javascript">
-            var obj = "{{activities}}";
-            obj = obj.replace(/&#39;/g, '"');
-            var response = JSON.parse(obj);
-        </script>-->
-        <!-- THE MODAL OVERLAY -->
-        {% verbatim %}
-        <div id="modal-wrapper">
-            <i class="fa fa-times close"></i>
-            <div id="modal-details-wrapper">
-                <ul class="tab-wrapper">
-                    <li class="active" data-id="genActs">General Activity Details</li>
-                    <li data-id="submission">Submission Details</li>
-                    <li data-id="csoDetails">CSO Details</li>
-                    <!--<li class="closeModal"><i class="fa fa-times" aria-hidden="true"></i></li>-->
-                </ul>
-                <div class="content-wrapper visible" id="genActs">
-                    <div>
-                        <b>Activity Title</b>
-                        <p>{{modalActivity}}</p>
-                    </div>
-                    <div>
-                        <b>Organization Name</b>
-                        <p>{{modalOrg}}</p>
-                    </div>
-                    <div>
-                        <b>Tie-up Organization</b>
-                        <p>{{modalTieUp}}</p>
-                    </div>
-                    <div>
-                        <b>ENP</b>
-                        <p>{{modalEnp}}</p>
-                    </div>
-                    <div>
-                        <b>ENMP</b>
-                        <p>{{modalEnmp}}</p>
-                    </div>
-                    <div>
-                        <b>ANP</b>
-                        <p>{{modalAnp}}</p>
-                    </div>
-                    <div>
-                        <b>ANMP</b>
-                        <p>{{modalAnmp}}</p>
-                    </div>
-                </div>
-                <div class="content-wrapper" id="submission">
-                    <div>
-                        <b>Timestamp</b>
-                        <p>{{modalTimeS | date:'medium'}}</p>
-                    </div>
-                    <div>
-                        <b>Type of Submission</b>
-                        <p>{{modalSubType}}</p>
-                    </div>
-                    <div>
-                        <b>Submitted by</b>
-                        <p>{{modalSubBy}}</p>
-                    </div>
-                    <div>
-                        <b>Contact Number</b>
-                        <p>{{modalContact}}</p>
-                    </div>
-                    <div>
-                        <b>Email Address</b>
-                        <p>{{modalEmail}}</p>
-                    </div>
-                </div>
-                <div class="content-wrapper" id="csoDetails">
-                    <!--{% endverbatim %}-->
-                    <form id="modalForm" method="post">
-                        <!--{% verbatim %}-->
-                        <input type="hidden" name="id" value="{{modalId}}"/>
-                        <div>
-                            <b>Activity Title</b>
-                            <p>{{modalActivity}}</p>
-                        </div>
-                        <div>
-                            <b>Status</b>
-                            <!--{% endverbatim %}-->
-                            <!--{% if user.is_authenticated %}-->
-                            <p id="submitStatus" contenteditable="true">
-                                <!--{% else %}-->
-                            <!--<p id="submitStatus" contenteditable="false">-->
-                                <!--{% endif %}-->
-                                <!--{% verbatim %}-->
-                                {{modalStatus}}</p>
-                        </div>
-                        <div>
-                            <b>Checked by</b>
-                            <!--{% endverbatim %}-->
-                            <!--{% if user.is_authenticated %}-->
-                            <p id="submitCB" contenteditable="true">
-                                <!--{% else %}-->
-                            <!--<p id="submitCB" contenteditable="false">-->
-                                <!--{% endif %}-->
-                                <!--{% verbatim %}-->
-                                {{modalChckedBy}}</p>
-                        </div>
-                        <div>
-                            <b>Date Checked</b>
-                            <p id="submitDC" contenteditable="false">{{modalDateChcked}}</p>
-                        </div>
-                        <div>
-                            <b>Remarks</b>
-                            <!--{% endverbatim %}-->
-                            <!--{% if user.is_authenticated %}-->
-                            <p id="submitRemarks" contenteditable="true">
-                                <!--{% else %}-->
-                            <!--<p id="submitRemarks" contenteditable="false">-->
-                                <!--{% endif %}-->
-                                <!--{% verbatim %}-->
-                                {{modalRemarks}}</p>
-                        </div>
-                        <br/>
-                        {% endverbatim %}
-                        <!--{% if user.is_authenticated %}-->
-                        <input type="submit" value="Save"/>
-                        <input id="discard" type="button" value="Discard" class="hallow"/>
-                        <!--{% csrf_token %}-->
-                        <!--<button type="submit" class="button grey">Discard</button>-->
-                        <!--<button type="submit" class="button">Save</button>-->
-                        <!--{% endif %}-->
-                    </form>
-                </div>
+    <!-- Javascript -->
+    <script src="../../static/dashboard/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <!--<script src="js/angular.js" type="text/javascript"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script src="../../static/dashboard/js/normalize.js" type="text/javascript"></script>
+    <script src="../../static/dashboard/js/modal.js" type="text/javascript"></script>
+    <script src="../../static/dashboard/js/js-angular-filter.js" type="text/javascript"></script>
+    <script src="../../static/dashboard/js/sign-in.js" type="text/javascript"></script>
+</head>
+<body ng-app="dashboardApp" ng-controller="mainController">
+<!--<script>
+    var sortApp = angular.module('sortApp', []);
+</script>
+<script type="text/javascript">
+    var obj = "{{activities}}";
+    obj = obj.replace(/&#39;/g, '"');
+    var response = JSON.parse(obj);
+</script>-->
+<!-- THE MODAL OVERLAY -->
+{% verbatim %}
+<div id="modal-wrapper">
+    <i class="fa fa-times close"></i>
+    <div id="modal-details-wrapper">
+        <ul class="tab-wrapper">
+            <li class="active" data-id="genActs">General Activity Details</li>
+            <li data-id="submission">Submission Details</li>
+            <li data-id="csoDetails">CSO Details</li>
+            <!--<li class="closeModal"><i class="fa fa-times" aria-hidden="true"></i></li>-->
+        </ul>
+        <div class="content-wrapper visible" id="genActs">
+            <div>
+                <b>Activity Title</b>
+                <p>{{modalActivity}}</p>
+            </div>
+            <div>
+                <b>Organization Name</b>
+                <p>{{modalOrg}}</p>
+            </div>
+            <div>
+                <b>Tie-up Organization</b>
+                <p>{{modalTieUp}}</p>
+            </div>
+            <div>
+                <b>ENP</b>
+                <p>{{modalEnp}}</p>
+            </div>
+            <div>
+                <b>ENMP</b>
+                <p>{{modalEnmp}}</p>
+            </div>
+            <div>
+                <b>ANP</b>
+                <p>{{modalAnp}}</p>
+            </div>
+            <div>
+                <b>ANMP</b>
+                <p>{{modalAnmp}}</p>
             </div>
         </div>
-        <nav>
-            <p><b>CSO</b>Dashboard</p>
-            <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
-            <ul>
-                <a href="/organization-list"><li class="active">Home</li></a>
-                <li>Organization List</li>
-            </ul>
-            <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
-        </nav>
-        <header>
-            <h1>WELCOME TO DASHBOARD!</h1>
-            <p>You can view all the post acts of different organizations.</p>
-        </header>
-        <section class="filter-wrapper">
-            <span>Month:</span>
-            <!--<select>
-                <option>All Months</option>
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>April</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
-            </select>-->
-            <select ng-model="filterMonth" ng-options="month.short as month.long for month in monthList">
-                <option value="">All Months</option>
-            </select>
-
-            
-            <span>Term:</span>
-            <!--<select>
-                <option>All Terms</option>
-                <option>Term 1</option>
-                <option>Term 2</option>
-                <option>Term 3</option>
-                <option>Yearlong</option>
-            </select>-->
-            <select ng-model="filterTerm" ng-options="term.short as term.long for term in termList">
-                <option value="">All Terms</option>
-            </select>
-            
-            <span>Type:</span>
-            <!--<select>
-                <option>All types</option>
-                <option>Pending</option>
-                <option>Initial Pending</option>
-                <option>Submission</option>
-                <option>Initial Submission</option>
-            </select>-->
-            <select ng-model="filterType" ng-options="type.long as type.long for type in typeList">
-                <option value="">All Types</option>
-            </select>
-
-            <span>Status:</span>
-            <!--<select>
-                <option>All Status</option>
-                <option>Pending</option>
-                <option>Early Complete</option>
-                <option>Late Complete</option>
-                <option>Early Incomplete</option>
-                <option>Late Incomplete</option>
-            </select>-->
-            <select ng-model="filterStatus" ng-options="status.short as status.long for status in statusList">
-                <option value="">All Status</option>
-            </select>
-            
-            <span>Checked by:</span>
-            <!--<select>
-                <option>Hordy Mojica</option>
-                <option>Julianne Sy</option>
-                <option>Kristel Tan</option>
-            </select>-->
-            <select ng-model="filterChecker" ng-options="checker as checker for checker in checkerList">
-                <option value="">All Checkers</option>
-            </select>
-        </section>
-        <section class="fill">
-            <table cellspacing="0" cellpadding="0" border="0" class="post-acts-table">
-                {% verbatim %}
-                <tr class="headers">
-                    <th></th>
-                    <th ng-click="sortType = 'timestamp'; sortReverse = !sortReverse">
-                        Timestamp
-                         <span ng-show="sortType == 'timestamp' && !sortReverse" class="fa fa-caret-up"></span>
-                        <span ng-show="sortType == 'timestamp' && sortReverse" class="fa fa-caret-down"></span>
-                    </th>
-                    <th ng-click="sortType = 'activityTitle'; sortReverse = !sortReverse">
-                        Activity Title
-                        <span ng-show="sortType == 'activityTitle' && !sortReverse" class="fa fa-caret-up"></span>
-                        <span ng-show="sortType == 'activityTitle' && sortReverse" class="fa fa-caret-down"></span>
-                    </th>
-                    <th ng-click="sortType = 'orgName'; sortReverse = !sortReverse">
-                        Org Name
-                        <span ng-show="sortType == 'orgName' && !sortReverse" class="fa fa-caret-up"></span>
-                        <span ng-show="sortType == 'orgName' && sortReverse" class="fa fa-caret-down"></span>
-                    </th>
-                    <th ng-click="sortType = 'submissionType'; sortReverse = !sortReverse">
-                        Submission Type
-                        <span ng-show="sortType == 'submissionType' && !sortReverse" class="fa fa-caret-up"></span>
-                        <span ng-show="sortType == 'submissionType' && sortReverse" class="fa fa-caret-down"></span>
-                    </th>
-                    <th ng-click="sortType = 'status'; sortReverse = !sortReverse">
-                        Status
-                        <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-up"></span>
-                        <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-down"></span>
-                    </th>
-                    <th ng-click="sortType = 'checkedBy'; sortReverse = !sortReverse">
-                        Checked By
-                        <span ng-show="sortType == 'checkedBy' && !sortReverse" class="fa fa-caret-up"></span>
-                        <span ng-show="sortType == 'checkedBy' && sortReverse" class="fa fa-caret-down"></span>
-                    </th>
-                    <th ng-click="sortType = 'dateChecked'; sortReverse = !sortReverse">
-                        Date Checked
-                        <span ng-show="sortType == 'dateChecked' && !sortReverse" class="fa fa-caret-up"></span>
-                        <span ng-show="sortType == 'dateChecked' && sortReverse" class="fa fa-caret-down"></span>
-                    </th>
-                </tr>
+        <div class="content-wrapper" id="submission">
+            <div>
+                <b>Timestamp</b>
+                <p>{{modalTimeS | date:'medium'}}</p>
+            </div>
+            <div>
+                <b>Type of Submission</b>
+                <p>{{modalSubType}}</p>
+            </div>
+            <div>
+                <b>Submitted by</b>
+                <p>{{modalSubBy}}</p>
+            </div>
+            <div>
+                <b>Contact Number</b>
+                <p>{{modalContact}}</p>
+            </div>
+            <div>
+                <b>Email Address</b>
+                <p>{{modalEmail}}</p>
+            </div>
+        </div>
+        <div class="content-wrapper" id="csoDetails">
+            <!--{% endverbatim %}-->
+            <form id="modalForm" method="post">
+                <!--{% verbatim %}-->
+                <input type="hidden" name="id" value="{{modalId}}"/>
+                <div>
+                    <b>Activity Title</b>
+                    <p>{{modalActivity}}</p>
+                </div>
+                <div>
+                    <b>Status</b>
+                    <!--{% endverbatim %}-->
+                    <!--{% if user.is_authenticated %}-->
+                    <p id="submitStatus" contenteditable="true">
+                        <!--{% else %}-->
+                        <!--<p id="submitStatus" contenteditable="false">-->
+                        <!--{% endif %}-->
+                        <!--{% verbatim %}-->
+                        {{modalStatus}}</p>
+                </div>
+                <div>
+                    <b>Checked by</b>
+                    <!--{% endverbatim %}-->
+                    <!--{% if user.is_authenticated %}-->
+                    <p id="submitCB" contenteditable="true">
+                        <!--{% else %}-->
+                        <!--<p id="submitCB" contenteditable="false">-->
+                        <!--{% endif %}-->
+                        <!--{% verbatim %}-->
+                        {{modalChckedBy}}</p>
+                </div>
+                <div>
+                    <b>Date Checked</b>
+                    <p id="submitDC" contenteditable="false">{{modalDateChcked}}</p>
+                </div>
+                <div>
+                    <b>Remarks</b>
+                    <!--{% endverbatim %}-->
+                    <!--{% if user.is_authenticated %}-->
+                    <p id="submitRemarks" contenteditable="true">
+                        <!--{% else %}-->
+                        <!--<p id="submitRemarks" contenteditable="false">-->
+                        <!--{% endif %}-->
+                        <!--{% verbatim %}-->
+                        {{modalRemarks}}</p>
+                </div>
+                <br/>
                 {% endverbatim %}
+                <!--{% if user.is_authenticated %}-->
+                <input type="submit" value="Save"/>
+                <input id="discard" type="button" value="Discard" class="hallow"/>
+                <!--{% csrf_token %}-->
+                <!--<button type="submit" class="button grey">Discard</button>-->
+                <!--<button type="submit" class="button">Save</button>-->
+                <!--{% endif %}-->
+            </form>
+        </div>
+    </div>
+</div>
+<nav>
+    <p><b>CSO</b>Dashboard</p>
+    <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
+    <ul>
+        <a href="/">
+            <li class="active">Home</li>
+        </a>
+        <a href="/organization-list">
+            <li>Organization List</li>
+        </a>
+    </ul>
+    {% if messages %}
+    <!--TODO [Frontend]: Change this <form> to a sign-in failed modal.-->
+    <form>
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </form>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <form id="sign-out" action="" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="logout"/>
+        <button type="submit">Sign out</button>
+    </form>
+    {% else %}
+    <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+    <form id="sign-in" action="" method="POST">
+        {% csrf_token %}
+        <p>Username</p>
+        <input type="text" placeholder="username" name="username" id="username"/>
+        <p>Password</p>
+        <input type="password" placeholder="password" name="password" id="password"/>
+        <br/><br/>
+        <button type="submit">Sign in</button>
+    </form>
+    {% endif %}
+</nav>
+<header>
+    <h1>WELCOME TO DASHBOARD!</h1>
+    <p>You can view all the post acts of different organizations.</p>
+</header>
+<section class="filter-wrapper">
+    <span>Month:</span>
+    <!--<select>
+        <option>All Months</option>
+        <option>January</option>
+        <option>February</option>
+        <option>March</option>
+        <option>April</option>
+        <option>May</option>
+        <option>June</option>
+        <option>July</option>
+        <option>August</option>
+        <option>September</option>
+        <option>October</option>
+        <option>November</option>
+        <option>December</option>
+    </select>-->
+    <select ng-model="filterMonth" ng-options="month.short as month.long for month in monthList">
+        <option value="">All Months</option>
+    </select>
 
-                {% verbatim %}
-                <tr ng-repeat="user_person in postact_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm"
-                        ng-click="showModal(user_person)">
-                    <td>1</td>
-                    <td>{{ user_person.timestamp }}</td>
-                    <td>{{ user_person.activityTitle }}</td>
-                    <td>{{ user_person.orgName }}</td>
-                    <td>{{ user_person.submissionType }}</td>
-                    <td>{{ user_person.status }}</td>
-                    <td>{{ user_person.checkedBy }}</td>
-                    <td>{{ user_person.dateChecked }}</td>
-                </tr>
-                {% endverbatim %}
-            </table>
-        </section>
-    </body>
+
+    <span>Term:</span>
+    <!--<select>
+        <option>All Terms</option>
+        <option>Term 1</option>
+        <option>Term 2</option>
+        <option>Term 3</option>
+        <option>Yearlong</option>
+    </select>-->
+    <select ng-model="filterTerm" ng-options="term.short as term.long for term in termList">
+        <option value="">All Terms</option>
+    </select>
+
+    <span>Type:</span>
+    <!--<select>
+        <option>All types</option>
+        <option>Pending</option>
+        <option>Initial Pending</option>
+        <option>Submission</option>
+        <option>Initial Submission</option>
+    </select>-->
+    <select ng-model="filterType" ng-options="type.long as type.long for type in typeList">
+        <option value="">All Types</option>
+    </select>
+
+    <span>Status:</span>
+    <!--<select>
+        <option>All Status</option>
+        <option>Pending</option>
+        <option>Early Complete</option>
+        <option>Late Complete</option>
+        <option>Early Incomplete</option>
+        <option>Late Incomplete</option>
+    </select>-->
+    <select ng-model="filterStatus" ng-options="status.short as status.long for status in statusList">
+        <option value="">All Status</option>
+    </select>
+
+    <span>Checked by:</span>
+    <!--<select>
+        <option>Hordy Mojica</option>
+        <option>Julianne Sy</option>
+        <option>Kristel Tan</option>
+    </select>-->
+    <select ng-model="filterChecker" ng-options="checker as checker for checker in checkerList">
+        <option value="">All Checkers</option>
+    </select>
+</section>
+<section class="fill">
+    <table cellspacing="0" cellpadding="0" border="0" class="post-acts-table">
+        {% verbatim %}
+        <tr class="headers">
+            <th></th>
+            <th ng-click="sortType = 'timestamp'; sortReverse = !sortReverse">
+                Timestamp
+                <span ng-show="sortType == 'timestamp' && !sortReverse" class="fa fa-caret-up"></span>
+                <span ng-show="sortType == 'timestamp' && sortReverse" class="fa fa-caret-down"></span>
+            </th>
+            <th ng-click="sortType = 'activityTitle'; sortReverse = !sortReverse">
+                Activity Title
+                <span ng-show="sortType == 'activityTitle' && !sortReverse" class="fa fa-caret-up"></span>
+                <span ng-show="sortType == 'activityTitle' && sortReverse" class="fa fa-caret-down"></span>
+            </th>
+            <th ng-click="sortType = 'orgName'; sortReverse = !sortReverse">
+                Org Name
+                <span ng-show="sortType == 'orgName' && !sortReverse" class="fa fa-caret-up"></span>
+                <span ng-show="sortType == 'orgName' && sortReverse" class="fa fa-caret-down"></span>
+            </th>
+            <th ng-click="sortType = 'submissionType'; sortReverse = !sortReverse">
+                Submission Type
+                <span ng-show="sortType == 'submissionType' && !sortReverse" class="fa fa-caret-up"></span>
+                <span ng-show="sortType == 'submissionType' && sortReverse" class="fa fa-caret-down"></span>
+            </th>
+            <th ng-click="sortType = 'status'; sortReverse = !sortReverse">
+                Status
+                <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-up"></span>
+                <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-down"></span>
+            </th>
+            <th ng-click="sortType = 'checkedBy'; sortReverse = !sortReverse">
+                Checked By
+                <span ng-show="sortType == 'checkedBy' && !sortReverse" class="fa fa-caret-up"></span>
+                <span ng-show="sortType == 'checkedBy' && sortReverse" class="fa fa-caret-down"></span>
+            </th>
+            <th ng-click="sortType = 'dateChecked'; sortReverse = !sortReverse">
+                Date Checked
+                <span ng-show="sortType == 'dateChecked' && !sortReverse" class="fa fa-caret-up"></span>
+                <span ng-show="sortType == 'dateChecked' && sortReverse" class="fa fa-caret-down"></span>
+            </th>
+        </tr>
+        {% endverbatim %}
+
+        {% verbatim %}
+        <tr ng-repeat="user_person in postact_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm"
+            ng-click="showModal(user_person)">
+            <td>1</td>
+            <td>{{ user_person.timestamp }}</td>
+            <td>{{ user_person.activityTitle }}</td>
+            <td>{{ user_person.orgName }}</td>
+            <td>{{ user_person.submissionType }}</td>
+            <td>{{ user_person.status }}</td>
+            <td>{{ user_person.checkedBy }}</td>
+            <td>{{ user_person.dateChecked }}</td>
+        </tr>
+        {% endverbatim %}
+    </table>
+</section>
+</body>
 </html>
