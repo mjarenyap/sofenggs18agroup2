@@ -1,10 +1,11 @@
 from django.conf.urls import include, url
 from . import views
 
+app_name = 'org_list'
 
 urlpatterns = [
 
-    url(r'^$', views.test_url, name="test_url"),
+    url(r'^$', views.UserFormView.as_view(), name='index'),
 
     # [Organization Specific]
     # This app previews overview/summary and post-acts of a certain organization

@@ -121,6 +121,35 @@ header{
     padding: 60px 10%;
 }
 
+header h1.org-name{
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+header div.status{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div.status > div{
+    margin: 10px 30px;
+}
+
+div.status p{
+    font-size: 0.7em;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--theme-grey-neutral);
+    text-align: center;
+}
+
+div.status h2{
+    font-size: 2em;
+    text-align: center;
+}
+
 section.fill{
     background-color: #fbfbfb;
 }
@@ -183,7 +212,7 @@ nav button.active{
 
 form#sign-in{
     position: fixed;
-    top: 50px;
+    top: 65px;
     display: none;
     right: 10%;
     background-color: var(--theme-light-neutral);

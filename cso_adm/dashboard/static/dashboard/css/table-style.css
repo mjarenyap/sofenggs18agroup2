@@ -14,32 +14,35 @@
     --chunk-padding: 40px 10%;
 }
 
-table.post-acts-table{
+table.post-acts-table, table.org-table{
     width: 100%;
 }
 
-table.post-acts-table th, table.post-acts-table td{
+table.post-acts-table th, table.post-acts-table td,
+table.org-table th, table.org-table td{
     text-align: left;
 }
 
-table.post-acts-table th{
+table.post-acts-table th, table.org-table th{
     padding: 25px 15px;
     font-size: 0.7em;
     color: #6c6e71;
     text-decoration: underline;
 }
 
-table.post-acts-table td{
+table.post-acts-table td, table.org-table td{
     padding: 25px 15px;
     font-size: 0.8em;
     border-bottom: thin solid #ddd;
 }
 
-table.post-acts-table tr td:nth-child(3){
+table.post-acts-table tr td:nth-child(3),
+table.org-table tr td:nth-child(2){
     font-weight: bold;
 }
 
-table.post-acts-table tr td:nth-child(1){
+table.post-acts-table tr td:nth-child(1),
+table.org-table tr td:nth-child(1){
     font-weight: bold;
     color: var(--theme-color);
 }
@@ -49,6 +52,17 @@ table.post-acts-table tr:nth-child(even){
 }
 */
 
-table.post-acts-table tr{
+table.post-acts-table tr, table.org-table tr{
     cursor: pointer;
+}
+
+table.org-table td{
+    text-align: center;
+}
+
+table.org-table tr td:nth-child(1),
+table.org-table tr td:nth-child(2),
+table.org-table tr td:nth-child(3),
+table.org-table tr td:nth-child(4){
+    text-align: left;
 }

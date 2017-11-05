@@ -1,0 +1,52 @@
+/* 404 page stylesheet */
+
+:root{
+    --theme-color: #738bd7;
+    --theme-dark-accent: #5f74b1;
+    
+    --theme-dark-neutral: #202226;
+    --theme-grey-neutral: #6c6e71;
+    --theme-grey-neutral-2: #ddd;
+    --theme-grey-neutral-3: #ccc;
+    --theme-light-neutral: #ffffff;
+    --theme-light-neutral-2: #f1f2f7;
+    
+    --chunk-padding: 40px 10%;
+}
+
+h1, h2, h3, h4, h5, h6, p{
+    color: var(--theme-dark-neutral);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+a{
+    color: var(--theme-color);
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+section{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+section h1{
+    font-size: 10em;
+}
+
+section h2{
+    font-size: 3em;
+}
+
+section p{
+    text-align: center;
+    font-size: 1.5em;
+    text-transform: uppercase;
+}

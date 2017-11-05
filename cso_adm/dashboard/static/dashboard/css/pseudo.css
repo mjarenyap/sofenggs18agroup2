@@ -24,19 +24,18 @@ input#search:focus{
     background-image: url('../assets/icons/search-active.svg');
 }
 
-input[type="text"]:focus, input[type="password"]:focus{
-    border-color: #738bd7;
-}
-
 button.hallow:hover{
     color: white;
-    background-color: var(--theme-color);
-    border-color: var(--theme-color);
+    background-color: #738bd7;
 }
 
 button:hover, input[type="submit"]:hover{
     background-color: var(--theme-dark-accent);
     border-color: var(--theme-dark-accent);
+}
+
+input[type="text"]:focus, input[type="password"]:focus{
+    border-color: #738bd7;
 }
 
 header i#hamburger:hover{
@@ -47,11 +46,12 @@ header i.active:hover{
     color: white;
 }
 
-table.post-acts-table tr:hover{
+table.post-acts-table tr:hover, table.org-table tr:hover{
     background-color: rgba(241, 242, 247, 1);
 }
 
-table.post-acts-table tr.headers:hover{
+table.post-acts-table tr.headers:hover,
+table.org-table tr.headers:hover{
     background-color: transparent;
 }
 
@@ -62,19 +62,19 @@ select:hover{
 /* transition */
 nav ul li:hover, header i#hamburger, button.hallow, table.post-acts-table tr:hover,
 input#search, button, input[type="submit"], input[type="button"], select,
-section.filter-wrapper, input{
+section.filter-wrapper, table.org-table tr:hover{
     transition: ease all 0.3s;
-	-webkit-transition: ease all 0.3s;
-	-o-transition: ease all 0.3s;
-	-ms-transition: ease all 0.3s;
-	-moz-transition: ease all 0.3s;
+    -webkit-transition: ease all 0.3s;
+    -o-transition: ease all 0.3s;
+    -ms-transition: ease all 0.3s;
+    -moz-transition: ease all 0.3s;
 }
 
 /* transition set-off */
-nav ul li, table.post-acts-table tr{
+nav ul li, table.post-acts-table tr, table.org-table tr{
     transition: ease all 0.9s;
-	-webkit-transition: ease all 0.9s;
-	-o-transition: ease all 0.9s;
-	-ms-transition: ease all 0.9s;
-	-moz-transition: ease all 0.9s;
+    -webkit-transition: ease all 0.9s;
+    -o-transition: ease all 0.9s;
+    -ms-transition: ease all 0.9s;
+    -moz-transition: ease all 0.9s;
 }
