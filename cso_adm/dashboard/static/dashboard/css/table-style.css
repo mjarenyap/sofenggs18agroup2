@@ -14,30 +14,32 @@
     --chunk-padding: 40px 10%;
 }
 
-table.post-acts-table, table.org-table{
+table.post-acts-table, table.org-table, table.users-table{
     width: 100%;
 }
 
 table.post-acts-table th, table.post-acts-table td,
-table.org-table th, table.org-table td{
+table.org-table th, table.org-table td,
+table.users-table th, table.users-table td{
     text-align: left;
 }
 
-table.post-acts-table th, table.org-table th{
+table.post-acts-table th, table.org-table th, table.users-table th{
     padding: 25px 15px;
-    font-size: 0.7em;
+    font-size: 0.75em;
     color: #6c6e71;
     text-decoration: underline;
 }
 
-table.post-acts-table td, table.org-table td{
+table.post-acts-table td, table.org-table td, table.users-table td{
     padding: 25px 15px;
     font-size: 0.8em;
     border-bottom: thin solid #ddd;
 }
 
 table.post-acts-table tr td:nth-child(3),
-table.org-table tr td:nth-child(2){
+table.org-table tr td:nth-child(2),
+table.users-table tr td:nth-child(2){
     font-weight: bold;
 }
 
@@ -51,6 +53,14 @@ table.post-acts-table tr:nth-child(even){
     background-color: var(--theme-light-neutral-2);
 }
 */
+
+table.users-table tr:nth-child(even){
+    background-color: var(--theme-light-neutral-2);
+}
+
+table.users-table tr td, table.users-table tr th{
+    text-align: center;
+}
 
 table.post-acts-table tr, table.org-table tr{
     cursor: pointer;

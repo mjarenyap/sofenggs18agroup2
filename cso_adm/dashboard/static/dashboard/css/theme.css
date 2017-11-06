@@ -210,6 +210,32 @@ nav button.active{
     border-color: var(--theme-color);
 }
 
+section.settings-tab-wrapper{
+    padding: 0;
+}
+
+section.settings-tab-wrapper nav{
+    border-top: thin solid var(--theme-grey-neutral-2);
+    position: static;
+    margin: 0;
+    padding: 0 10%;
+}
+
+section.settings-tab-wrapper nav ul li{
+    display: inline-block;
+    padding: 15px 20px;
+}
+
+div.user-tray{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 20px 0;
+    border-top: thin solid var(--theme-grey-neutral-2);
+    border-bottom: thin solid var(--theme-grey-neutral-2);
+}
+
 form#sign-in{
     position: fixed;
     top: 65px;

@@ -41,7 +41,7 @@ urlpatterns = [
 
     # [Settings]
     # This app provides users with configuration options
-    # url(r'^settings/', include('page_settings.urls')),
+    url(r'^settings/', include('page_settings.urls')),
 
     # [404 page]
     # This app is prompted in case users attempt to access non-existing pages

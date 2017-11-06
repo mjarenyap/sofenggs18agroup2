@@ -10,25 +10,7 @@ dashboardApp.config(function($sceDelegateProvider) {
 });
 
 dashboardApp.controller('mainController', function($scope, $http) {
-/*      var root = 'https://jsonplaceholder.typicode.com';
-  $http.get(root + '/users/')
-  .then(function(response) {
-    console.log(response.data);
-    // store json keys in keys[]
-    var keys = [];
-    keys = Object.keys(response.data[0]);
-    console.log('obj contains ' + keys.length + ' keys: '+  keys);
-    $scope.sortType     = keys[1];  // set the default sort type
-    $scope.sortReverse  = false;    // set the default sort order
-    $scope.contentFilter   = '';    // set the default search/filter term
-    $scope.filters = { };
-    $scope.postact_data = [];
-    for(k in response.data) {
-      console.log(response.data[k]);
-      $scope.postact_data.push(response.data[k]);
-    }
-    console.log($scope.tableHeaders);
-  });*/
+
   var include = function(item, val) {
 
     if(!val)
@@ -47,6 +29,14 @@ dashboardApp.controller('mainController', function($scope, $http) {
     var month = item.timestamp.split('/')[2].split(' ')[0];
 
     return month.search(regex) == 0;
+  };
+
+  var searchOrg = function(item, val) {
+    if(!val)
+      return true;
+    var regex = new RegExp(val, 'i');
+
+    return item.orgName.search(regex) == 0;
   };
 
   var searchTerm = function(item, val) {
@@ -93,12 +83,13 @@ dashboardApp.controller('mainController', function($scope, $http) {
     console.log("Checking Filters");
     // console.log(postact.timestamp.split('/')[2].split(' ')[0]);
 
-    if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker)
+    if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker && !$scope.filterOrg)
       return true;
 
     return include(postact, $scope.filterSearch) && searchMonth(postact, $scope.filterMonth) &&
         searchTerm(postact, $scope.filterTerm) && searchType(postact, $scope.filterType) &&
-        searchStatus(postact, $scope.filterStatus) && searchChecker(postact, $scope.filterChecker);
+        searchStatus(postact, $scope.filterStatus) && searchChecker(postact, $scope.filterChecker) &&
+        searchOrg(postact, $scope.filterOrg);
   };
 
   // modal content
@@ -184,6 +175,57 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
   $scope.checkerList = [
       'Hordy Mojica', 'Julianne Sy', 'Kristel Tan'
+  ];
+  
+  $scope.clusterList = [
+      {'short' : 'ASO', 'long' : 'Alliance of Science Organizations'},  
+      {'short' : 'ASPIRE', 'long' : 'Alliance of Special Interest and Socio-Civic Organizations'},  
+      {'short' : 'CAP 12', 'long' : 'College of Liberal Arts Professional Organizations'},  
+      {'short' : 'ENGAGE', 'long' : 'Engineering Alliance Geared Towards Excellence'},  
+      {'short' : 'PROBE', 'long' : 'Alliance of Professional Organizations of Business and Economics'} 
+  ];
+  
+  $scope.orgList = [
+      {'short' : 'ChemSoc', 'long' : 'Chemistry Society', 'cluster' : 'ASO'},
+      {'short' : 'MC', 'long' : 'Math Circle', 'cluster' : 'ASO'},
+      {'short' : 'PhySoc', 'long' : 'Physics Society', 'cluster' : 'ASO'},
+      {'short' : 'SV', 'long' : 'Societas Vitae', 'cluster' : 'ASO'},
+      {'short' : 'LSCS', 'long' : 'La Salle Computer Society', 'cluster' : 'ASPIRE'},
+      {'short' : 'UNITED', 'long' : 'Union of Sutdents Inspired Towards Education', 'cluster' : 'ASPIRE'},
+      {'short' : 'ENGLICOM', 'long' : 'DLSU Filipino & Chinese Organization', 'cluster' : 'ASPIRE'},
+      {'short' : 'ROTARACT', 'long' : 'ROTARACT Club of DLSU', 'cluster' : 'ASPIRE'},
+      {'short' : 'UNISTO', 'long' : 'United International Student Organization', 'cluster' : 'ASPIRE'},
+      {'short' : 'AIESEC', 'long' : 'AIESEC DLSU', 'cluster' : 'ASPIRE'},
+      {'short' : 'Moo Media', 'long' : 'Moo Media', 'cluster' : 'ASPIRE'},
+      {'short' : 'OC', 'long' : 'Outdoor Club', 'cluster' : 'ASPIRE'},
+      {'short' : 'WG', 'long' : 'Writer\'s Guild', 'cluster' : 'ASPIRE'},
+      {'short' : 'ECO', 'long' : 'Environmental Conservation Organization', 'cluster' : 'ASPIRE'},
+      {'short' : 'GAS', 'long' : 'Gakuen Anime Soshiki', 'cluster' : 'ASPIRE'},
+      {'short' : 'AMSTUD', 'long' : 'The Organization for American Studies ', 'cluster' : 'CAP 12'},
+      {'short' : 'BSS', 'long' : 'Behavioral Sciences Society', 'cluster' : 'CAP 12'},
+      {'short' : 'Cultura', 'long' : 'Cultura', 'cluster' : 'CAP 12'},
+      {'short' : 'DANUM', 'long' : 'Dalubhasaan ng mga Umuusbong na Mag-aaral ng Araling Pilipinas', 'cluster' : 'CAP 12'},
+      {'short' : 'ESA', 'long' : 'European Studies Association', 'cluster' : 'CAP 12'},
+      {'short' : 'Kaunlaran', 'long' : 'Kapatiran ng Kabataan para sa Kaunlaran', 'cluster' : 'CAP 12'},
+      {'short' : 'NKK', 'long' : 'Nihon Kenkyu Kai', 'cluster' : 'CAP 12'},
+      {'short' : 'Poliscy', 'long' : 'Political Science Society', 'cluster' : 'CAP 12'},
+      {'short' : 'DLSU Pilosopo', 'long' : 'Samahan ng Lasalyanong Pilosopo', 'cluster' : 'CAP 12'},
+      {'short' : 'SMS', 'long' : 'Samahan ng Mag-aaral sa Sikolohiya', 'cluster' : 'CAP 12'},
+      {'short' : 'SDH', 'long' : 'Sociedad De Historia', 'cluster' : 'CAP 12'},
+      {'short' : 'TeamComm', 'long' : 'Team Communications', 'cluster' : 'CAP 12'},
+      {'short' : 'ACCESS', 'long' : 'Association of Computer Engineering Students', 'cluster' : 'ENGAGE'},
+      {'short' : 'ChEn', 'long' : 'Chemical Engineering Society', 'cluster' : 'ENGAGE'},
+      {'short' : 'CES', 'long' : 'Civil Engineering Society', 'cluster' : 'ENGAGE'},
+      {'short' : 'ECES', 'long' : 'Electronic and Communications Engineering Society', 'cluster' : 'ENGAGE'},
+      {'short' : 'IMES', 'long' : 'Industrial Management Engineering Society', 'cluster' : 'ENGAGE'},
+      {'short' : 'MES', 'long' : 'Mechanical Engineering Society', 'cluster' : 'ENGAGE'},
+      {'short' : 'SME', 'long' : 'Society of Manufacturing Engineering', 'cluster' : 'ENGAGE'},
+      {'short' : 'AdCreate', 'long' : 'AdCreate Society', 'cluster' : 'PROBE'},
+      {'short' : 'BMS', 'long' : 'Business Management Society', 'cluster' : 'PROBE'},
+      {'short' : 'EconOrg', 'long' : 'Economics Organization', 'cluster' : 'PROBE'},
+      {'short' : 'MaFia', 'long' : 'Management of Financial Institutions Association', 'cluster' : 'PROBE'},
+      {'short' : 'YES', 'long' : 'Young Entrepreneurs Socieety',  'cluster' : 'PROBE'}
+      
   ];
 
 
