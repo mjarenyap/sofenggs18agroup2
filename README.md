@@ -1,8 +1,8 @@
 # sofenggs18agroup2
 CSO ADM Dashboard
 
---- Version 0.1 (November 7, 2017) ---
-Issues Resolved:
+--- Version 0.1 (November 7, 2017) Issues Resolved ---
+
 1. identical row numbers
 2. home navigation link
 3. organization list navigation link
