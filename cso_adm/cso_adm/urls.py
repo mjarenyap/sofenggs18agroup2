@@ -37,7 +37,7 @@ urlpatterns = [
 
     # [Organization list]
     # This app provides access to each registered organization
-    url(r'^organization-list/', include('org_list.urls')),
+    url(r'^organization/', include('org_list.urls')),
 
     # [Settings]
     # This app provides users with configuration options
