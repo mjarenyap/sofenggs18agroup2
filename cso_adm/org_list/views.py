@@ -9,16 +9,22 @@ from django.http import HttpResponse
 from django.views import View
 
 
-def test_url(request):
-    template_name = 'org_list/org-list.html'
+# TODO: Tester url, will be modified
+# TODO: Embed content of SPECIFIC org list
+def test_url(request, username):
+    # TODO: implement org name validation
+    template_name = 'org_list/org-specific.html'
+
     return render(request, template_name)
 
 
+# TODO: Placeholder class-based view, will be modified
+# TODO: Embed content of general orgs list
 class UserFormView(View):
     template_name = 'org_list/org-list.html'
 
     def get(self, request):
-        # TODO spew out content of orgs list then add to context
+        # TODO: Spew out content of orgs list then add to context
 
         context = {
         }
@@ -40,7 +46,7 @@ class UserFormView(View):
 
                 return redirect('org_list:index')
             else:
-                # TODO spew out content of orgs list then add to context
+                # TODO: Spew out content of orgs list then add to context
 
                 context = {
                 }
@@ -52,7 +58,7 @@ class UserFormView(View):
             # If not, but contains a logout object, then it is a logout POST
             logout(request)
 
-            # TODO spew out content of orgs list then add to context
+            # TODO: Spew out content of orgs list then add to context
 
             context = {
             }
