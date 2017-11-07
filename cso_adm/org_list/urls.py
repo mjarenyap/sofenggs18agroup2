@@ -5,7 +5,11 @@ app_name = 'org_list'
 
 urlpatterns = [
 
-    url(r'^$', views.UserFormView.as_view(), name='index'),
+    # /organization/
+    url(r'^$', views.UserFormView.as_view(), name='general_orgs'),
+
+    # /organization/<organization_name> (alphanumeric w/underscore)
+    url(r'^(?P<username>[\w]+)$', views.test_url, name='specific_org'),
 
     # [Organization Specific]
     # This app previews overview/summary and post-acts of a certain organization

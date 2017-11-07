@@ -22,8 +22,8 @@
             <p><b>CSO</b>Dashboard</p>
             <input type="text" id="search" placeholder="Search Post-acts..." />
             <ul>
-                <a href="/"><li>Home</li></a>
-                <a href="/organization-list"><li>Organization List</li></a>
+                <a href="{% url 'dashboard:index' %}"><li>Home</li></a>
+                <a href="{% url 'org_list:general_orgs' %}"><li>Organization List</li></a>
             </ul>
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
         </nav>
