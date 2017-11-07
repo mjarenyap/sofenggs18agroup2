@@ -160,10 +160,10 @@
     <p><b>CSO</b>Dashboard</p>
     <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
     <ul>
-        <a href="/">
+        <a href="{% url 'dashboard:index' %}">
             <li class="active">Home</li>
         </a>
-        <a href="/organization-list">
+        <a href="{% url 'org_list:general_orgs' %}">
             <li>Organization List</li>
         </a>
     </ul>
@@ -286,9 +286,12 @@
             <td>{{ user_person.checkedBy }}</td>
             <td>{{ user_person.dateChecked }}</td>
         </tr>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 0">No results found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length != 0 && filtered_data.length != 1">
+            {{filtered_data.length}} results found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 1">
+            {{filtered_data.length}} result found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 0">
+            No results found.</p>
         {% endverbatim %}
     </table>
 </section>

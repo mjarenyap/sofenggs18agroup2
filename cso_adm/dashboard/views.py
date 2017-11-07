@@ -86,6 +86,9 @@ class UserFormView(View):
     template_name = 'dashboard/index.html'
 
     def get(self, request):
+        print("GET request received.")
+        print("Retrieving data from the database...")
+
         activities_sets = "[ "
         for org in Organization.objects.all():
             org_acts = Activity.objects.filter(organization=org)
@@ -96,28 +99,55 @@ class UserFormView(View):
 
         activities_sets = activities_sets[:-1]
         activities_sets += "]"
+
+        print("Data retrieved.")
+        print("Embedding the data into the session...")
+
         context = {
             "activities": activities_sets,
         }
+
+        print("Data embedded.")
+        print("Serving index.html...")
 
         return render(request, self.template_name, context)
 
     # process form data
     def post(self, request):
+        print("POST request received.")
+        print("Identifying POST request...")
+
+        # Identify the POST request
+        # These two variables would be present in a login POST:
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
+
+        # While this variable would be present for a logout POST:
         logouts = request.POST.get('logout', False)
+
+        print("POST request identified.")
 
         # If the username and password objects exist in the request dictionary, then it is a login POST
         if username is not False and password is not False:
+            print("Login POST.")
+
+            # Validate the entered credentials
             user = authenticate(request, username=username, password=password)
 
+            # Credentials are valid, so log the user in
             if user is not None:
+                print("Credentials correct. Login successful.")
+
                 login(request, user)
 
                 return redirect('dashboard:index')
             else:
+                # Credentials are invalid, so keep them out of their privileges
+                print("Credentials incorrect. Login failed.")
+
                 # Retrieve activities
+                print("Retrieving data from the database...")
+
                 activities_sets = "[ "
                 for org in Organization.objects.all():
                     org_acts = Activity.objects.filter(organization=org)
@@ -129,16 +159,34 @@ class UserFormView(View):
                 activities_sets = activities_sets[:-1]
                 activities_sets += "]"
 
+                print("Data retrieved.")
+                print("Embedding the data into the session...")
+
                 context = {
                     "activities": activities_sets,
                 }
 
+                print("Data embedded.")
+                print("Serving index.html...")
+
+                # Immediately display a one-time error message at the next request holder
+                print("Embedding an error message...")
                 messages.error(request, 'Sign in failed. Your username or password is incorrect.')
+
+                print("Error message embedded.")
+                print("Serving index.html...")
 
                 return render(request, self.template_name, context)
         elif logouts is not False:
+            print("Logout POST.")
+
+            print("Logging the user out...")
+
             # If not, but contains a logout object, then it is a logout POST
             logout(request)
+
+            print("User logged out.")
+            print("Retrieving data from the database...")
 
             # Retrieve activities
             activities_sets = "[ "
@@ -151,10 +199,20 @@ class UserFormView(View):
 
             activities_sets = activities_sets[:-1]
             activities_sets += "]"
+
+            print("Data retrieved.")
+            print("Embedding the data into the session...")
+
             context = {
                 "activities": activities_sets,
             }
 
+            print("Data embedded.")
+            print("Serving index.html...")
+
             return render(request, self.template_name, context)
         else:
+            # Unless some POST requests are corrupted, this shouldn't be seen at all
+            print("Unknown POST request.")
+
             return redirect('page_404:test_url')
