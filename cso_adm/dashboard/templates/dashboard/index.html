@@ -160,10 +160,10 @@
     <p><b>CSO</b>Dashboard</p>
     <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
     <ul>
-        <a href="/">
+        <a href="{% url 'dashboard:index' %}">
             <li class="active">Home</li>
         </a>
-        <a href="/organization-list">
+        <a href="{% url org_list:general_orgs %}">
             <li>Organization List</li>
         </a>
     </ul>
