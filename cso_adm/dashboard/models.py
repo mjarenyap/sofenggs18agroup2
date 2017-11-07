@@ -32,63 +32,49 @@ Checker = (
     ('Krystel Tan', 'Krystel Tan'),
 )
 
+Cluster = (
+    ("ASO", "ASO"),
+    ("ASPIRE", "ASPIRE"),
+    ("CAP 12", "CAP 12"),
+    ("ENGAGE", "ENGAGE"),
+    ("PROBE", "PROBE"),
+)
+
 
 class Organization(models.Model):
     name = models.CharField(default="", max_length=255)
     shortname = models.CharField(default="", max_length=255)
+    cluster = models.CharField(default="", max_length=255, choices=Cluster)
 
     def __str__(self):
         return self.name
 
-
-class Activity(models.Model):
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    title = models.CharField(default="", max_length=255)
-    term = models.CharField(choices=Term, max_length=255)
-    tieupOrgs = models.CharField(default="", max_length=255, blank=True)
-
-    def __str__(self):
-        return self.title
-
-
-class PostActRequirements(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    preActs = models.BooleanField()
-    listOfExpenses = models.BooleanField()
-    gals = models.BooleanField()
-    pictures = models.BooleanField()
-    actvReport = models.BooleanField()
-    evalResults = models.BooleanField()
-
-    def __str__(self):
-        return self.activity.title
-
-
-class PostActsLog(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField('timestamp')
-    submissionType = models.CharField(choices=SubmissionType, max_length=255)
+class PostActsLog():
+    activity_title = ""
+    timestamp = ""
+    submission_type = ""
 
     # Activity Details
-    enp = models.IntegerField(default=0)
-    anp = models.IntegerField(default=0)
-    enmp = models.IntegerField(default=0)
-    anmp = models.IntegerField(default=0)
-    expensesIncurred = models.CharField(default="", max_length=255)
+    enp = ""
+    anp = ""
+    enmp = ""
+    anmp = ""
+    expenses_incurred = ""
 
     # Submission Details
-    submittedBy = models.CharField(default="", max_length=255)
-    contactNo = models.CharField(default="", max_length=255)
-    email = models.EmailField()
+    submitted_by = ""
+    contact_no = ""
+    email = ""
 
     # Admin edit
-    status = models.CharField(default='NC', choices=Status, max_length=255)
-    checkedBy = models.CharField(choices=Checker, max_length=255, blank=True)
-    dateChecked = models.DateTimeField('date checked', blank=True, null=True)
-    comments = models.CharField(default="", max_length=255, blank=True)
+    status = ""
+    checked_by = ""
+    date_checked = ""
+    comments = ""
 
     def __str__(self):
-        return self.activity.title
+        # this will return json string of log
+        return ""
 
     def get_absolute_url(self):
         return reverse('dashboard', kwargs={'id': self.id})
