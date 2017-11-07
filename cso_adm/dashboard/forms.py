@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
+from .models import PostActsLog
 
-from dashboard.models import PostActsLog
 
 
 # class UserForm(forms.ModelForm):
