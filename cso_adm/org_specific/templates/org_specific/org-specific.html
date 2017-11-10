@@ -29,127 +29,131 @@
     </head>
     <body ng-app="dashboardApp" ng-controller="mainController">
         <!-- THE MODAL OVERLAY -->
-        <div id="modal-wrapper">
-            <i class="fa fa-times close"></i>
-            <div id="modal-details-wrapper">
-                <ul class="tab-wrapper">
-                    <li class="active" data-id="genActs">General Activity Details</li>
-                    <li data-id="submission">Submission Details</li>
-                    <li data-id="csoDetails">CSO Details</li>
-                    <!--<li class="closeModal"><i class="fa fa-times" aria-hidden="true"></i></li>-->
-                </ul>
-                {% verbatim %}
-                <div class="content-wrapper visible" id="genActs">
-                    <div>
-                        <b>Activity Title</b>
-                        <p>{{modalActivity}}</p>
-                    </div>
-                    <div>
-                        <b>Organization Name</b>
-                        <p>{{modalOrg}}</p>
-                    </div>
-                    <div>
-                        <b>Tie-up Organization</b>
-                        <p>{{modalTieUp}}</p>
-                    </div>
-                    <div>
-                        <b>ENP</b>
-                        <p>{{modalEnp}}</p>
-                    </div>
-                    <div>
-                        <b>ENMP</b>
-                        <p>{{modalEnmp}}</p>
-                    </div>
-                    <div>
-                        <b>ANP</b>
-                        <p>{{modalAnp}}</p>
-                    </div>
-                    <div>
-                        <b>ANMP</b>
-                        <p>{{modalAnmp}}</p>
-                    </div>
-                </div>
-                <div class="content-wrapper" id="submission">
-                    <div>
-                        <b>Timestamp</b>
-                        <p>{{modalTimeS | date:'medium'}}</p>
-                    </div>
-                    <div>
-                        <b>Type of Submission</b>
-                        <p>{{modalSubType}}</p>
-                    </div>
-                    <div>
-                        <b>Submitted by</b>
-                        <p>{{modalSubBy}}</p>
-                    </div>
-                    <div>
-                        <b>Contact Number</b>
-                        <p>{{modalContact}}</p>
-                    </div>
-                    <div>
-                        <b>Email Address</b>
-                        <p>{{modalEmail}}</p>
-                    </div>
-                </div>
-                <div class="content-wrapper" id="csoDetails">
-                    <form id="modalForm" method="post">
-                        <!--{% verbatim %}-->
-                        <input type="hidden" name="id" value="{{modalId}}"/>
-                        <div>
-                            <b>Activity Title</b>
-                            <p>{{modalActivity}}</p>
-                        </div>
-                        <div>
-                            <b>Status</b>
-                            <!--{% endverbatim %}-->
-                            <!--{% if user.is_authenticated %}-->
-                            <p id="submitStatus" contenteditable="true">
-                                <!--{% else %}-->
-                            <!--<p id="submitStatus" contenteditable="false">-->
-                                <!--{% endif %}-->
-                                <!--{% verbatim %}-->
-                                {{modalStatus}}</p>
-                        </div>
-                        <div>
-                            <b>Checked by</b>
-                            <!--{% endverbatim %}-->
-                            <!--{% if user.is_authenticated %}-->
-                            <p id="submitCB" contenteditable="true">
-                                <!--{% else %}-->
-                            <!--<p id="submitCB" contenteditable="false">-->
-                                <!--{% endif %}-->
-                                <!--{% verbatim %}-->
-                                {{modalChckedBy}}</p>
-                        </div>
-                        <div>
-                            <b>Date Checked</b>
-                            <p id="submitDC" contenteditable="false">{{modalDateChcked}}</p>
-                        </div>
-                        <div>
-                            <b>Remarks</b>
-                            <!--{% endverbatim %}-->
-                            <!--{% if user.is_authenticated %}-->
-                            <p id="submitRemarks" contenteditable="true">
-                                <!--{% else %}-->
-                            <!--<p id="submitRemarks" contenteditable="false">-->
-                                <!--{% endif %}-->
-                                <!--{% verbatim %}-->
-                                {{modalRemarks}}</p>
-                        </div>
-                        <br/>
-                        <!--{% endverbatim %}-->
-                        <!--{% if user.is_authenticated %}-->
-                        <input type="submit" value="Save"/>
-                        <input id="discard" type="button" value="Discard" class="hallow"/>
-                        <!--{% csrf_token %}-->
-                        <!--<button type="submit" class="button grey">Discard</button>-->
-                        <!--<button type="submit" class="button">Save</button>-->
-                        <!--{% endif %}-->
-                    </form>
-                </div>
+
+<div id="modal-wrapper">
+    <i class="fa fa-times close"></i>
+    <div id="modal-details-wrapper">
+        <ul class="tab-wrapper">
+            <li class="active" data-id="genActs">General Activity Details</li>
+            <li data-id="submission">Submission Details</li>
+            <li data-id="csoDetails">CSO Details</li>
+        </ul>
+        <div class="content-wrapper visible" id="genActs">
+            <div>
+                <b>Activity Title</b>
+                <p>{{modalActivity}}</p>
+            </div>
+            <div>
+                <b>Organization Name</b>
+                <p>{{modalOrg}}</p>
+            </div>
+            <div>
+                <b>Tie-up Organization</b>
+                <p>{{modalTieUp}}</p>
+            </div>
+            <div>
+                <b>ENP</b>
+                <p>{{modalEnp}}</p>
+            </div>
+            <div>
+                <b>ENMP</b>
+                <p>{{modalEnmp}}</p>
+            </div>
+            <div>
+                <b>ANP</b>
+                <p>{{modalAnp}}</p>
+            </div>
+            <div>
+                <b>ANMP</b>
+                <p>{{modalAnmp}}</p>
             </div>
         </div>
-        <nav>
+        <div class="content-wrapper" id="submission">
+            <div>
+                <b>Timestamp</b>
+                <p>{{modalTimeS | date:'medium'}}</p>
+            </div>
+            <div>
+                <b>Type of Submission</b>
+                <p>{{modalSubType}}</p>
+            </div>
+            <div>
+                <b>Submitted by</b>
+                <p>{{modalSubBy}}</p>
+            </div>
+            <div>
+                <b>Contact Number</b>
+                <p>{{modalContact}}</p>
+            </div>
+            <div>
+                <b>Email Address</b>
+                <p>{{modalEmail}}</p>
+            </div>
+        </div>
+        <div class="content-wrapper" id="csoDetails">
+            <!--{% endverbatim %}-->
+            <form id="modalForm" method="post">
+                <!--{% verbatim %}-->
+                <input type="hidden" name="id" value="{{modalId}}"/>
+                <div>
+                    <b>Activity Title</b>
+                    <p>{{modalActivity}}</p>
+                </div>
+                <div>
+                    <b>Status</b>
+                    {% endverbatim %}
+                    {% if user.is_superuser %}
+                        <p id="submitStatus" contenteditable="true">
+                    {% else %}
+                        <p id="submitStatus" contenteditable="false">
+                    {% endif %}
+                    {% verbatim %}
+                        {{modalStatus}}
+                    </p>
+                </div>
+                <div>
+                    <b>Checked by</b>
+                    {% endverbatim %}
+                    {% if user.is_superuser %}
+                        <select ng-model="modalChckedBy" ng-options="checker as checker for checker in checkerList">
+                        </select>
+                    {% else %}
+                        {% verbatim %}
+                        <p id="submitCB" contenteditable="false">{{modalChckedBy}}</p>
+                        {% endverbatim %}
+                    {% endif %}
+                    {% verbatim %}
+                </div>
+                <div>
+                    <b>Date Checked</b>
+                    <p id="submitDC" contenteditable="false">{{modalDateChcked}}</p>
+                </div>
+                <div>
+                    <b>Remarks</b>
+                    {% endverbatim %}
+                    {% if user.is_superuser %}
+                        <p id="submitRemarks" contenteditable="true">
+                    {% else %}
+                        <p id="submitRemarks" contenteditable="false">
+                    {% endif %}
+                    {% verbatim %}
+                        {{modalRemarks}}
+                    </p>
+                </div>
+                <br/>
+                {% endverbatim %}
+                <!--{% if user.is_authenticated %}-->
+                <input type="submit" value="Save"/>
+                <input id="discard" type="button" value="Discard" class="hallow"/>
+                <!--{% csrf_token %}-->
+                <!--<button type="submit" class="button grey">Discard</button>-->
+                <!--<button type="submit" class="button">Save</button>-->
+                <!--{% endif %}-->
+            </form>
+        </div>
+    </div>
+</div>
+<nav>
             <p><b>CSO</b>Dashboard</p>
             <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
             <ul>
@@ -179,7 +183,7 @@
                 </div>
                 <div>
                     <p>Early Incomplete</p>
-                    <h2>13</h2>
+                    <h2>3</h2>
                 </div>
                 <div>
                     <p>Late Incomplete</p>
