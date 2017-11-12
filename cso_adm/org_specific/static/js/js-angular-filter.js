@@ -1,7 +1,10 @@
 var root = 'https://jsonplaceholder.typicode.com';
 
 console.log("NG-TABLE LOADED");
-var dashboardApp = angular.module('dashboardApp', []);
+var dashboardApp = angular.module('dashboardApp', [], function($httpProvider) {
+  $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+  $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
 
 dashboardApp.config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
