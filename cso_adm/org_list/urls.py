@@ -14,6 +14,10 @@ urlpatterns = [
     # [Organization Specific]
     # This app previews overview/summary and post-acts of a certain organization
     url(r'^0/', include('org_specific.urls')),
+
+    # /update/
+    url(r'update/$', views.save_post_acts, name='update'),
+
     # /get log/
-    url(r'log/$', views.get_log, name='log')
+    url(r'get_log/$', views.get_log, name='get_log')
 ]

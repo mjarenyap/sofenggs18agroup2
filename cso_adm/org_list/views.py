@@ -7,7 +7,7 @@ from django.http import HttpResponse
 
 # This is only for testing purposes. You may comment this out
 from django.views import View
-from dashboard.models import PostActsLog, Organization
+from dashboard.models import PostActsLog, Organization, Map
 import json
 
 # # TODO: Tester url, will be modified
@@ -20,17 +20,59 @@ import json
 
 # TODO: Placeholder class-based view, will be modified
 # TODO: Embed content of general orgs list
-from dashboard.models import Organization
 
 def get_log(request):
     print (request)
-    print (request.GET.get("id"))
+    id = request.GET.get("id", False)
+    if id is not False:
+        log_json = PostActsLog.objects.get(id=int(id)).getFullJSON()
+        print("JSON for id=" + str(id) + ": " + log_json)
+        response = {'status': 1, 'message': "Ok", "log": log_json, 'url': reverse('org_list:specific_org')}
 
-    log_json = PostActsLog.objects.get(id=request.GET.get("id")).getFullJSON()
-    print("JSON for id=" + str(request.GET.get("id")) + ": " + log_json)
-    response = {'status': 1, 'message': "Ok", "log": log_json, 'url': reverse('dashboard:index')}
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        return redirect(reverse('org_list:specific_org'))
 
-    return HttpResponse(json.dumps(response), content_type='application/json')
+
+def save_post_acts(request):
+    # Get the ID edited from the POST request
+    id = request.POST.get('id', False)
+
+    # If an ID was found, this request contains payload
+    # If not, then the URL was just manually entered, and nothing would be done
+    if id is not False:
+        # Get the actual postactslog from the retrieved ID
+        edited_post_acts_log = PostActsLog.objects.get(id=id)
+        row = str(edited_post_acts_log.row)
+        # Modify the necessary fields
+        list = []
+        edited_post_acts_log.status = request.POST.get('status')
+        log = [row, Map.objects.get(key="status").value, edited_post_acts_log.status]
+        list.append(log)
+        edited_post_acts_log.checked_by = request.POST.get('cb')
+        log = [row, Map.objects.get(key="checked_by").value, edited_post_acts_log.checked_by]
+        list.append(log)
+        edited_post_acts_log.date_checked = datetime.now().strftime('%m/%d/%Y %H:%M:%S')
+        log = [row, Map.objects.get(key="date_checked").value, edited_post_acts_log.date_checked]
+        list.append(log)
+        edited_post_acts_log.remarks = request.POST.get('remarks')
+        log = [row, Map.objects.get(key="remarks").value, edited_post_acts_log.remarks]
+        list.append(log)
+
+        # Commit edits into the database
+        if utility.update_cells(list):
+            edited_post_acts_log.save()
+        else:
+            print ("Update failed. Changes not saved.")
+
+        # TODO send message update not done
+
+        # Then go back to the index URL with the updated values
+        response = {'status': 1, 'message': "Ok", 'url': reverse('dashboard:index')}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        return redirect(reverse('dashboard:index'))
 
 def getContext():
     organization_set = "["

@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'update/$', views.save_post_acts, name='update'),
 
     # /update/
-    url(r'log/$', views.get_log, name='log')
+    url(r'get_log/$', views.get_log, name='get_log')
 ]
