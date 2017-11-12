@@ -108,25 +108,28 @@
                 </div>
                 <div>
                     <b>Status</b>
-                    <!--{% endverbatim %}-->
-                    <!--{% if user.is_authenticated %}-->
-                    <p id="submitStatus" contenteditable="true">
-                        <!--{% else %}-->
-                        <!--<p id="submitStatus" contenteditable="false">-->
-                        <!--{% endif %}-->
-                        <!--{% verbatim %}-->
-                        {{modalStatus}}</p>
+                    {% endverbatim %}
+                    {% if user.is_superuser %}
+                        <p id="submitStatus" contenteditable="true">
+                    {% else %}
+                        <p id="submitStatus" contenteditable="false">
+                    {% endif %}
+                    {% verbatim %}
+                        {{modalStatus}}
+                    </p>
                 </div>
                 <div>
                     <b>Checked by</b>
-                    <!--{% endverbatim %}-->
-                    <!--{% if user.is_authenticated %}-->
-                    <p id="submitCB" contenteditable="true">
-                        <!--{% else %}-->
-                        <!--<p id="submitCB" contenteditable="false">-->
-                        <!--{% endif %}-->
-                        <!--{% verbatim %}-->
-                        {{modalChckedBy}}</p>
+                    {% endverbatim %}
+                    {% if user.is_superuser %}
+                        <select ng-model="modalChckedBy" ng-options="checker as checker for checker in checkerList">
+                        </select>
+                    {% else %}
+                        {% verbatim %}
+                        <p id="submitCB" contenteditable="false">{{modalChckedBy}}</p>
+                        {% endverbatim %}
+                    {% endif %}
+                    {% verbatim %}
                 </div>
                 <div>
                     <b>Date Checked</b>

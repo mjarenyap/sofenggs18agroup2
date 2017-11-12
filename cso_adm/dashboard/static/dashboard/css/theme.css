@@ -28,10 +28,6 @@ h1, h2, h3, h4, h5, h6{
     font-family: 'Proxima Nova', sans-serif;
 }
 
-.neutral{
-    color: var(--theme-dark-neutral);
-}
-
 p{
     margin: 10px 0;
     padding: 0;
@@ -117,9 +113,8 @@ select{
     background-position: calc(100% - 5%);
 }
 
-section{
+section, footer{
     padding: var(--chunk-padding);
-    border-bottom: thin solid var(--theme-grey-neutral-2);
 }
 
 header{
@@ -164,12 +159,6 @@ section.filter-wrapper{
     background-color: var(--theme-light-neutral);
     border-bottom: thin solid var(--theme-grey-neutral-2);
     border-top: thin solid var(--theme-grey-neutral-2);
-    display: flex;
-    align-items: center;
-}
-
-section.filter-wrapper span{
-    margin-right: 5px;
 }
 
 .sticky{
@@ -245,29 +234,6 @@ div.user-tray{
     padding: 20px 0;
     border-top: thin solid var(--theme-grey-neutral-2);
     border-bottom: thin solid var(--theme-grey-neutral-2);
-}
-
-div.flex-end{
-    display: flex;
-    justify-content: flex-end;
-}
-
-div.settings-content-wrapper{
-    padding: 40px 60px;
-}
-
-div.settings-content-wrapper h4{
-    margin-bottom: 15px;
-    margin-right: 30px;
-    display: inline-block;
-}
-
-div.settings-content-wrapper input{
-    width: 400px;
-}
-
-div.settings-content-wrapper select{
-    width: 400px;
 }
 
 form#sign-in{
