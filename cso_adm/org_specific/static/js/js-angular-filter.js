@@ -1,7 +1,10 @@
 var root = 'https://jsonplaceholder.typicode.com';
 
 console.log("NG-TABLE LOADED");
-var dashboardApp = angular.module('dashboardApp', []);
+var dashboardApp = angular.module('dashboardApp', [], function($httpProvider) {
+  $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+  $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
 
 dashboardApp.config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
@@ -115,25 +118,35 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
 
   $scope.showModal = function(status) {
+    $http.get("/log/", {params: {"id": status.id}})
+          .success(function(response) {
+              console.log("success");
+              console.log(response.log);
+              var obj = JSON.parse(response.log);
+              console.log(obj);
+              $scope.modalId = obj.id;
+              $scope.modalActivity = obj.n;
+              $scope.modalOrg = obj.o;
+              $scope.modalTieUp = obj.tie;
+              $scope.modalEnp = obj.en;
+              $scope.modalEnmp = obj.enm;
+              $scope.modalAnp = obj.an;
+              $scope.modalAnmp = obj.anm;
+              $scope.modalTimeS = obj.t;
+              $scope.modalSubType = obj.st;
+              $scope.modalSubBy = obj.sb;
+              $scope.modalContact = obj.num;
+              $scope.modalEmail = obj.ml;
+              $scope.modalStatus = obj.s;
+              $scope.modalChckedBy = obj.cb;
+              $scope.modalDateChcked = obj.d;
+              $scope.modalRemarks = obj.mk;
+            })
+            .error(function(response){
+                console.log("failed");
+            })
 
     console.log("LOAD MODAL");
-    $scope.modalId = status.id;
-    $scope.modalActivity = status.n;
-    $scope.modalOrg = status.o;
-    $scope.modalTieUp = status.tie;
-    $scope.modalEnp = status.en;
-    $scope.modalEnmp = status.enm;
-    $scope.modalAnp = status.an;
-    $scope.modalAnmp = status.anm;
-    $scope.modalTimeS = status.t;
-    $scope.modalSubType = status.st;
-    $scope.modalSubBy = status.sb;
-    $scope.modalContact = status.num;
-    $scope.modalEmail = status.ml;
-    $scope.modalStatus = status.s;
-    $scope.modalChckedBy = status.cb;
-    $scope.modalDateChcked = status.d;
-    $scope.modalRemarks = status.mk;
 
   };
 
