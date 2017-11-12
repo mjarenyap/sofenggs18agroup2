@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.views import View
 from dashboard.models import PostActsLog, Organization, Map
 import json
+from dashboard import utility
 
 # # TODO: Tester url, will be modified
 # # TODO: Embed content of SPECIFIC org list
@@ -151,6 +152,7 @@ class OrgGeneralView(View):
     template_name = 'org_list/org-list.html'
 
     def get(self, request):
+        utility.sync()
         # TODO: Spew out content of orgs list then add to context
 
         context = getContext()
@@ -159,6 +161,7 @@ class OrgGeneralView(View):
 
     # process form data
     def post(self, request):
+        utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)
@@ -198,6 +201,7 @@ class OrgSpecificView(View):
     template_name = 'org_list/org-specific.html'
 
     def get(self, request, org_name):
+        utility.sync()
         # Does that case insensitive org name even exist?
         try:
             org = Organization.objects.get(shortname__iexact=org_name)
@@ -214,6 +218,7 @@ class OrgSpecificView(View):
 
     # process form data
     def post(self, request):
+        utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)

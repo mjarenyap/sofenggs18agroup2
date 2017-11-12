@@ -14,6 +14,29 @@ from datetime import datetime
 from dashboard.models import PostActsLog, Organization, Map
 from dashboard import utility
 
+def getContext():
+    logs_set = "["
+    for log in PostActsLog.objects.all():
+        logs_set = logs_set + str(log.getJSON())
+    if len(logs_set) > 1:
+        logs_set = logs_set[:-1]
+    logs_set = logs_set + "]"
+
+    organization_set = "["
+    for org in Organization.objects.all():
+        organization_set = organization_set + str(org.getJSON())
+    if len(organization_set) > 1:
+        organization_set = organization_set[:-1]
+    organization_set = organization_set + "]"
+    print("JSON for Organizations: " + organization_set)
+
+    context = {
+        "logs": logs_set,
+        "organizations": organization_set,
+    }
+
+    return context
+
 def get_log(request):
     print (request)
     id = request.GET.get("id", False)
@@ -71,31 +94,14 @@ class UserFormView(View):
 
     def get(self, request):
         utility.sync()
-        logs_set = "["
-        for log in PostActsLog.objects.all():
-            logs_set = logs_set + str(log.getJSON())
-        if len(logs_set) > 1:
-            logs_set = logs_set[:-1]
-        logs_set = logs_set + "]"
-        print("JSON for Logs: " + logs_set)
 
-        organization_set = "["
-        for org in Organization.objects.all():
-            organization_set = organization_set + str(org.getJSON())
-        if len(organization_set) > 1:
-            organization_set = organization_set[:-1]
-        organization_set = organization_set + "]"
-        print("JSON for Organizations: " + organization_set)
-
-        context = {
-            "logs": logs_set,
-            "organizations": organization_set,
-        }
+        context = getContext()
 
         return render(request, self.template_name, context)
 
     # process form data
     def post(self, request):
+        utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)
@@ -110,25 +116,7 @@ class UserFormView(View):
                 return redirect('dashboard:index')
             else:
                 # Retrieve logs
-                logs_set = "["
-                for log in PostActsLog.objects.all():
-                    logs_set = logs_set + str(log.getJSON())
-                if len(logs_set) > 1:
-                    logs_set = logs_set[:-1]
-                logs_set = logs_set + "]"
-
-                organization_set = "["
-                for org in Organization.objects.all():
-                    organization_set = organization_set + str(org.getJSON())
-                if len(organization_set) > 1:
-                    organization_set = organization_set[:-1]
-                organization_set = organization_set + "]"
-                print("JSON for Organizations: " + organization_set)
-
-                context = {
-                    "logs": logs_set,
-                    "organizations": organization_set,
-                }
+                context = getContext()
 
                 messages.error(request, 'Sign in failed. Your username or password is incorrect.')
 
@@ -138,25 +126,7 @@ class UserFormView(View):
             logout(request)
 
             # Retrieve logs
-            logs_set = "["
-            for log in PostActsLog.objects.all():
-                logs_set = logs_set + str(log.getJSON())
-            if len(logs_set) > 1:
-                logs_set = logs_set[:-1]
-            logs_set = logs_set + "]"
-
-            organization_set = "["
-            for org in Organization.objects.all():
-                organization_set = organization_set + str(org.getJSON())
-            if len(organization_set) > 1:
-                organization_set = organization_set[:-1]
-            organization_set = organization_set + "]"
-            print("JSON for Organizations: " + organization_set)
-
-            context = {
-                "logs": logs_set,
-                "organizations": organization_set,
-            }
+            context = getContext()
 
             return render(request, self.template_name, context)
         else:
