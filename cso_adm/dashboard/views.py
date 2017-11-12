@@ -11,47 +11,7 @@ from django.utils import timezone
 from django.views import View
 
 from dashboard.models import PostActsLog, Organization
-
-
-# def index(request):
-#     template_name = 'dashboard/index2.html'
-#     activities = Activity.objects.all()
-#
-#     context = {
-#         "activities": serializers.serialize('json', activities),
-#     }
-#
-#     return render(request, template_name, context)
-def create(org, activity, log):
-    s = '{'
-    s = s + "'postActsLogID' : '" + str(log.id) + "',"
-    s = s + "'timestamp' : '" + str(
-        log.timestamp.astimezone(pytz.timezone('Asia/Manila')).strftime('%Y/%m/%d %H:%M:%S')) + "',"
-    s = s + "'activityTitle' : '" + activity.title + "',"
-    s = s + "'orgName' : '" + org.shortname + "',"
-    s = s + "'term' : '" + activity.term + "',"
-    s = s + "'submissionType' : '" + log.submissionType + "',"
-    s = s + "'status' : '" + log.status + "',"
-    s = s + "'checkedBy' : '" + log.checkedBy + "',"
-    if log.dateChecked is not None:
-        s = s + "'dateChecked' : '" + str(
-            log.dateChecked.astimezone(pytz.timezone('Asia/Manila')).strftime('%Y/%m/%d %H:%M:%S')) + "',"
-    else:
-        s = s + "'dateChecked' : '',"
-    if activity.tieupOrgs == "":
-        s = s + "'tieUpOrg' : 'N/A',"
-    else:
-        s = s + "'tieUpOrg' : '" + activity.tieupOrgs + "',"
-    s = s + "'enp' : '" + str(log.enp) + "',"
-    s = s + "'enmp' : '" + str(log.enmp) + "',"
-    s = s + "'anp' : '" + str(log.anp) + "',"
-    s = s + "'anmp' : '" + str(log.anmp) + "',"
-    s = s + "'submittedBy' : '" + log.submittedBy + "',"
-    s = s + "'contactNo' : '" + log.contactNo + "',"
-    s = s + "'email' : '" + log.email + "',"
-    s = s + "'remarks' : '" + log.comments + "'},"
-    return s
-
+from dashboard import utility
 
 def save_post_acts(request):
     # Get the ID edited from the POST request
@@ -86,18 +46,26 @@ class UserFormView(View):
     template_name = 'dashboard/index.html'
 
     def get(self, request):
-        activities_sets = "[ "
-        # for org in Organization.objects.all():
-        #     org_acts = Activity.objects.filter(organization=org)
-        #     for activity in org_acts:
-        #         activity_log = PostActsLog.objects.filter(activity=activity)
-        #         for log in activity_log:
-        #             activities_sets += create(org, activity, log)
+        utility.sync()
+        logs_set = "["
+        for log in PostActsLog.objects.all():
+            logs_set = logs_set + str(log.getJSON())
+        if len(logs_set) > 1:
+            logs_set = logs_set[:-1]
+        logs_set = logs_set + "]"
+        print("JSON for Logs: " + logs_set)
 
-        # activities_sets = activities_sets[:-1]
-        activities_sets += "]"
+        organization_set = "["
+        for org in Organization.objects.all():
+            organization_set = organization_set + str(org.getJSON())
+        if len(organization_set) > 1:
+            organization_set = organization_set[:-1]
+        organization_set = organization_set + "]"
+        print("JSON for Organizations: " + organization_set)
+
         context = {
-            "activities": activities_sets,
+            "logs": logs_set,
+            "organizations": organization_set,
         }
 
         return render(request, self.template_name, context)
@@ -117,20 +85,25 @@ class UserFormView(View):
 
                 return redirect('dashboard:index')
             else:
-                # Retrieve activities
-                activities_sets = "[ "
-                # for org in Organization.objects.all():
-                #     org_acts = Activity.objects.filter(organization=org)
-                #     for activity in org_acts:
-                #         activity_log = PostActsLog.objects.filter(activity=activity)
-                #         for log in activity_log:
-                #             activities_sets += create(org, activity, log)
-                #
-                # activities_sets = activities_sets[:-1]
-                activities_sets += "]"
+                # Retrieve logs
+                logs_set = "["
+                for log in PostActsLog.objects.all():
+                    logs_set = logs_set + str(log.getJSON())
+                if len(logs_set) > 1:
+                    logs_set = logs_set[:-1]
+                logs_set = logs_set + "]"
+
+                organization_set = "["
+                for org in Organization.objects.all():
+                    organization_set = organization_set + str(org.getJSON())
+                if len(organization_set) > 1:
+                    organization_set = organization_set[:-1]
+                organization_set = organization_set + "]"
+                print("JSON for Organizations: " + organization_set)
 
                 context = {
-                    "activities": activities_sets,
+                    "logs": logs_set,
+                    "organizations": organization_set,
                 }
 
                 messages.error(request, 'Sign in failed. Your username or password is incorrect.')
@@ -140,19 +113,25 @@ class UserFormView(View):
             # If not, but contains a logout object, then it is a logout POST
             logout(request)
 
-            # Retrieve activities
-            activities_sets = "[ "
-            # for org in Organization.objects.all():
-            #     org_acts = Activity.objects.filter(organization=org)
-            #     for activity in org_acts:
-            #         activity_log = PostActsLog.objects.filter(activity=activity)
-            #         for log in activity_log:
-            #             activities_sets += create(org, activity, log)
-            #
-            # activities_sets = activities_sets[:-1]
-            activities_sets += "]"
+            # Retrieve logs
+            logs_set = "["
+            for log in PostActsLog.objects.all():
+                logs_set = logs_set + str(log.getJSON())
+            if len(logs_set) > 1:
+                logs_set = logs_set[:-1]
+            logs_set = logs_set + "]"
+
+            organization_set = "["
+            for org in Organization.objects.all():
+                organization_set = organization_set + str(org.getJSON())
+            if len(organization_set) > 1:
+                organization_set = organization_set[:-1]
+            organization_set = organization_set + "]"
+            print("JSON for Organizations: " + organization_set)
+
             context = {
-                "activities": activities_sets,
+                "logs": logs_set,
+                "organizations": organization_set,
             }
 
             return render(request, self.template_name, context)
