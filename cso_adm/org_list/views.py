@@ -32,20 +32,21 @@ def getContext():
 
     data_set = "["
     for org in Organization.objects.all():
+        org_log = PostActsLog.objects.filter(organization=org.shortname)
         data_set = data_set + "{\\\"abbreviation\\\":\\\"" + org.shortname + "\\\","
         data_set = data_set + "\\\"orgName\\\":\\\"" + org.name + "\\\","
         data_set = data_set + "\\\"cluster\\\":\\\"" + org.cluster + "\\\","
-        ec_cnt = PostActsLog.objects.filter(status='Early Complete').count()
+        ec_cnt = org_log.filter(status='Early Complete').count()
         data_set = data_set + "\\\"ec\\\":" + str(ec_cnt) + ","
-        lc_cnt = PostActsLog.objects.filter(status='Late Complete').count()
+        lc_cnt = org_log.filter(status='Late Complete').count()
         data_set = data_set + "\\\"lc\\\":" + str(lc_cnt) + ","
-        ei_cnt = PostActsLog.objects.filter(status='Early Incomplete').count()
+        ei_cnt = org_log.filter(status='Early Incomplete').count()
         data_set = data_set + "\\\"ei\\\":" + str(ei_cnt) + ","
-        li_cnt = PostActsLog.objects.filter(status='Late Incomplete').count()
+        li_cnt = org_log.filter(status='Late Incomplete').count()
         data_set = data_set + "\\\"li\\\":" + str(li_cnt) + ","
-        p_cnt = PostActsLog.objects.filter(status='Pending').count()
+        p_cnt = org_log.filter(status='Pending').count()
         data_set = data_set + "\\\"p\\\":" + str(p_cnt) + ","
-        cnt = PostActsLog.objects.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt
+        cnt = org_log.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt
         data_set = data_set + "\\\"nc\\\":" + str(cnt) + "},"
     if len(data_set) > 1:
         data_set = data_set[:-1]
