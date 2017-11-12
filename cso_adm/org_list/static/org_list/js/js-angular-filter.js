@@ -231,7 +231,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   },
   {
     'orgName': 'Chemistry Society',
-    'abbreviation': 'CS',
+    'abbreviation': 'ChemSoc',
     'cluster': 'ASO',
     'ec': 11,
     'lc': 10,
