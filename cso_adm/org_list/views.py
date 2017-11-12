@@ -22,6 +22,16 @@ import json
 # TODO: Embed content of general orgs list
 from dashboard.models import Organization
 
+def get_log(request):
+    print (request)
+    print (request.GET.get("id"))
+
+    log_json = PostActsLog.objects.get(id=request.GET.get("id")).getFullJSON()
+    print("JSON for id=" + str(request.GET.get("id")) + ": " + log_json)
+    response = {'status': 1, 'message': "Ok", "log": log_json, 'url': reverse('dashboard:index')}
+
+    return HttpResponse(json.dumps(response), content_type='application/json')
+
 def getContext():
     organization_set = "["
     for org in Organization.objects.all():
