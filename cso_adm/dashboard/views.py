@@ -13,6 +13,15 @@ from django.views import View
 from dashboard.models import PostActsLog, Organization
 from dashboard import utility
 
+def get_log(request):
+    print (request)
+    print (request.GET.get("id"))
+
+    log_json = PostActsLog.objects.get(id=request.GET.get("id")).getFullJSON()
+    print("JSON for id=" + str(request.GET.get("id")) + ": " + log_json)
+    response = {'status': 1, 'message': "Ok", "log": log_json, 'url': reverse('dashboard:index')}
+
+    return HttpResponse(json.dumps(response), content_type='application/json')
 def save_post_acts(request):
     # Get the ID edited from the POST request
     id = request.POST.get('id', False)
