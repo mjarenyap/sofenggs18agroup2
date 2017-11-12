@@ -8,6 +8,7 @@ from django.http import HttpResponse
 # This is only for testing purposes. You may comment this out
 from django.views import View
 from dashboard.models import PostActsLog, Organization
+import json
 
 # # TODO: Tester url, will be modified
 # # TODO: Embed content of SPECIFIC org list
@@ -69,31 +70,28 @@ def getSpecificContext(org):
     logs_set = logs_set + "]"
     print("JSON for " + org.shortname + " Logs: " + logs_set)
 
-    data_set = "["
     org_log = PostActsLog.objects.filter(organization=org.shortname)
-    data_set = data_set + "{\\\"abbreviation\\\":\\\"" + org.shortname + "\\\","
-    data_set = data_set + "\\\"orgName\\\":\\\"" + org.name + "\\\","
-    data_set = data_set + "\\\"cluster\\\":\\\"" + org.cluster + "\\\","
+    data_set = "{\"abbreviation\":\"" + org.shortname + "\","
+    data_set = data_set + "\"orgName\":\"" + org.name + "\","
+    data_set = data_set + "\"cluster\":\"" + org.cluster + "\","
     ec_cnt = org_log.filter(status='Early Complete').count()
-    data_set = data_set + "\\\"ec\\\":" + str(ec_cnt) + ","
+    data_set = data_set + "\"ec\":" + str(ec_cnt) + ","
     lc_cnt = org_log.filter(status='Late Complete').count()
-    data_set = data_set + "\\\"lc\\\":" + str(lc_cnt) + ","
+    data_set = data_set + "\"lc\":" + str(lc_cnt) + ","
     ei_cnt = org_log.filter(status='Early Incomplete').count()
-    data_set = data_set + "\\\"ei\\\":" + str(ei_cnt) + ","
+    data_set = data_set + "\"ei\":" + str(ei_cnt) + ","
     li_cnt = org_log.filter(status='Late Incomplete').count()
-    data_set = data_set + "\\\"li\\\":" + str(li_cnt) + ","
+    data_set = data_set + "\"li\":" + str(li_cnt) + ","
     p_cnt = org_log.filter(status='Pending').count()
-    data_set = data_set + "\\\"p\\\":" + str(p_cnt) + ","
+    data_set = data_set + "\"p\":" + str(p_cnt) + ","
     cnt = org_log.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt
-    data_set = data_set + "\\\"nc\\\":" + str(cnt) + "},"
-    if len(data_set) > 1:
-        data_set = data_set[:-1]
-    data_set = data_set + "]"
+    data_set = data_set + "\"nc\":" + str(cnt) + "}"
+
     print("JSON for Data: " + data_set)
 
     context = {
         "logs": logs_set,
-        "data": data_set,
+        "data": json.loads(data_set),
     }
     return context
 
