@@ -66,6 +66,11 @@ table.post-acts-table tr, table.org-table tr{
     cursor: pointer;
 }
 
+table.post-acts-table tr, table.org-table tr,
+table.users-table tr{
+    display: flex;
+}
+
 table.org-table td{
     text-align: center;
 }
