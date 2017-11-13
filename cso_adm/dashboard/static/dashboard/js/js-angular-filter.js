@@ -116,7 +116,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
 
   $scope.showModal = function(status) {
-    $http.get("/log/", {params: {"id": status.id}})
+    $http.get("/get_log/", {params: {"id": status.id}})
           .success(function(response) {
               console.log("success");
               console.log(response.log);

@@ -58,7 +58,7 @@ $(document).ready(function(){
     $("div#modal-details-wrapper div.content-wrapper p").click(function(){
         $(this).select();
     });
-
+*/
     $("#modalForm").submit(function(){
         var status = $("#submitStatus").html();
         var cb = $("#submitCB").html();
@@ -86,5 +86,4 @@ $(document).ready(function(){
             }
         });
     });
-    */
 });

@@ -97,7 +97,10 @@ class PostActsLog(models.Model):
         s = s + "\\\"st\\\":\\\"" + self.submission_type + "\\\","
         s = s + "\\\"s\\\":\\\"" + self.status + "\\\","
         s = s + "\\\"cb\\\":\\\"" + self.checked_by + "\\\","
-        s = s + "\\\"d\\\":\\\"" + self.date_checked + "\\\"},"
+        try:
+            s = s + "\\\"d\\\":\\\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\\\"},"
+        except:
+            s = s + "\\\"d\\\":\\\"" + self.date_checked + "\\\"},"
         # s = s + "\\\"tie\\\":\\\"" + self.tie_up_orgs.replace("\\\"", "\\\\\\\"") + "\\\","
         # s = s + "\\\"en\\\":\\\"" + self.enp + "\\\","
         # s = s + "\\\"enm\\\":\\\"" + self.enmp + "\\\","
@@ -123,7 +126,10 @@ class PostActsLog(models.Model):
         s = s + "\"st\":\"" + self.submission_type + "\","
         s = s + "\"s\":\"" + self.status + "\","
         s = s + "\"cb\":\"" + self.checked_by + "\","
-        s = s + "\"d\":\"" + self.date_checked + "\","
+        try:
+            s = s + "\"d\":\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\","
+        except:
+            s = s + "\"d\":\"" + self.date_checked + "\","
         s = s + "\"tie\":\"" + self.tie_up_orgs.replace("\"", "\\\"") + "\","
         s = s + "\"en\":\"" + self.enp + "\","
         s = s + "\"enm\":\"" + self.enmp + "\","
