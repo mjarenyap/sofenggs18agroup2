@@ -136,4 +136,4 @@ class UserFormView(View):
 
             return render(request, self.template_name, context)
         else:
-            return redirect('page_404:test_url')
+            return redirect('page_404:page_404')
