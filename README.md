@@ -35,3 +35,6 @@ CSO ADM Dashboard
 6. Displays 404-page up to certain cases
 7. Further redesigned the settings page
     - Edit settings tab
+8. Revised URL patterns
+    - /organization
+    - /organization/<org abbreviation>
