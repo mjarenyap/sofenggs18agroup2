@@ -19,6 +19,7 @@
         var object_org = JSON.parse(context_org);
         var context_log = "{{logs|safe}}";
         var object_log = JSON.parse(context_log);
+
     </script>
     <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
     <!--<script src="js/angular.js" type="text/javascript"></script>-->
@@ -104,9 +105,10 @@
             </div>
         </div>
         <div class="content-wrapper" id="csoDetails">
-            <!--{% endverbatim %}-->
             <form id="modalForm" method="post">
-                <!--{% verbatim %}-->
+                {% endverbatim %}
+                {% csrf_token %}
+                {% verbatim %}
                 <input type="hidden" name="id" value="{{modalId}}"/>
                 <div>
                     <b>Activity Title</b>
@@ -116,11 +118,11 @@
                     <b>Status</b>
                     {% endverbatim %}
                     {% if user.is_superuser %}
-                        <p id="submitStatus" contenteditable="true">
-                    {% else %}
-                        <p id="submitStatus" contenteditable="false">
-                    {% endif %}
-                    {% verbatim %}
+                    <p id="submitStatus" contenteditable="true">
+                        {% else %}
+                    <p id="submitStatus" contenteditable="false">
+                        {% endif %}
+                        {% verbatim %}
                         {{modalStatus}}
                     </p>
                 </div>
@@ -128,12 +130,12 @@
                     <b>Checked by</b>
                     {% endverbatim %}
                     {% if user.is_superuser %}
-                        <select ng-model="modalChckedBy" ng-options="checker as checker for checker in checkerList">
-                        </select>
+                    <select id="submitCB" ng-model="modalChckedBy" ng-options="checker as checker for checker in checkerList">
+                    </select>
                     {% else %}
-                        {% verbatim %}
-                        <p id="submitCB" contenteditable="false">{{modalChckedBy}}</p>
-                        {% endverbatim %}
+                    {% verbatim %}
+                    <p id="submitCB" contenteditable="false">{{modalChckedBy}}</p>
+                    {% endverbatim %}
                     {% endif %}
                     {% verbatim %}
                 </div>
@@ -143,24 +145,13 @@
                 </div>
                 <div>
                     <b>Remarks</b>
-                    <!--{% endverbatim %}-->
-                    <!--{% if user.is_authenticated %}-->
                     <p id="submitRemarks" contenteditable="true">
-                        <!--{% else %}-->
-                        <!--<p id="submitRemarks" contenteditable="false">-->
-                        <!--{% endif %}-->
-                        <!--{% verbatim %}-->
                         {{modalRemarks}}</p>
                 </div>
                 <br/>
                 {% endverbatim %}
-                <!--{% if user.is_authenticated %}-->
                 <input type="submit" value="Save"/>
                 <input id="discard" type="button" value="Discard" class="hallow"/>
-                <!--{% csrf_token %}-->
-                <!--<button type="submit" class="button grey">Discard</button>-->
-                <!--<button type="submit" class="button">Save</button>-->
-                <!--{% endif %}-->
             </form>
         </div>
     </div>
@@ -295,9 +286,12 @@
             <td>{{ user_person.cb }}</td>
             <td>{{ user_person.d }}</td>
         </tr>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 0">No results found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length != 0 && filtered_data.length != 1">
+            {{filtered_data.length}} results found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 1">
+            {{filtered_data.length}} result found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 0">
+            No results found.</p>
         {% endverbatim %}
     </table>
 </section>

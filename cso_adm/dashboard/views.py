@@ -57,7 +57,7 @@ def save_post_acts(request):
     if id is not False:
         # Get the actual postactslog from the retrieved ID
         edited_post_acts_log = PostActsLog.objects.get(id=id)
-        row = str(edited_post_acts_log.row)
+        row = str(edited_post_acts_log.row_number)
         # Modify the necessary fields
         list=[]
         edited_post_acts_log.status = request.POST.get('status')
