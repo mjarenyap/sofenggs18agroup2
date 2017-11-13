@@ -60,7 +60,7 @@ def sync():
         print("ERROR: " + str(e))
         print(">> Sync failed.")
 
-def update_cell(row, col, val):
+def update_cells(list):
     try:
         print("Authorizing credentials...")
         scope = ['https://spreadsheets.google.com/feeds']
@@ -70,8 +70,11 @@ def update_cell(row, col, val):
         print("Accessing worksheet...")
         sheet = client.open_by_key(worksheet_key).worksheet(sheet_name)
         print("Updating cell...")
-        sheet.update_cell(row, col, val)
+        for cell in list:
+            sheet.update_cell(cell[0], cell[1], cell[2])
         print("Updating finish!")
+        return True
     except Exception as e:
         print("ERROR: " + str(e))
         print(">> Update failed.")
+        return False

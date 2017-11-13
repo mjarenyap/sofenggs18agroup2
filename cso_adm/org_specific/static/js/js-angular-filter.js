@@ -1,7 +1,10 @@
 var root = 'https://jsonplaceholder.typicode.com';
 
 console.log("NG-TABLE LOADED");
-var dashboardApp = angular.module('dashboardApp', []);
+var dashboardApp = angular.module('dashboardApp', [], function($httpProvider) {
+  $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+  $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
 
 dashboardApp.config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
@@ -19,7 +22,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     var regex = new RegExp('.*' + val + '.*', 'i');
 
 
-    return item.activityTitle.search(regex) == 0;
+    return item.n.search(regex) == 0;
   };
 
   var searchMonth = function(item, val) {
@@ -44,7 +47,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
       return true;
     var regex = new RegExp(val, 'i');
 
-    return item.submissionType.search(regex) == 0;
+    return item.st.search(regex) == 0;
   };
 
   var searchStatus = function(item, val) {
@@ -52,7 +55,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
       return true;
     var regex = new RegExp(val, 'i');
 
-    return item.status.search(regex) == 0;
+    return item.s.search(regex) == 0;
   };
 
   var searchChecker = function(item, val) {
@@ -60,14 +63,14 @@ dashboardApp.controller('mainController', function($scope, $http) {
       return true;
     var regex = new RegExp(val, 'i');
 
-    return item.checkedBy.search(regex) == 0;
+    return item.cb.search(regex) == 0;
   };
 
   $scope.getTrustedUploadSrc = function(id) {
     return "/upload/" + id;
   };
 
-  $scope.sortType = 'timestamp';  // set the default sort type
+  $scope.sortType = 't';  // set the default sort type
   $scope.sortReverse = true;    // set the default sort order
 
   // Checks all filters
@@ -102,29 +105,50 @@ dashboardApp.controller('mainController', function($scope, $http) {
   $scope.modalDateChcked = '';
   $scope.modalRemarks = '';
 
+  //
+  // $scope.orgLong = object_data.orgName;
+  // $scope.orgShort = object_data.abbreviation;
+  // $scope.orgEc = object_data.ec;
+  // $scope.orgLc = object_data.lc;
+  // $scope.orgEi = object_data.ei;
+  // $scope.orgLi = object_data.li;
+  // $scope.orgP = object_data.p;
+  // $scope.orgNc = object_data.nc;
+
+
 
   $scope.showModal = function(status) {
+    $http.get("/get_log/", {params: {"id": status.id}})
+          .success(function(response) {
+              console.log("success");
+              console.log(response.log);
+              var obj = JSON.parse(response.log);
+              console.log(obj);
+              $scope.modalId = obj.id;
+              $scope.modalActivity = obj.n;
+              $scope.modalOrg = obj.o;
+              $scope.modalTieUp = obj.tie;
+              $scope.modalEnp = obj.en;
+              $scope.modalEnmp = obj.enm;
+              $scope.modalAnp = obj.an;
+              $scope.modalAnmp = obj.anm;
+              $scope.modalTimeS = obj.t;
+              $scope.modalSubType = obj.st;
+              $scope.modalSubBy = obj.sb;
+              $scope.modalContact = obj.num;
+              $scope.modalEmail = obj.ml;
+              $scope.modalStatus = obj.s;
+              $scope.modalChckedBy = obj.cb;
+              $scope.modalDateChcked = obj.d;
+              $scope.modalRemarks = obj.mk;
+            })
+            .error(function(response){
+                console.log("failed");
+            })
 
     console.log("LOAD MODAL");
-    $scope.modalId = status.postActsLogID;
-    $scope.modalActivity = status.activityTitle;
-    $scope.modalOrg = status.orgName;
-    $scope.modalTieUp = status.tieUpOrg;
-    $scope.modalEnp = status.enp;
-    $scope.modalEnmp = status.enmp;
-    $scope.modalAnp = status.anp;
-    $scope.modalAnmp = status.anmp;
-    $scope.modalTimeS = status.timestamp;
-    $scope.modalSubType = status.submissionType;
-    $scope.modalSubBy = status.submittedBy;
-    $scope.modalContact = status.contactNo;
-    $scope.modalEmail = status.email;
-    $scope.modalStatus = status.status;
-    $scope.modalChckedBy = status.checkedBy;
-    $scope.modalDateChcked = status.dateChecked;
-    $scope.modalRemarks = status.remarks;
 
-  }
+  };
 
   // Filters
     $scope.monthList = [
@@ -221,121 +245,121 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
 
   // Dummy frontend data
-  $scope.postact_data =
-  [
-  {
-    'timestamp': '2017/09/09  16:43',
-    'activityTitle': 'Simple Sports for Cute Computer Nerds with Julianne Agatha Tan',
-    'orgName': 'LSCS',
-    'term': '1',
-    'submissionType': 'Initial Submission',
-    'status': 'P',
-    'checkedBy': 'Hordy Mojica',
-    'dateChecked': '09/10/17',
-    'tieUpOrg': 'N/A',
-    'enp': '80',
-    'enmp': '3',
-    'anp':'83',
-    'anmp': '80',
-    'submittedBy': 'Katherine Chucuco',
-    'contactNo': '09088963224',
-    'email': 'katherine_chuacuco@dlsu.edu.ph',
-    'remarks': 'N/A'
-  },
-  {
-    'timestamp': '2017/21/10  13:23',
-    'activityTitle': 'Django is Fun! - A Very Fun Django Workshop (Free iPhone Giveaway)',
-    'orgName': 'LSCS',
-    'term': '3',
-    'submissionType': 'Initial Submission',
-    'status': 'EC',
-    'checkedBy': 'Julianne Sy',
-    'dateChecked': '10/14/17',
-    'tieUpOrg': 'N/A',
-    'enp': '80',
-    'enmp': '3',
-    'anp':'83',
-    'anmp': '80',
-    'submittedBy': 'Katherine Chucuco',
-    'contactNo': '09088963224',
-    'email': 'katherine_chuacuco@dlsu.edu.ph',
-    'remarks': 'Cauliflower'
-  },
-  {
-    'timestamp': '2017/04/01  14:20',
-    'activityTitle': 'Frosh Speed Dating Night',
-    'orgName': 'LSCS',
-    'term': 'Yearlong',
-    'submissionType': 'Initial Submission',
-    'status': 'EC',
-    'checkedBy': 'Kristel Tan',
-    'dateChecked': '10/15/17',
-    'tieUpOrg': 'N/A',
-    'enp': '80',
-    'enmp': '3',
-    'anp':'83',
-    'anmp': '80',
-    'submittedBy': 'Katherine Chucuco',
-    'contactNo': '09088963224',
-    'email': 'katherine_chuacuco@dlsu.edu.ph',
-    'remarks': 'Bamboo'
-  },
-  {
-    'timestamp': '2017/21/08  13:23',
-    'activityTitle': 'Hawaii Five-Oh no She Betta Don\'t Film Viewing Eleganza',
-    'orgName': 'LSCS',
-    'term': '3',
-    'submissionType': 'Initial Submission',
-    'status': 'LC',
-    'checkedBy': 'Kristel Tan',
-    'dateChecked': '09/13/17',
-    'tieUpOrg': 'N/A',
-    'enp': '80',
-    'enmp': '3',
-    'anp':'83',
-    'anmp': '80',
-    'submittedBy': 'Katherine Chucuco',
-    'contactNo': '09088963224',
-    'email': 'katherine_chuacuco@dlsu.edu.ph',
-    'remarks': 'No kimonos here'
-  },
-  {
-    'timestamp': '2017/05/05  13:23',
-    'activityTitle': 'Junior Officer Friendship Program',
-    'orgName': 'LSCS',
-    'term': '2',
-    'submissionType': 'Pending',
-    'status': 'AC',
-    'checkedBy': 'Julianne Sy',
-    'dateChecked': '05/12/17',
-    'tieUpOrg': 'N/A',
-    'enp': '80',
-    'enmp': '3',
-    'anp':'83',
-    'anmp': '80',
-    'submittedBy': 'Katherine Chucuco',
-    'contactNo': '09088963224',
-    'email': 'katherine_chuacuco@dlsu.edu.ph',
-    'remarks': 'Boogie boogie'
-  },
-  {
-    'timestamp': '2017/05/05  13:23',
-    'activityTitle': '2nd Annual Jan Bertel Ngo Meet and Greet',
-    'orgName': 'LSCS',
-    'term': '2',
-    'submissionType': 'Pending',
-    'status': 'AC',
-    'checkedBy': 'Julianne Sy',
-    'dateChecked': '05/12/17',
-    'tieUpOrg': 'N/A',
-    'enp': '80',
-    'enmp': '3',
-    'anp':'83',
-    'anmp': '80',
-    'submittedBy': 'Katherine Chucuco',
-    'contactNo': '09088963224',
-    'email': 'katherine_chuacuco@dlsu.edu.ph',
-    'remarks': 'Boogie boogie'
-  }
-  ];
+  $scope.postact_data = object_log;
+  // [
+  // {
+  //   'timestamp': '2017/09/09  16:43',
+  //   'activityTitle': 'Simple Sports for Cute Computer Nerds with Julianne Agatha Tan',
+  //   'orgName': 'LSCS',
+  //   'term': '1',
+  //   'submissionType': 'Initial Submission',
+  //   'status': 'P',
+  //   'checkedBy': 'Hordy Mojica',
+  //   'dateChecked': '09/10/17',
+  //   'tieUpOrg': 'N/A',
+  //   'enp': '80',
+  //   'enmp': '3',
+  //   'anp':'83',
+  //   'anmp': '80',
+  //   'submittedBy': 'Katherine Chucuco',
+  //   'contactNo': '09088963224',
+  //   'email': 'katherine_chuacuco@dlsu.edu.ph',
+  //   'remarks': 'N/A'
+  // },
+  // {
+  //   'timestamp': '2017/21/10  13:23',
+  //   'activityTitle': 'Django is Fun! - A Very Fun Django Workshop (Free iPhone Giveaway)',
+  //   'orgName': 'LSCS',
+  //   'term': '3',
+  //   'submissionType': 'Initial Submission',
+  //   'status': 'EC',
+  //   'checkedBy': 'Julianne Sy',
+  //   'dateChecked': '10/14/17',
+  //   'tieUpOrg': 'N/A',
+  //   'enp': '80',
+  //   'enmp': '3',
+  //   'anp':'83',
+  //   'anmp': '80',
+  //   'submittedBy': 'Katherine Chucuco',
+  //   'contactNo': '09088963224',
+  //   'email': 'katherine_chuacuco@dlsu.edu.ph',
+  //   'remarks': 'Cauliflower'
+  // },
+  // {
+  //   'timestamp': '2017/04/01  14:20',
+  //   'activityTitle': 'Frosh Speed Dating Night',
+  //   'orgName': 'LSCS',
+  //   'term': 'Yearlong',
+  //   'submissionType': 'Initial Submission',
+  //   'status': 'EC',
+  //   'checkedBy': 'Kristel Tan',
+  //   'dateChecked': '10/15/17',
+  //   'tieUpOrg': 'N/A',
+  //   'enp': '80',
+  //   'enmp': '3',
+  //   'anp':'83',
+  //   'anmp': '80',
+  //   'submittedBy': 'Katherine Chucuco',
+  //   'contactNo': '09088963224',
+  //   'email': 'katherine_chuacuco@dlsu.edu.ph',
+  //   'remarks': 'Bamboo'
+  // },
+  // {
+  //   'timestamp': '2017/21/08  13:23',
+  //   'activityTitle': 'Hawaii Five-Oh no She Betta Don\'t Film Viewing Eleganza',
+  //   'orgName': 'LSCS',
+  //   'term': '3',
+  //   'submissionType': 'Initial Submission',
+  //   'status': 'LC',
+  //   'checkedBy': 'Kristel Tan',
+  //   'dateChecked': '09/13/17',
+  //   'tieUpOrg': 'N/A',
+  //   'enp': '80',
+  //   'enmp': '3',
+  //   'anp':'83',
+  //   'anmp': '80',
+  //   'submittedBy': 'Katherine Chucuco',
+  //   'contactNo': '09088963224',
+  //   'email': 'katherine_chuacuco@dlsu.edu.ph',
+  //   'remarks': 'No kimonos here'
+  // },
+  // {
+  //   'timestamp': '2017/05/05  13:23',
+  //   'activityTitle': 'Junior Officer Friendship Program',
+  //   'orgName': 'LSCS',
+  //   'term': '2',
+  //   'submissionType': 'Pending',
+  //   'status': 'AC',
+  //   'checkedBy': 'Julianne Sy',
+  //   'dateChecked': '05/12/17',
+  //   'tieUpOrg': 'N/A',
+  //   'enp': '80',
+  //   'enmp': '3',
+  //   'anp':'83',
+  //   'anmp': '80',
+  //   'submittedBy': 'Katherine Chucuco',
+  //   'contactNo': '09088963224',
+  //   'email': 'katherine_chuacuco@dlsu.edu.ph',
+  //   'remarks': 'Boogie boogie'
+  // },
+  // {
+  //   'timestamp': '2017/05/05  13:23',
+  //   'activityTitle': '2nd Annual Jan Bertel Ngo Meet and Greet',
+  //   'orgName': 'LSCS',
+  //   'term': '2',
+  //   'submissionType': 'Pending',
+  //   'status': 'AC',
+  //   'checkedBy': 'Julianne Sy',
+  //   'dateChecked': '05/12/17',
+  //   'tieUpOrg': 'N/A',
+  //   'enp': '80',
+  //   'enmp': '3',
+  //   'anp':'83',
+  //   'anmp': '80',
+  //   'submittedBy': 'Katherine Chucuco',
+  //   'contactNo': '09088963224',
+  //   'email': 'katherine_chuacuco@dlsu.edu.ph',
+  //   'remarks': 'Boogie boogie'
+  // }
+  // ];
 });

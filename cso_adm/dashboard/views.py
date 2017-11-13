@@ -9,10 +9,45 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views import View
+from datetime import datetime
 
-from dashboard.models import PostActsLog, Organization
+from dashboard.models import PostActsLog, Organization, Map
 from dashboard import utility
 
+def getContext():
+    logs_set = "["
+    for log in PostActsLog.objects.all():
+        logs_set = logs_set + str(log.getJSON())
+    if len(logs_set) > 1:
+        logs_set = logs_set[:-1]
+    logs_set = logs_set + "]"
+
+    organization_set = "["
+    for org in Organization.objects.all():
+        organization_set = organization_set + str(org.getJSON())
+    if len(organization_set) > 1:
+        organization_set = organization_set[:-1]
+    organization_set = organization_set + "]"
+    print("JSON for Organizations: " + organization_set)
+
+    context = {
+        "logs": logs_set,
+        "organizations": organization_set,
+    }
+
+    return context
+
+def get_log(request):
+    print (request)
+    id = request.GET.get("id", False)
+    if id is not False:
+        log_json = PostActsLog.objects.get(id=int(id)).getFullJSON()
+        print("JSON for id=" + str(id) + ": " + log_json)
+        response = {'status': 1, 'message': "Ok", "log": log_json, 'url': reverse('dashboard:index')}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        return redirect(reverse('dashboard:index'))
 def save_post_acts(request):
     # Get the ID edited from the POST request
     id = request.POST.get('id', False)
@@ -22,17 +57,29 @@ def save_post_acts(request):
     if id is not False:
         # Get the actual postactslog from the retrieved ID
         edited_post_acts_log = PostActsLog.objects.get(id=id)
-
+        row = str(edited_post_acts_log.row)
         # Modify the necessary fields
+        list=[]
         edited_post_acts_log.status = request.POST.get('status')
+        log = [row, Map.objects.get(key="status").value, edited_post_acts_log.status]
+        list.append(log)
         edited_post_acts_log.checked_by = request.POST.get('cb')
-        edited_post_acts_log.date_checked = timezone.now()
-        edited_post_acts_log.comments = request.POST.get('remarks')
-
-        print(edited_post_acts_log.dateChecked)
+        log = [row, Map.objects.get(key="checked_by").value, edited_post_acts_log.checked_by]
+        list.append(log)
+        edited_post_acts_log.date_checked = datetime.now().strftime('%m/%d/%Y %H:%M:%S')
+        log = [row, Map.objects.get(key="date_checked").value, edited_post_acts_log.date_checked]
+        list.append(log)
+        edited_post_acts_log.remarks = request.POST.get('remarks')
+        log = [row, Map.objects.get(key="remarks").value, edited_post_acts_log.remarks]
+        list.append(log)
 
         # Commit edits into the database
-        edited_post_acts_log.save()
+        if utility.update_cells(list):
+            edited_post_acts_log.save()
+        else:
+            print ("Update failed. Changes not saved.")
+
+        # TODO send message update not done
 
         # Then go back to the index URL with the updated values
         response = {'status': 1, 'message': "Ok", 'url': reverse('dashboard:index')}
@@ -47,31 +94,14 @@ class UserFormView(View):
 
     def get(self, request):
         utility.sync()
-        logs_set = "["
-        for log in PostActsLog.objects.all():
-            logs_set = logs_set + str(log.getJSON())
-        if len(logs_set) > 1:
-            logs_set = logs_set[:-1]
-        logs_set = logs_set + "]"
-        print("JSON for Logs: " + logs_set)
 
-        organization_set = "["
-        for org in Organization.objects.all():
-            organization_set = organization_set + str(org.getJSON())
-        if len(organization_set) > 1:
-            organization_set = organization_set[:-1]
-        organization_set = organization_set + "]"
-        print("JSON for Organizations: " + organization_set)
-
-        context = {
-            "logs": logs_set,
-            "organizations": organization_set,
-        }
+        context = getContext()
 
         return render(request, self.template_name, context)
 
     # process form data
     def post(self, request):
+        utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)
@@ -86,25 +116,7 @@ class UserFormView(View):
                 return redirect('dashboard:index')
             else:
                 # Retrieve logs
-                logs_set = "["
-                for log in PostActsLog.objects.all():
-                    logs_set = logs_set + str(log.getJSON())
-                if len(logs_set) > 1:
-                    logs_set = logs_set[:-1]
-                logs_set = logs_set + "]"
-
-                organization_set = "["
-                for org in Organization.objects.all():
-                    organization_set = organization_set + str(org.getJSON())
-                if len(organization_set) > 1:
-                    organization_set = organization_set[:-1]
-                organization_set = organization_set + "]"
-                print("JSON for Organizations: " + organization_set)
-
-                context = {
-                    "logs": logs_set,
-                    "organizations": organization_set,
-                }
+                context = getContext()
 
                 messages.error(request, 'Sign in failed. Your username or password is incorrect.')
 
@@ -114,25 +126,7 @@ class UserFormView(View):
             logout(request)
 
             # Retrieve logs
-            logs_set = "["
-            for log in PostActsLog.objects.all():
-                logs_set = logs_set + str(log.getJSON())
-            if len(logs_set) > 1:
-                logs_set = logs_set[:-1]
-            logs_set = logs_set + "]"
-
-            organization_set = "["
-            for org in Organization.objects.all():
-                organization_set = organization_set + str(org.getJSON())
-            if len(organization_set) > 1:
-                organization_set = organization_set[:-1]
-            organization_set = organization_set + "]"
-            print("JSON for Organizations: " + organization_set)
-
-            context = {
-                "logs": logs_set,
-                "organizations": organization_set,
-            }
+            context = getContext()
 
             return render(request, self.template_name, context)
         else:
