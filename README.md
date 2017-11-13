@@ -37,4 +37,4 @@ CSO ADM Dashboard
     - Edit settings tab
 8. Revised URL patterns
     - /organization
-    - /organization/<org abbreviation>
+    - /organization/org-abbreviation
