@@ -289,3 +289,25 @@ form#sign-in p{
     font-size: 0.83em;
     text-transform: uppercase;
 }
+
+div.error{
+    background-color: #ecc8c5;
+    padding: 5px 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: thin solid #b32f2d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.error p{
+    cursor: pointer;
+    font-size: 1.3em;
+    color: #b32f2d;
+}
+
+div.error p.messages{
+    font-weight: bold;
+    font-size: 0.6em !important;
+}
