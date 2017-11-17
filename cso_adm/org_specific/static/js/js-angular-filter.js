@@ -174,9 +174,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   ];
 
   $scope.typeList = [
-      {'short' : 'I', 'long' : 'Pending'},
-      {'short' : 'IP', 'long' : 'Initial Pending'},
-      {'short' : 'S', 'long' : 'Submission'},
+      {'short' : 'I', 'long' : 'Pended'},
       {'short' : 'IS', 'long' : 'Initial Submission'}
   ];
 
