@@ -43,6 +43,16 @@
             <li class="active">Organization List</li>
         </a>
     </ul>
+    {% if messages %}
+    <!--TODO [Frontend]: Change this <form> to a sign-in failed modal.-->
+    <form>
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </form>
+    {% endif %}
     {% if user.is_authenticated %}
     <form id="sign-out" action="" method="POST">
         {% csrf_token %}
@@ -52,12 +62,6 @@
     {% else %}
     <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
     <form id="sign-in" action="" method="POST">
-        {% if messages %}
-            <div class="error">
-                <p class="messages">Invalid username or password.</p>
-                <p id="form-close"><i class="fa fa-times-circle"></i></p>
-            </div>
-        {% endif %}
         {% csrf_token %}
         <p>Username</p>
         <input type="text" placeholder="username" name="username" id="username"/>
