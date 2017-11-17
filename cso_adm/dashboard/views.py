@@ -1,18 +1,18 @@
 import json
+from datetime import datetime
 
-import pytz
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-# Create your views here.
 from django.urls import reverse
-from django.utils import timezone
 from django.views import View
-from datetime import datetime
 
-from dashboard.models import PostActsLog, Organization, Map
 from dashboard import utility
+from dashboard.models import PostActsLog, Organization, Map
+
+
+# Create your views here.
 
 def getContext():
     logs_set = "["
@@ -37,8 +37,9 @@ def getContext():
 
     return context
 
+
 def get_log(request):
-    print (request)
+    print(request)
     id = request.GET.get("id", False)
     if id is not False:
         log_json = PostActsLog.objects.get(id=int(id)).getFullJSON()
@@ -48,6 +49,8 @@ def get_log(request):
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
         return redirect(reverse('dashboard:index'))
+
+
 def save_post_acts(request):
     # Get the ID edited from the POST request
     id = request.POST.get('id', False)
@@ -57,9 +60,9 @@ def save_post_acts(request):
     if id is not False:
         # Get the actual postactslog from the retrieved ID
         edited_post_acts_log = PostActsLog.objects.get(id=id)
-        row = str(edited_post_acts_log.row)
+        row = str(edited_post_acts_log.row_number)
         # Modify the necessary fields
-        list=[]
+        list = []
         edited_post_acts_log.status = request.POST.get('status')
         log = [row, Map.objects.get(key="status").value, edited_post_acts_log.status]
         list.append(log)
@@ -77,7 +80,7 @@ def save_post_acts(request):
         if utility.update_cells(list):
             edited_post_acts_log.save()
         else:
-            print ("Update failed. Changes not saved.")
+            print("Update failed. Changes not saved.")
 
         # TODO send message update not done
 
@@ -130,4 +133,4 @@ class UserFormView(View):
 
             return render(request, self.template_name, context)
         else:
-            return redirect('page_404:test_url')
+            return redirect('page_404:page_404')
