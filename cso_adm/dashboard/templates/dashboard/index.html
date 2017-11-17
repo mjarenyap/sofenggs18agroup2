@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load dashboard_extras %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,10 +104,9 @@
             </div>
         </div>
         <div class="content-wrapper" id="csoDetails">
+            <!--{% endverbatim %}-->
             <form id="modalForm" method="post">
-                {% endverbatim %}
-                {% csrf_token %}
-                {% verbatim %}
+                <!--{% verbatim %}-->
                 <input type="hidden" name="id" value="{{modalId}}"/>
                 <div>
                     <b>Activity Title</b>
@@ -117,26 +115,25 @@
                 <div>
                     <b>Status</b>
                     {% endverbatim %}
-                    {% if request.user|has_group:"moderator" %}
-                    <p id="submitStatus" contenteditable="true">
-                        {% else %}
-                    <p id="submitStatus" contenteditable="false">
-                        {% endif %}
-                        {% verbatim %}
+                    {% if user.is_superuser %}
+                        <p id="submitStatus" contenteditable="true">
+                    {% else %}
+                        <p id="submitStatus" contenteditable="false">
+                    {% endif %}
+                    {% verbatim %}
                         {{modalStatus}}
                     </p>
                 </div>
                 <div>
                     <b>Checked by</b>
                     {% endverbatim %}
-                    {% if request.user|has_group:"moderator" %}
-                    <select id="submitCB" ng-model="modalChckedBy"
-                            ng-options="checker as checker for checker in checkerList">
-                    </select>
+                    {% if user.is_superuser %}
+                        <select ng-model="modalChckedBy" ng-options="checker as checker for checker in checkerList">
+                        </select>
                     {% else %}
-                    {% verbatim %}
-                    <p id="submitCB" contenteditable="false">{{modalChckedBy}}</p>
-                    {% endverbatim %}
+                        {% verbatim %}
+                        <p id="submitCB" contenteditable="false">{{modalChckedBy}}</p>
+                        {% endverbatim %}
                     {% endif %}
                     {% verbatim %}
                 </div>
@@ -146,24 +143,24 @@
                 </div>
                 <div>
                     <b>Remarks</b>
-                    {% endverbatim %}
-                    {% if request.user|has_group:"moderator" %}
+                    <!--{% endverbatim %}-->
+                    <!--{% if user.is_authenticated %}-->
                     <p id="submitRemarks" contenteditable="true">
+                        <!--{% else %}-->
+                        <!--<p id="submitRemarks" contenteditable="false">-->
+                        <!--{% endif %}-->
+                        <!--{% verbatim %}-->
                         {{modalRemarks}}</p>
-                    {% else %}
-                    {% verbatim %}
-                    <p id="submitRemarks" contenteditable="false">
-                        {{modalRemarks}}</p>
-                    {% endverbatim %}
-                    {% endif %}
-                    {% verbatim %}
                 </div>
                 <br/>
                 {% endverbatim %}
-                {% if request.user|has_group:"moderator" %}
+                <!--{% if user.is_authenticated %}-->
                 <input type="submit" value="Save"/>
                 <input id="discard" type="button" value="Discard" class="hallow"/>
-                {% endif %}
+                <!--{% csrf_token %}-->
+                <!--<button type="submit" class="button grey">Discard</button>-->
+                <!--<button type="submit" class="button">Save</button>-->
+                <!--{% endif %}-->
             </form>
         </div>
     </div>
@@ -179,16 +176,7 @@
             <li>Organization List</li>
         </a>
     </ul>
-    {% if messages %}
-    <!--TODO [Frontend]: Change this <form> to a sign-in failed modal.-->
-    <form>
-        <ul class="messages">
-            {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </form>
-    {% endif %}
+    
     {% if user.is_authenticated %}
     <form id="sign-out" action="" method="POST">
         {% csrf_token %}
@@ -197,7 +185,13 @@
     </form>
     {% else %}
     <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
-    <form id="sign-in" action="" method="POST">
+    <form id="sign-in" action="" method="POST" {% if messages %} style="display:block;" {% endif %}>
+        {% if messages %}
+            <div class="error">
+                <p class="messages">Invalid username or password.</p>
+                <p id="form-close"><i class="fa fa-times-circle"></i></p>
+            </div>
+        {% endif %}
         {% csrf_token %}
         <p>Username</p>
         <input type="text" placeholder="username" name="username" id="username"/>
@@ -298,12 +292,9 @@
             <td>{{ user_person.cb }}</td>
             <td>{{ user_person.d }}</td>
         </tr>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length != 0 && filtered_data.length != 1">
-            {{filtered_data.length}} results found.</p>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 1">
-            {{filtered_data.length}} result found.</p>
-        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 0">
-            No results found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
+        <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 0">No results found.</p>
         {% endverbatim %}
     </table>
 </section>
