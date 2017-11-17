@@ -1,202 +1,169 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>CSO Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link href="{% static 'dashboard/css/theme.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
+    <head>
+        <title>CSO Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link href="{% static 'dashboard/css/theme.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css" />
 
-    <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
-    <!--<script src="js/angular.js" type="text/javascript"></script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
+        <!--<script src="js/angular.js" type="text/javascript"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-    <script src="{% static 'dashboard/js/settings-normalize.js' %}" type="text/javascript"></script>
-    <script src="{% static 'dashboard/js/settings.js' %}" type="text/javascript"></script>
-
-    <script src="{% static 'dashboard/js/sign-in.js' %}" type="text/javascript"></script>
-</head>
-<body>
-<nav>
-    <p><b>CSO</b>Dashboard</p>
-    <input type="text" id="search" placeholder="Search Post-acts..."/>
-    <ul>
-        <a href="{% url 'dashboard:index' %}">
-            <li>Home</li>
-        </a>
-        <a href="{% url 'org_list:general_orgs' %}">
-            <li>Organization List</li>
-        </a>
-    </ul>
-    {% if messages %}
-    <!--TODO [Frontend]: Change this <form> to a sign-in failed modal.-->
-    <form>
-        <ul class="messages">
-            {% for message in messages %}
-            <li {% if message.tags %} class="{{ notmessage.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </form>
-    {% endif %}
-    {% if user.is_authenticated %}
-    <form id="sign-out" action="" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="logout"/>
-        <button type="submit">Sign out</button>
-    </form>
-    {% else %}
-    <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
-    <form id="sign-in" action="" method="POST">
-        {% csrf_token %}
-        <p>Username</p>
-        <input type="text" placeholder="username" name="username" id="username"/>
-        <p>Password</p>
-        <input type="password" placeholder="password" name="password" id="password"/>
-        <br/><br/>
-        <button type="submit">Sign in</button>
-    </form>
-    {% endif %}
-</nav>
-<header>
-    <h1>SETTINGS</h1>
-</header>
-<section class="settings-tab-wrapper">
-    <nav>
-        <ul>
-            <li class="active" id="manage">Manage Users</li>
-            <li id="edit">Edit Settings</li>
-        </ul>
-    </nav>
-</section>
-<section class="fill" id="manage-users">
-    <div class="user-tray">
-        <h3>All Users: No users selected</h3>
-        <div>
-            <button class="grey">- Delete Users</button>
-            <button>+ Add Users</button>
-        </div>
-    </div>
-    <table cellspacing="0" cellpadding="0" border="0" class="users-table">
-        <tr class="headers">
-            <th></th>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Post-acts Checked</th>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>hordymojica</td>
-            <td>Hordy</td>
-            <td>Mojica</td>
-            <td>hordymojica@gmail.com</td>
-            <td>34</td>
-        </tr>
-    </table>
-</section>
-<section id="edit-settings" class="fill">
-    <h3>Archive Post-acts</h3>
-    <div class="settings-content-wrapper">
-        <h4 class="neutral">Google Sheets Link:</h4>
-        <input type="text" placeholder="https://github.com/sofenggs18agroup2"/>
-    </div>
-    <h3>Set default term</h3>
-    <div class="settings-content-wrapper">
-        <h4 class="neutral">Set Default Term:</h4>
-        <select>
-            <option>Term 1</option>
-            <option>Term 2</option>
-            <option>Term 3</option>
-        </select>
-    </div>
-    <div class="flex-end">
-        <button class="hallow">Discard</button>
-        <button>Save</button>
-    </div>
-</section>
-</body>
+        <script src="{% static 'dashboard/js/settings-normalize.js' %}" type="text/javascript"></script>
+        <script src="{% static 'dashboard/js/settings.js' %}" type="text/javascript"></script>
+    </head>
+    <body>
+        <nav>
+            <p><b>CSO</b>Dashboard</p>
+            <input type="text" id="search" placeholder="Search Post-acts..." />
+            <ul>
+                <a href="{% url 'dashboard:index' %}"><li>Home</li></a>
+                <a href="{% url 'org_list:general_orgs' %}"><li>Organization List</li></a>
+            </ul>
+            <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+        </nav>
+        <header>
+            <h1>SETTINGS</h1>
+        </header>
+        <section class="settings-tab-wrapper">
+            <nav>
+                <ul>
+                    <li class="active" id="manage">Manage Users</li>
+                    <li id="edit">Edit Settings</li>
+                </ul>
+            </nav>
+        </section>
+        <section class="fill" id="manage-users">
+            <div class="user-tray">
+                <h3>All Users: No users selected</h3>
+                <div>
+                    <button class="grey">- Delete Users</button>
+                    <button>+ Add Users</button>
+                </div>
+            </div>
+            <table cellspacing="0" cellpadding="0" border="0" class="users-table">
+                <tr class="headers">
+                    <th></th>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Post-acts Checked</th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>hordymojica</td>
+                    <td>Hordy</td>
+                    <td>Mojica</td>
+                    <td>hordymojica@gmail.com</td>
+                    <td>34</td>
+                </tr>
+            </table>
+        </section>
+        <section id="edit-settings" class="fill">
+            <h3>Archive Post-acts</h3>
+            <div class="settings-content-wrapper">
+                <h4 class="neutral">Google Sheets Link:</h4>
+                <input type="text" placeholder="https://github.com/sofenggs18agroup2" />
+            </div>
+            <h3>Set default term</h3>
+            <div class="settings-content-wrapper">
+                <h4 class="neutral">Set Default Term:</h4>
+                <select>
+                    <option>Term 1</option>
+                    <option>Term 2</option>
+                    <option>Term 3</option>
+                </select>
+            </div>
+            <div class="flex-end">
+                <button class="hallow">Discard</button>
+                <button>Save</button>
+            </div>
+        </section>
+    </body>
 </html>

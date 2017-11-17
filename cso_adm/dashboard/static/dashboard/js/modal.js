@@ -61,8 +61,7 @@ $(document).ready(function(){
 */
     $("#modalForm").submit(function(){
         var status = $("#submitStatus").html();
-        //var cb = $("#submitCB").html();
-        var cb = $("#submitCB").find(":selected").text();
+        var cb = $("#submitCB").html();
         var dc = $("#submitDC").html();
         var remarks = $("#submitRemarks").html();
 
