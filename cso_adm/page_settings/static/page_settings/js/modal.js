@@ -34,24 +34,9 @@ $(document).ready(function(){
 
     });
     
-    $('#modal-wrapper, .closeModal, .closeModal i').click(function(){
-        $('#modal-wrapper, #modal-details-wrapper').hide();
-    });
-
-    $('#modal-details-wrapper').click(function(e){
-        e.stopPropagation();
-    });
-
-    $('#modal-details-wrapper-settings').click(function(e){
-        console.log("wrapper s");
-        e.stopPropagation();
-    });
-
-    $(document).on("click", "table.post-acts-table tr td, table.users-table tr td", function(e){
-        if(event.target.type != "checkbox") {
-            $("div#modal-wrapper").css("display", "flex");
-            $("div#modal-details-wrapper").css("display", "block");
-        }
+    $("table.post-acts-table tr td").click(function(){
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
     });
     
     $("div#modal-wrapper i.close").click(function(){
@@ -65,11 +50,10 @@ $(document).ready(function(){
     $("div#modal-details-wrapper div.content-wrapper p").click(function(){
         $(this).select();
     });
-*/
+
     $("#modalForm").submit(function(){
         var status = $("#submitStatus").html();
-        //var cb = $("#submitCB").html();
-        var cb = $("#submitCB").find(":selected").text();
+        var cb = $("#submitCB").html();
         var dc = $("#submitDC").html();
         var remarks = $("#submitRemarks").html();
 
@@ -94,4 +78,5 @@ $(document).ready(function(){
             }
         });
     });
+    */
 });

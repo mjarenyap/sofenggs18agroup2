@@ -10,7 +10,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/cso_adm$Start_Django_Server.coverage" NAME="Start Django Server Coverage Results" MODIFIED="1508426462514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cso_adm$Start_Django_Server.coverage" NAME="Start Django Server Coverage Results" MODIFIED="1511187001317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -24,11 +24,61 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="org-specific.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/org_list/templates/org_list/org-specific.html">
+      <file leaf-file-name="settings.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/page_settings/templates/page_settings/settings.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1953">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="420">
+              <caret line="38" column="67" lean-forward="false" selection-start-line="38" selection-start-column="67" selection-end-line="38" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/js/modal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="53" column="9" lean-forward="false" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal-style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/css/modal-style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1009">
+              <caret line="50" column="15" lean-forward="false" selection-start-line="50" selection-start-column="15" selection-end-line="50" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="js-angular-filter.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/js/js-angular-filter.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="120" column="66" lean-forward="true" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="org-specific.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/org_specific/templates/org_specific/org-specific.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2394">
+              <caret line="114" column="16" lean-forward="false" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="js-angular-filter.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/org_specific/static/js/js-angular-filter.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="106" column="66" lean-forward="false" selection-start-line="106" selection-start-column="66" selection-end-line="106" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -47,8 +97,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ENGINEo</find>
-      <find>ENGINEor</find>
       <find>o</find>
       <find>organization_</find>
       <find>organization_id</find>
@@ -77,6 +125,8 @@
       <find>sortReverse</find>
       <find>user_person</find>
       <find>postact_data</find>
+      <find>b,</find>
+      <find>filter</find>
     </findStrings>
     <replaceStrings>
       <replace>CharField(max_length=255)</replace>
@@ -95,9 +145,7 @@
         <option value="$PROJECT_DIR$/dashboard/admin.py" />
         <option value="$PROJECT_DIR$/dashboard/migrations/0001_initial.py" />
         <option value="$PROJECT_DIR$/dashboard/static/dashboard/js/angular.min.js" />
-        <option value="$PROJECT_DIR$/dashboard/static/dashboard/css/modal-style.css" />
         <option value="$PROJECT_DIR$/dashboard/static/dashboard/css/style-tables.css" />
-        <option value="$PROJECT_DIR$/dashboard/static/dashboard/js/modal.js" />
         <option value="$PROJECT_DIR$/dashboard/urls.py" />
         <option value="$PROJECT_DIR$/login/views.py" />
         <option value="$PROJECT_DIR$/login/forms.py" />
@@ -110,7 +158,6 @@
         <option value="$PROJECT_DIR$/dashboard/static/dashboard/js/js-ng-table.js" />
         <option value="$PROJECT_DIR$/dashboard/views.py" />
         <option value="$PROJECT_DIR$/dashboard/templates/dashboard/index2.html" />
-        <option value="$PROJECT_DIR$/dashboard/templates/dashboard/index.html" />
         <option value="$PROJECT_DIR$/page_404/templates/page-404.html" />
         <option value="$PROJECT_DIR$/org_specific/templates/org-speific.html" />
         <option value="$PROJECT_DIR$/org_list/templates/org-list.html" />
@@ -124,10 +171,17 @@
         <option value="$PROJECT_DIR$/cso_adm/urls.py" />
         <option value="$PROJECT_DIR$/page_settings/urls.py" />
         <option value="$PROJECT_DIR$/page_404/templates/page_404/page-404.html" />
-        <option value="$PROJECT_DIR$/org_specific/templates/org_specific/org-specific.html" />
         <option value="$PROJECT_DIR$/org_specific/views.py" />
         <option value="$PROJECT_DIR$/page_404/views.py" />
         <option value="$PROJECT_DIR$/page_settings/views.py" />
+        <option value="$PROJECT_DIR$/dashboard/static/dashboard/js/modal.js" />
+        <option value="$PROJECT_DIR$/page_settings/static/page_settings/js/js-angular-filter.js" />
+        <option value="$PROJECT_DIR$/page_settings/templates/page_settings/settings.html" />
+        <option value="$PROJECT_DIR$/dashboard/static/dashboard/css/modal-style.css" />
+        <option value="$PROJECT_DIR$/dashboard/templates/dashboard/index.html" />
+        <option value="$PROJECT_DIR$/dashboard/static/dashboard/js/js-angular-filter.js" />
+        <option value="$PROJECT_DIR$/org_specific/templates/org_specific/org-specific.html" />
+        <option value="$PROJECT_DIR$/org_specific/static/js/js-angular-filter.js" />
       </list>
     </option>
   </component>
@@ -137,9 +191,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="width" value="937" />
+    <option name="height" value="1088" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -156,6 +211,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -171,6 +227,53 @@
             <path>
               <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
               <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
               <item name="org_list" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -195,7 +298,27 @@
               <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
               <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
               <item name="org_specific" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="org_specific" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="org_specific" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="org_specific" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="org_specific" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
@@ -207,11 +330,44 @@
               <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
               <item name="page_settings" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="page_settings" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="page_settings" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="page_settings" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="page_settings" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="page_settings" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="page_settings" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cso_adm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cso_adm" type="462c0819:PsiDirectoryNode" />
+              <item name="page_settings" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="page_settings" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -222,19 +378,19 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/page_settings/static" />
-      <recent name="$PROJECT_DIR$/page_404/static" />
-      <recent name="$PROJECT_DIR$/org_specific/static" />
-      <recent name="$PROJECT_DIR$/page_settings/templates" />
-      <recent name="$PROJECT_DIR$/page_404/templates" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/page_404/templates/page_404" />
       <recent name="$PROJECT_DIR$/org_specific/templates/org_specific" />
       <recent name="$PROJECT_DIR$/page_settings/templates/page_settings" />
       <recent name="$PROJECT_DIR$/org_list/templates/org_list" />
       <recent name="C:\Users\krizi\OneDrive - De La Salle University - Manila\DLSU\T7\SOFENGG\New folder\New folder\sofenggs18agroup2\cso_adm\login\static\login" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Allyza\Dropbox\School Stuff\THIRD YEAR\Term 1\SOFENGG\PS2-4\sofenggs18agroup2\cso_adm\page_settings\static\page_settings\js" />
+      <recent name="$PROJECT_DIR$/page_settings/static" />
+      <recent name="$PROJECT_DIR$/page_404/static" />
+      <recent name="$PROJECT_DIR$/org_specific/static" />
+      <recent name="$PROJECT_DIR$/page_settings/templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -256,7 +412,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\krizi\AppData\Local\Programs\Python\Python36\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\Allyza\AppData\Local\Programs\Python\Python35\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -350,14 +506,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="-9" y="-9" width="1860" height="1098" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23752712" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21188341" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28968903" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28586724" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -396,17 +552,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cso_adm/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/js/angular.min.js" />
-    <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/css/modal-style.css" />
-    <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/css/style-tables.css" />
-    <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/js/modal.js" />
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/pycharm.jar!/resources/html5-schema/html5/common.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
@@ -536,24 +681,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dashboard/templates/dashboard/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="95" lean-forward="true" selection-start-line="18" selection-start-column="95" selection-end-line="18" selection-end-column="95" />
-          <folding>
-            <element signature="e#7463#7469#0" expanded="false" />
-            <element signature="e#7469#7475#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/page_settings/templates/page_settings/settings.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="89" lean-forward="false" selection-start-line="17" selection-start-column="89" selection-end-line="17" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cso_adm/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
@@ -580,7 +707,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="43" lean-forward="true" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -592,23 +718,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/page_settings/static/assets/icons/search.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/page_settings/static/assets/icons/search.svg" />
     <entry file="file://$PROJECT_DIR$/org_specific/static/assets/icons/search.svg" />
     <entry file="file://$PROJECT_DIR$/page_404/templates/page_404/page-404.html" />
-    <entry file="file://$PROJECT_DIR$/org_specific/templates/org_specific/org-specific.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="156" column="43" lean-forward="false" selection-start-line="156" selection-start-column="34" selection-end-line="156" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/org_specific/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -620,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="41" lean-forward="true" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -628,9 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="47" lean-forward="true" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -662,6 +770,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/org_list/templates/org_list/org-specific.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cso_adm/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -670,10 +786,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/org_list/templates/org_list/org-specific.html">
+    <entry file="file://$PROJECT_DIR$/page_settings/templates/page_settings/settings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1953">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="38" column="67" lean-forward="false" selection-start-line="38" selection-start-column="67" selection-end-line="38" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/css/modal-style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1009">
+          <caret line="50" column="15" lean-forward="false" selection-start-line="50" selection-start-column="15" selection-end-line="50" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/js/modal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="53" column="9" lean-forward="false" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page_settings/static/page_settings/js/js-angular-filter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="28" column="43" lean-forward="false" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/templates/dashboard/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="130" column="30" lean-forward="true" selection-start-line="117" selection-start-column="24" selection-end-line="130" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/org_specific/templates/org_specific/org-specific.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2394">
+          <caret line="114" column="16" lean-forward="false" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/js/js-angular-filter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="120" column="66" lean-forward="true" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/org_specific/static/js/js-angular-filter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="106" column="66" lean-forward="false" selection-start-line="106" selection-start-column="66" selection-end-line="106" selection-end-column="66" />
           <folding />
         </state>
       </provider>

@@ -35,8 +35,7 @@ div#modal-wrapper i.close{
     cursor: pointer;
 }
 
-div#modal-wrapper div#modal-details-wrapper,
-#modal-details-wrapper-settings{
+div#modal-wrapper div#modal-details-wrapper{
     margin: auto auto;
     width: 750px;
     height: 500px;
@@ -47,20 +46,12 @@ div#modal-wrapper div#modal-details-wrapper,
     display: block;
 }
 
-#modal-details-wrapper-settings{
-    height: 330px;
-    width: 570px;
-}
-
 div#modal-details-wrapper input[type="button"],
-div#modal-details-wrapper input[type="submit"],
-div#modal-details-wrapper-settings input[type="button"],
-div#modal-details-wrapper-settings input[type="submit"]{
+div#modal-details-wrapper input[type="submit"]{
     float: right;
 }
 
-div#modal-details-wrapper ul.tab-wrapper,
-#modal-details-wrapper-settings ul.tab-wrapper{
+div#modal-details-wrapper ul.tab-wrapper{
     padding: 15px;
     margin: 0;
     border-bottom: thin solid lightgrey;
@@ -71,9 +62,6 @@ div#modal-details-wrapper ul.tab-wrapper,
     background-color: white;
 }
 
-div#modal-details-wrapper-settings ul.tab-wrapper{
-    width: 540px;
-}
 ul.tab-wrapper li{
     color: #555;
     font-weight: bold;
@@ -85,14 +73,12 @@ ul.tab-wrapper li{
     border-bottom: 2px solid transparent;
 }
 
-div#modal-details-wrapper ul.tab-wrapper li.active,
-div#modal-details-wrapper-settings ul.tab-wrapper li.active{
+div#modal-details-wrapper ul.tab-wrapper li.active{
     border-bottom: 2px solid var(--theme-color);
     color: var(--theme-color);
 }
 
-div#modal-details-wrapper div.content-wrapper,
-div#modal-details-wrapper-settings div.content-wrapper{
+div#modal-details-wrapper div.content-wrapper{
     padding: 90px 60px;
     padding-bottom: 30px;
     flex-direction: column;
@@ -100,19 +86,16 @@ div#modal-details-wrapper-settings div.content-wrapper{
     display: none;
 }
 
-div#modal-details-wrapper div.visible,
-div#modal-details-wrapper-settings div.visible{
+div#modal-details-wrapper div.visible{
     display: flex;
 }
 
-div#modal-details-wrapper div.content-wrapper div,
-div#modal-details-wrapper-settings div.content-wrapper div{
+div#modal-details-wrapper div.content-wrapper div{
     display: flex;
     padding: 15px 0;
 }
 
-div#modal-details-wrapper div.content-wrapper div b,
-#modal-details-wrapper-settings b{
+div#modal-details-wrapper div.content-wrapper div b{
     display: inline-block;
     width: 200px;
     text-align: right;
@@ -120,21 +103,14 @@ div#modal-details-wrapper div.content-wrapper div b,
     color: #555;
 }
 
-div#modal-details-wrapper-settings div.content-wrapper div b{
-    width: 120px;
-}
-
-
-div#modal-details-wrapper div.content-wrapper div p,
-div#modal-details-wrapper-settings div.content-wrapper div p{
+div#modal-details-wrapper div.content-wrapper div p{
     display: inline-block;
     color: #999;
     padding: 0;
     margin: 0;
 }
 
-div#modal-details-wrapper div.content-wrapper div p[contenteditable="true"],
-div#modal-details-wrapper-settings div.content-wrapper div p[contenteditable="true"]{
+div#modal-details-wrapper div.content-wrapper div p[contenteditable="true"]{
     border-bottom: thin solid #ccc;
     border-top: thin solid transparent;
     outline: none;
@@ -142,13 +118,11 @@ div#modal-details-wrapper-settings div.content-wrapper div p[contenteditable="tr
     min-width: 300px;
 }
 
-div#modal-details-wrapper ul.tab-wrapper li:hover,
-div#modal-details-wrapper-settings ul.tab-wrapper li:hover{
+div#modal-details-wrapper ul.tab-wrapper li:hover{
     color: var(--theme-color);
 }
 
-div#modal-details-wrapper div.content-wrapper form input,
-div#modal-details-wrapper-settings div.content-wrapper form input{
+div#modal-details-wrapper div.content-wrapper form input{
     margin: 5px;
 }
 
@@ -165,35 +139,28 @@ input.grey:hover{
 }
 
 div#modal-details-wrapper div.content-wrapper div p[contenteditable="true"]:focus,
-div#modal-details-wrapper div.content-wrapper div p[contenteditable="true"]:hover,
-div#modal-details-wrapper-settings div.content-wrapper div p[contenteditable="true"]:focus,
-div#modal-details-wrapper-settings div.content-wrapper div p[contenteditable="true"]:hover{
+div#modal-details-wrapper div.content-wrapper div p[contenteditable="true"]:hover{
     border-bottom-color: #738bd7;
 }
 
-div#modal-details-wrapper div.content-wrapper div p[contenteditable="true"]:focus,
-div#modal-details-wrapper-settings div.content-wrapper div p[contenteditable="true"]:focus{
+div#modal-details-wrapper div.content-wrapper div p[contenteditable="true"]:focus{
     color: var(--theme-color);
     padding: 5px 25px;
     border: 2px solid var(--theme-color);
 }
 
-div#modal-details-wrapper #discard:hover,
-div#modal-details-wrapper-settings #discard:hover{
+div#modal-details-wrapper #discard:hover{
     color: white;
     border-color: darkgrey;
     background-color: darkgrey;
 }
 
-div#modal-details-wrapper div#csoDetails div b,
-div#modal-details-wrapper-settings div#csoDetails div b{
+div#modal-details-wrapper div#csoDetails div b{
     padding: 5px 0;
 }
 
 div#modal-details-wrapper ul.tab-wrapper li,
 div#modal-details-wrapper div.content-wrapper div p,
-div#modal-details-wrapper-settings ul.tab-wrapper li,
-div#modal-details-wrapper-settings div.content-wrapper div p,
 button, input.button{
      transition: ease all 0.3s;
 	-webkit-transition: ease all 0.3s;

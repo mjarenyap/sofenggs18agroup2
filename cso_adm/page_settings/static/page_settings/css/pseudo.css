@@ -1,0 +1,75 @@
+/* pseudoclasses */
+
+:root{
+    --theme-color: #738bd7;
+    --theme-dark-accent: #5f74b1;
+    
+    --theme-dark-neutral: #202226;
+    --theme-grey-neutral: #6c6e71;
+    --theme-grey-neutral-2: #ddd;
+    --theme-grey-neutral-3: #ccc;
+    --theme-light-neutral: #ffffff;
+    --theme-light-neutral-2: #f1f2f7;
+    
+    --chunk-padding: 40px 10%;
+}
+
+nav ul li:hover{
+    border-bottom-color: var(--theme-color);
+    color: var(--theme-color);
+}
+
+input#search:focus{
+    border-color: #738bd7;
+    background-image: url('../assets/icons/search-active.svg');
+}
+
+button.hallow:hover{
+    color: white;
+    background-color: #738bd7;
+}
+
+button:hover, input[type="submit"]:hover{
+    background-color: var(--theme-dark-accent);
+    border-color: var(--theme-dark-accent);
+}
+
+header i#hamburger:hover{
+    color: var(--theme-dark-neutral);
+}
+
+header i.active:hover{
+    color: white;
+}
+
+table.post-acts-table tr:hover{
+    background-color: rgba(241, 242, 247, 1);
+}
+
+table.post-acts-table tr.headers:hover{
+    background-color: transparent;
+}
+
+select:hover{
+    background-color: var(--theme-light-neutral-2);
+}
+
+/* transition */
+nav ul li:hover, header i#hamburger, button.hallow, table.post-acts-table tr:hover,
+input#search, button, input[type="submit"], input[type="button"], select,
+section.filter-wrapper{
+    transition: ease all 0.3s;
+	-webkit-transition: ease all 0.3s;
+	-o-transition: ease all 0.3s;
+	-ms-transition: ease all 0.3s;
+	-moz-transition: ease all 0.3s;
+}
+
+/* transition set-off */
+nav ul li, table.post-acts-table tr{
+    transition: ease all 0.9s;
+	-webkit-transition: ease all 0.9s;
+	-o-transition: ease all 0.9s;
+	-ms-transition: ease all 0.9s;
+	-moz-transition: ease all 0.9s;
+}

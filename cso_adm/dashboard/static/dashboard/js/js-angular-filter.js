@@ -14,13 +14,36 @@ dashboardApp.config(function($sceDelegateProvider) {
 
 dashboardApp.controller('mainController', function($scope, $http) {
 
+  var transformSearch = function(item) {
+    var str = item;
+    var searchLen = str.length;
+    var s = 0;
+
+    for(var i = 0; i < searchLen; i++) {
+        if(str.charAt(s) == '[' || str.charAt(s) == ']' || str.charAt(s) == '^' || str.charAt(s) == '$' ||
+            str.charAt(s) == '.' || str.charAt(s) == '|' || str.charAt(s) == '?' || str.charAt(s) == '+' ||
+            str.charAt(s) == '(' || str.charAt(s) == ')' || str.charAt(s) == '{' || str.charAt(s) == '}' ) {
+
+            if(s == 0) {
+                str = "\\" + str.toString();
+            }
+            else {
+                str = str.toString().slice(0, s) + "\\" + str.toString().slice(s);
+            }
+
+            s++;
+        }
+        s++;
+    }
+
+    return str;
+  }
   var include = function(item, val) {
 
     if(!val)
       return true;
 
-    var regex = new RegExp('.*' + val + '.*', 'i');
-
+    var regex = new RegExp('.*(' + val + ').*', 'i');
 
     return item.n.search(regex) == 0;
   };
@@ -29,9 +52,14 @@ dashboardApp.controller('mainController', function($scope, $http) {
     if(!val)
       return true;
     var regex = new RegExp(val, 'i');
-    var month = item.t.split('/')[2].split(' ')[0];
+    // var month = item.t.split('/')[2].split(' ')[0];
+    var month = item.t.split('/')[1];
+    console.log("Search month: " + month);
 
-    return month.search(regex) == 0;
+    if(month)
+        return month.search(regex) == 0;
+    else
+        return false;
   };
 
   var searchOrg = function(item, val) {
@@ -89,7 +117,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
     if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker && !$scope.filterOrg)
       return true;
 
-    return include(postact, $scope.filterSearch) && searchMonth(postact, $scope.filterMonth) &&
+
+    return include(postact, transformSearch($scope.filterSearch)) && searchMonth(postact, $scope.filterMonth) &&
         searchTerm(postact, $scope.filterTerm) && searchType(postact, $scope.filterType) &&
         searchStatus(postact, $scope.filterStatus) && searchChecker(postact, $scope.filterChecker) &&
         searchOrg(postact, $scope.filterOrg);
@@ -172,7 +201,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   ];
 
   $scope.typeList = [
-      {'short' : 'I', 'long' : 'Pended'},
+      {'short' : 'P', 'long' : 'Pended'},
       {'short' : 'IS', 'long' : 'Initial Submission'}
   ];
 
@@ -181,7 +210,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'EC', 'long' : 'Early Complete'},
       {'short' : 'LC', 'long' : 'Late Complete'},
       {'short' : 'EI', 'long' : 'Early Incomplete'},
-      {'short' : 'LI', 'long' : 'Late Incomplete'}
+      {'short' : 'LI', 'long' : 'Late Incomplete'},
+      {'short' : 'AC', 'long' : 'Acknowledged Cancellation'}
   ];
 
   $scope.checkerList = [
