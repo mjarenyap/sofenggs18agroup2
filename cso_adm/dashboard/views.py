@@ -14,6 +14,36 @@ from dashboard.models import PostActsLog, Organization, Map
 
 # Create your views here.
 
+def get_response_context(request):
+    # print(request)
+    # id = request.GET.get("id", False)
+    # if id is not False:
+    #     log_json = PostActsLog.objects.get(id=int(id)).getFullJSON()
+    #     print("JSON for id=" + str(id) + ": " + log_json)
+    #     response = {'status': 1, 'message': "Ok", "log": log_json, 'url': reverse('dashboard:index')}
+    #
+    #     return HttpResponse(json.dumps(response), content_type='application/json')
+    # else:
+    #     return redirect(reverse('dashboard:index'))
+    logs_set = "["
+    for log in PostActsLog.objects.all():
+        logs_set = logs_set + str(log.getJSON2())
+    if len(logs_set) > 1:
+        logs_set = logs_set[:-1]
+    logs_set = logs_set + "]"
+    print("JSON for Logs: " + logs_set)
+
+    organization_set = "["
+    for org in Organization.objects.all():
+        organization_set = organization_set + str(org.getJSON2())
+    if len(organization_set) > 1:
+        organization_set = organization_set[:-1]
+    organization_set = organization_set + "]"
+    print("JSON for Organizations: " + organization_set)
+
+    response = {'status': 1, 'message': "Ok", 'logs': logs_set, 'orgs': organization_set, 'url': reverse('dashboard:index')}
+    return HttpResponse(json.dumps(response), content_type='application/json')
+
 def getContext():
     logs_set = "["
     for log in PostActsLog.objects.all():

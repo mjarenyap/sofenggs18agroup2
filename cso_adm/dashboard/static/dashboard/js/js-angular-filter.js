@@ -142,7 +142,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
             })
             .error(function(response){
                 console.log("failed");
-            })
+            });
 
     console.log("LOAD MODAL");
 
@@ -198,7 +198,21 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'PROBE', 'long' : 'Alliance of Professional Organizations of Business and Economics'} 
   ];
 
-  $scope.orgList = object_org;
+  $http.get("/get_orgs_logs/", {params: {}})
+          .success(function(response) {
+              console.log("success");
+              var obj_logs = JSON.parse(response.logs);
+              console.log(obj_logs);
+              var obj_orgs = JSON.parse(response.orgs);
+              console.log(obj_orgs);
+              $scope.postact_data = obj_logs;
+              $scope.orgList = obj_orgs;
+            })
+            .error(function(response){
+                console.log("failed");
+            });
+
+  // $scope.orgList = object_org;
   // $scope.orgList = [
   //     {'short' : 'ChemSoc', 'long' : 'Chemistry Society', 'cluster' : 'ASO'},
   //     {'short' : 'MC', 'long' : 'Math Circle', 'cluster' : 'ASO'},
@@ -244,7 +258,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
 
   // Dummy frontend data
-  $scope.postact_data = object_log;
+  // $scope.postact_data = object_log;
   // [
   // {
   //   'timestamp': '2017/09/09  16:43',
