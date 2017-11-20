@@ -22,7 +22,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
     for(var i = 0; i < searchLen; i++) {
         if(str.charAt(s) == '[' || str.charAt(s) == ']' || str.charAt(s) == '^' || str.charAt(s) == '$' ||
             str.charAt(s) == '.' || str.charAt(s) == '|' || str.charAt(s) == '?' || str.charAt(s) == '+' ||
-            str.charAt(s) == '(' || str.charAt(s) == ')' || str.charAt(s) == '{' || str.charAt(s) == '}' ) {
+            str.charAt(s) == '(' || str.charAt(s) == ')' || str.charAt(s) == '{' || str.charAt(s) == '}' ||
+            str.charAt(s) == '\\') {
 
             if(s == 0) {
                 str = "\\" + str.toString();
