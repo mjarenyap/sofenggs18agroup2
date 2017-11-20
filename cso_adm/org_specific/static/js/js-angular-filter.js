@@ -197,7 +197,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   ];
 
   $scope.typeList = [
-      {'short' : 'I', 'long' : 'Pended'},
+      {'short' : 'P', 'long' : 'Pended'},
       {'short' : 'IS', 'long' : 'Initial Submission'}
   ];
 
@@ -206,7 +206,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'EC', 'long' : 'Early Complete'},
       {'short' : 'LC', 'long' : 'Late Complete'},
       {'short' : 'EI', 'long' : 'Early Incomplete'},
-      {'short' : 'LI', 'long' : 'Late Incomplete'}
+      {'short' : 'LI', 'long' : 'Late Incomplete'},
+      {'short' : 'AC', 'long' : 'Acknowledged Cancellation'}
   ];
 
   $scope.checkerList = [

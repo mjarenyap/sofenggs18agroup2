@@ -57,8 +57,8 @@
       <file leaf-file-name="js-angular-filter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/js/js-angular-filter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="120" column="66" lean-forward="true" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="66" />
+            <state relative-caret-position="525">
+              <caret line="214" column="4" lean-forward="false" selection-start-line="202" selection-start-column="1" selection-end-line="214" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -67,7 +67,7 @@
       <file leaf-file-name="org-specific.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/org_specific/templates/org_specific/org-specific.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2394">
+            <state relative-caret-position="1008">
               <caret line="114" column="16" lean-forward="false" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
               <folding />
             </state>
@@ -77,8 +77,8 @@
       <file leaf-file-name="js-angular-filter.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/org_specific/static/js/js-angular-filter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="106" column="66" lean-forward="false" selection-start-line="106" selection-start-column="66" selection-end-line="106" selection-end-column="66" />
+            <state relative-caret-position="270">
+              <caret line="210" column="4" lean-forward="false" selection-start-line="210" selection-start-column="4" selection-end-line="210" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -828,7 +828,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/org_specific/templates/org_specific/org-specific.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2394">
+        <state relative-caret-position="1008">
           <caret line="114" column="16" lean-forward="false" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
           <folding />
         </state>
@@ -836,16 +836,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/static/dashboard/js/js-angular-filter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="120" column="66" lean-forward="true" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="66" />
+        <state relative-caret-position="525">
+          <caret line="214" column="4" lean-forward="false" selection-start-line="202" selection-start-column="1" selection-end-line="214" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/org_specific/static/js/js-angular-filter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="106" column="66" lean-forward="false" selection-start-line="106" selection-start-column="66" selection-end-line="106" selection-end-column="66" />
+        <state relative-caret-position="270">
+          <caret line="210" column="4" lean-forward="false" selection-start-line="210" selection-start-column="4" selection-end-line="210" selection-end-column="4" />
           <folding />
         </state>
       </provider>
