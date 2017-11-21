@@ -209,7 +209,7 @@ class OrgGeneralView(View):
         return render(request, self.template_name, context)
 
     # process form data
-    def post(self, request, org_name):
+    def post(self, request):
         utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
@@ -222,7 +222,7 @@ class OrgGeneralView(View):
             if user is not None:
                 login(request, user)
 
-                return redirect('org_list:general_orgs', org_name=org_name)
+                return redirect('org_list:general_orgs')
             else:
                 # TODO: Spew out content of orgs list then add to context
 
@@ -279,7 +279,7 @@ class OrgSpecificView(View):
             if user is not None:
                 login(request, user)
 
-                return redirect('org_list:specific_org')
+                return redirect('org_list:specific_org', org_name=org_name)
             else:
                 # TODO: Spew out content of orgs list then add to context
 
