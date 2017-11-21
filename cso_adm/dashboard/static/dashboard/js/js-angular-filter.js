@@ -14,13 +14,37 @@ dashboardApp.config(function($sceDelegateProvider) {
 
 dashboardApp.controller('mainController', function($scope, $http) {
 
+  var transformSearch = function(item) {
+    var str = item;
+    var searchLen = str.length;
+    var s = 0;
+
+    for(var i = 0; i < searchLen; i++) {
+        if(str.charAt(s) == '[' || str.charAt(s) == ']' || str.charAt(s) == '^' || str.charAt(s) == '$' ||
+            str.charAt(s) == '.' || str.charAt(s) == '|' || str.charAt(s) == '?' || str.charAt(s) == '+' ||
+            str.charAt(s) == '(' || str.charAt(s) == ')' || str.charAt(s) == '{' || str.charAt(s) == '}' ||
+            str.charAt(s) == '\\') {
+
+            if(s == 0) {
+                str = "\\" + str.toString();
+            }
+            else {
+                str = str.toString().slice(0, s) + "\\" + str.toString().slice(s);
+            }
+
+            s++;
+        }
+        s++;
+    }
+
+    return str;
+  }
   var include = function(item, val) {
 
     if(!val)
       return true;
 
-    var regex = new RegExp('.*' + val + '.*', 'i');
-
+    var regex = new RegExp('.*(' + val + ').*', 'i');
 
     return item.n.search(regex) == 0;
   };
@@ -29,9 +53,14 @@ dashboardApp.controller('mainController', function($scope, $http) {
     if(!val)
       return true;
     var regex = new RegExp(val, 'i');
-    var month = item.t.split('/')[2].split(' ')[0];
+    // var month = item.t.split('/')[2].split(' ')[0];
+    var month = item.t.split('/')[1];
+    console.log("Search month: " + month);
 
-    return month.search(regex) == 0;
+    if(month)
+        return month.search(regex) == 0;
+    else
+        return false;
   };
 
   var searchOrg = function(item, val) {
@@ -89,7 +118,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
     if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker && !$scope.filterOrg)
       return true;
 
-    return include(postact, $scope.filterSearch) && searchMonth(postact, $scope.filterMonth) &&
+
+    return include(postact, transformSearch($scope.filterSearch)) && searchMonth(postact, $scope.filterMonth) &&
         searchTerm(postact, $scope.filterTerm) && searchType(postact, $scope.filterType) &&
         searchStatus(postact, $scope.filterStatus) && searchChecker(postact, $scope.filterChecker) &&
         searchOrg(postact, $scope.filterOrg);
@@ -142,7 +172,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
             })
             .error(function(response){
                 console.log("failed");
-            })
+            });
 
     console.log("LOAD MODAL");
 
@@ -172,9 +202,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   ];
 
   $scope.typeList = [
-      {'short' : 'I', 'long' : 'Pending'},
-      {'short' : 'IP', 'long' : 'Initial Pending'},
-      {'short' : 'S', 'long' : 'Submission'},
+      {'short' : 'P', 'long' : 'Pended'},
       {'short' : 'IS', 'long' : 'Initial Submission'}
   ];
 
@@ -183,7 +211,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'EC', 'long' : 'Early Complete'},
       {'short' : 'LC', 'long' : 'Late Complete'},
       {'short' : 'EI', 'long' : 'Early Incomplete'},
-      {'short' : 'LI', 'long' : 'Late Incomplete'}
+      {'short' : 'LI', 'long' : 'Late Incomplete'},
+      {'short' : 'AC', 'long' : 'Acknowledged Cancellation'}
   ];
 
   $scope.checkerList = [
@@ -198,7 +227,21 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'PROBE', 'long' : 'Alliance of Professional Organizations of Business and Economics'} 
   ];
 
-  $scope.orgList = object_org;
+  $http.get("/get_orgs_logs/", {params: {}})
+          .success(function(response) {
+              console.log("success");
+              var obj_logs = JSON.parse(response.logs);
+              console.log(obj_logs);
+              var obj_orgs = JSON.parse(response.orgs);
+              console.log(obj_orgs);
+              $scope.postact_data = obj_logs;
+              $scope.orgList = obj_orgs;
+            })
+            .error(function(response){
+                console.log("failed");
+            });
+
+  // $scope.orgList = object_org;
   // $scope.orgList = [
   //     {'short' : 'ChemSoc', 'long' : 'Chemistry Society', 'cluster' : 'ASO'},
   //     {'short' : 'MC', 'long' : 'Math Circle', 'cluster' : 'ASO'},
@@ -244,7 +287,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
 
   // Dummy frontend data
-  $scope.postact_data = object_log;
+  // $scope.postact_data = object_log;
   // [
   // {
   //   'timestamp': '2017/09/09  16:43',

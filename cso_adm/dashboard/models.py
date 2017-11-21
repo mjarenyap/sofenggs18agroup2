@@ -54,6 +54,13 @@ class Organization(models.Model):
         s = s + "\\\"long\\\":\\\"" + self.name + "\\\","
         s = s + "\\\"cluster\\\":\\\"" + self.cluster + "\\\"},"
         return s
+
+    def getJSON2(self):
+        s = "{"
+        s = s + "\"short\":\"" + self.shortname + "\","
+        s = s + "\"long\":\"" + self.name + "\","
+        s = s + "\"cluster\":\"" + self.cluster + "\"},"
+        return s
     def __str__(self):
         return self.name
 
@@ -101,15 +108,26 @@ class PostActsLog(models.Model):
             s = s + "\\\"d\\\":\\\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\\\"},"
         except:
             s = s + "\\\"d\\\":\\\"" + self.date_checked + "\\\"},"
-        # s = s + "\\\"tie\\\":\\\"" + self.tie_up_orgs.replace("\\\"", "\\\\\\\"") + "\\\","
-        # s = s + "\\\"en\\\":\\\"" + self.enp + "\\\","
-        # s = s + "\\\"enm\\\":\\\"" + self.enmp + "\\\","
-        # s = s + "\\\"an\\\":\\\"" + self.anp + "\\\","
-        # s = s + "\\\"anm\\\":\\\"" + self.anmp + "\\\","
-        # s = s + "\\\"sb\\\":\\\"" + self.submitted_by + "\\\","
-        # s = s + "\\\"num\\\":\\\"" + self.contact_no + "\\\","
-        # s = s + "\\\"ml\\\":\\\"" + self.email + "\\\","
-        # s = s + "\\\"mk\\\":\\\"" + self.remarks + "\\\"},"
+
+        return s
+
+    def getJSON2(self):
+        s = '{'
+        s = s + "\"id\":" + str(self.id) + ","
+        try:
+            s = s + "\"t\":\"" + datetime.datetime.strptime(self.timestamp, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\","
+        except:
+            s = s + "\"t\":\"" + self.timestamp + "\","
+        s = s + "\"n\":\"" + self.activity_title.replace("\"", "\\\"") + "\","
+        s = s + "\"o\":\"" + self.organization + "\","
+        s = s + "\"term\":\"" + self.term + "\","
+        s = s + "\"st\":\"" + self.submission_type + "\","
+        s = s + "\"s\":\"" + self.status + "\","
+        s = s + "\"cb\":\"" + self.checked_by + "\","
+        try:
+            s = s + "\"d\":\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\"},"
+        except:
+            s = s + "\"d\":\"" + self.date_checked + "\"},"
 
         return s
 
@@ -138,7 +156,7 @@ class PostActsLog(models.Model):
         s = s + "\"sb\":\"" + self.submitted_by + "\","
         s = s + "\"num\":\"" + self.contact_no + "\","
         s = s + "\"ml\":\"" + self.email + "\","
-        s = s + "\"mk\":\"" + self.remarks + "\"}"
+        s = s + "\"mk\":\"" + self.tie_up_orgs.replace("\"", "\\\"") + "\"}"
 
         return s
 

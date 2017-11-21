@@ -50,8 +50,12 @@ def sync():
                     print(">> Set attribute error for row "+str(current_row)+" column "+str(current_col)+".")
 
                 i = i + 1
-            log.save()
-            cnt = cnt + 1
+            if len(PostActsLog.objects.filter(row_number=log.row_number)) == 0:
+                log.save()
+                cnt = cnt + 1
+            else:
+                print("Row number " + str(log.row_number) + " already exists.")
+
             print("Syncing finish!")
             print("Added " + str(cnt) + " rows.")
         else:
