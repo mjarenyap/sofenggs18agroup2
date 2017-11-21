@@ -38,3 +38,11 @@ CSO ADM Dashboard
 8. Revised URL patterns
     - /organization
     - /organization/org-abbreviation
+
+
+
+--- Version 0.3 (November 21, 2017) Issues Resolved ---
+1. Modals for settings page
+2. Fixed filter by month
+3. Fixed incorrect filter for status and time
+4. post-acts data converted to ajax for capsulation
