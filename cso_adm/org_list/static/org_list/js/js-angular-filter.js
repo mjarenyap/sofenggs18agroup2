@@ -1,7 +1,10 @@
 var root = 'https://jsonplaceholder.typicode.com';
 
 console.log("org-list angular js LOADED");
-var dashboardApp = angular.module('dashboardApp', []);
+var dashboardApp = angular.module('dashboardApp', [], function($httpProvider) {
+  $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+  $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
 
 dashboardApp.config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
@@ -81,7 +84,24 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'ENGAGE', 'long' : 'Engineering Alliance Geared Towards Excellence'},  
       {'short' : 'PROBE', 'long' : 'Alliance of Professional Organizations of Business and Economics'} 
   ];
-  $scope.orgList = object_org;
+
+  $http.get("get_org_list_contexts/", {params: {}})
+          .success(function(response) {
+              console.log("success");
+
+              var obj_orgs = JSON.parse(response.orgs);
+              console.log(obj_orgs);
+              console.log(response.data_set)
+              var obj_data = JSON.parse(response.data_set);
+              console.log(obj_data);
+              $scope.org_data = obj_data;
+              $scope.orgList = obj_orgs;
+            })
+            .error(function(response){
+                console.log("failed");
+            });
+
+  // $scope.orgList = object_org;
   // $scope.orgList = [
   //     {'short' : 'ChemSoc', 'long' : 'Chemistry Society', 'cluster' : 'ASO'},
   //     {'short' : 'MC', 'long' : 'Math Circle', 'cluster' : 'ASO'},
@@ -130,7 +150,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
 
   // Dummy frontend data
-  $scope.org_data = object_data;
+  // $scope.org_data = object_data;
   // [
   // {
   //   'orgName': 'La Salle Computer Society',
