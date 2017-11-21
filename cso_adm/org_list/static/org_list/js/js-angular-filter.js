@@ -14,15 +14,39 @@ dashboardApp.config(function($sceDelegateProvider) {
 
 dashboardApp.controller('mainController', function($scope, $http) {
 
+  var transformSearch = function(item) {
+    var str = item;
+    var searchLen = str.length;
+    var s = 0;
+
+    for(var i = 0; i < searchLen; i++) {
+        if(str.charAt(s) == '[' || str.charAt(s) == ']' || str.charAt(s) == '^' || str.charAt(s) == '$' ||
+            str.charAt(s) == '.' || str.charAt(s) == '|' || str.charAt(s) == '?' || str.charAt(s) == '+' ||
+            str.charAt(s) == '(' || str.charAt(s) == ')' || str.charAt(s) == '{' || str.charAt(s) == '}' ||
+            str.charAt(s) == '\\') {
+
+            if(s == 0) {
+                str = "\\" + str.toString();
+            }
+            else {
+                str = str.toString().slice(0, s) + "\\" + str.toString().slice(s);
+            }
+
+            s++;
+        }
+        s++;
+    }
+
+    return str;
+  }
   var include = function(item, val) {
 
     if(!val)
       return true;
 
-    var regex = new RegExp('.*' + val + '.*', 'i');
+    var regex = new RegExp('.*(' + val + ').*', 'i');
 
-
-    return item.orgName.search(regex) == 0;
+    return item.n.search(regex) == 0;
   };
 
   var searchCluster = function(item, val) {
@@ -49,7 +73,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     if(!$scope.filterCluster && !$scope.filterSearchOrg)
       return true;
 
-    return include(org, $scope.filterSearchOrg) && searchCluster(org, $scope.filterCluster);
+    return include(org, transformSearch($scope.filterSearchOrg)) && searchCluster(org, $scope.filterCluster);
   };
 
   // Filters

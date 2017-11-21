@@ -14,4 +14,8 @@ $(document).ready(function(){
             $("form#sign-in input#username").select();
         }
     });
+
+    $("p#form-close").click(function(){
+        $("form#sign-in div.error").css("display", "none");
+    });
 });

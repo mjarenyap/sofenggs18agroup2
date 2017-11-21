@@ -1,17 +1,17 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>CSO Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link href="{% static 'dashboard/css/theme.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
+    <head>
+        <title>CSO Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link href="{% static 'dashboard/css/theme.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
 
-    <!--<script src="js/angular.js" type="text/javascript"></script>-->
-    <!--<script src="../../static/org_list/js/normalize.js" type="text/javascript"></script>
-    <script src="../../static/dashboard/js/sign-in.js" type="text/javascript"></script>-->
+        <!--<script src="js/angular.js" type="text/javascript"></script>-->
+        <!--<script src="../../static/org_list/js/normalize.js" type="text/javascript"></script>
+        <script src="../../static/dashboard/js/sign-in.js" type="text/javascript"></script>-->
 
 
 
@@ -28,132 +28,139 @@
 <body ng-app="dashboardApp" ng-controller="mainController">
 
 <nav>
-    <p><b>CSO</b>Dashboard</p>
-    <input type="text" id="search" placeholder="Search organizations..." ng-model="filterSearchOrg"/>
-    <ul>
-        <a href="{% url 'dashboard:index' %}">
-            <li>Home</li>
-        </a>
-        <a href="{% url 'org_list:general_orgs' %}">
-            <li class="active">Organization List</li>
-        </a>
-    </ul>
-    {% if messages %}
-    <!--TODO [Frontend]: Change this <form> to a sign-in failed modal.-->
-    <form>
-        <ul class="messages">
-            {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </form>
-    {% endif %}
-    {% if user.is_authenticated %}
-    <form id="sign-out" action="" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="logout"/>
-        <button type="submit">Sign out</button>
-    </form>
-    {% else %}
-    <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
-    <form id="sign-in" action="" method="POST">
-        {% csrf_token %}
-        <p>Username</p>
-        <input type="text" placeholder="username" name="username" id="username"/>
-        <p>Password</p>
-        <input type="password" placeholder="password" name="password" id="password"/>
-        <br/><br/>
-        <button type="submit">Sign in</button>
-    </form>
-    {% endif %}
-</nav>
-<header>
-    <h1>THIS IS THE ORGANIZATION LIST PAGE</h1>
-</header>
-<section class="filter-wrapper">
-    <span>Cluster:</span>
-    <!--<select>
-        <option>All Cluster</option>
-        <option>ASO</option>
-        <option>ASPIRE</option>
-    </select>-->
-    <select ng-model="filterCluster" ng-options="cluster.short as cluster.short for cluster in clusterList">
-        <option value="">All Clusters</option>
-    </select>
+            <p><b>CSO</b>Dashboard</p>
+            <input type="text" id="search" placeholder="Search organizations..." ng-model="filterSearchOrg"/>
+            <ul>
+                <a href="{% url 'dashboard:index' %}">
+                    <li>Home</li>
+                </a>
+                <a href="{% url 'org_list:general_orgs' %}">
+                    <li class="active">Organization List</li>
+                </a>
+            </ul>
+            {% if messages %}
+            <!--TODO [Frontend]: Change this <form> to a sign-in failed modal.-->
+            <form>
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </form>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <form id="sign-out" action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="logout"/>
+                <button type="submit">Sign out</button>
+            </form>
+            {% else %}
+            <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+            <form id="sign-in" action="" method="POST">
+                {% if messages %}
+                <div class="error">
+                    {% for message in messages %}
+                    <p class="messages">Invalid username or password.</p>
+                    <p id="form-close"><i class="fa fa-times-circle"></i></p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% csrf_token %}
+                <p>Username</p>
+                <input type="text" placeholder="username" name="username" id="username"/>
+                <p>Password</p>
+                <input type="password" placeholder="password" name="password" id="password"/>
+                <br/><br/>
+                <button type="submit">Sign in</button>
+            </form>
+            {% endif %}
+        </nav>
+        <header>
+            <h1>THIS IS THE ORGANIZATION LIST PAGE</h1>
+        </header>
+        <section class="filter-wrapper">
+            <span>Cluster:</span>
+            <!--<select>
+                <option>All Cluster</option>
+                <option>ASO</option>
+                <option>ASPIRE</option>
+            </select>-->
+            <select ng-model="filterCluster" ng-options="cluster.short as cluster.short for cluster in clusterList">
+                <option value="">All Clusters</option>
+            </select>
+        </section>
+        <section class="fill">
+            <table cellspacing="0" cellpadding="0" border="0" class="org-table">
+                {% verbatim %}
+                <tr class="headers">
+                    <th></th>
+                    <th ng-click="sortType = 'orgName'; sortReverse = !sortReverse">
+                        Organization Name
+                        <span ng-show="sortType == 'orgName' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'orgName' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType = 'abbreviation'; sortReverse = !sortReverse">
+                        Abbreviation
+                        <span ng-show="sortType == 'abbreviation' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'abbreviation' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType = 'cluster'; sortReverse = !sortReverse">
+                        Cluster
+                        <span ng-show="sortType == 'cluster' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'cluster' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType = 'ec'; sortReverse = !sortReverse">
+                        EC
+                        <span ng-show="sortType == 'ec' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'ec' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType = 'lc'; sortReverse = !sortReverse">
+                        LC
+                        <span ng-show="sortType == 'lc' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'lc' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType = 'ei'; sortReverse = !sortReverse">
+                        EI
+                        <span ng-show="sortType == 'ei' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'ei' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType = 'li'; sortReverse = !sortReverse">
+                        LI
+                        <span ng-show="sortType == 'li' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'li' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType = 'p'; sortReverse = !sortReverse">
+                        P
+                        <span ng-show="sortType == 'p' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'p' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType = 'nc'; sortReverse = !sortReverse">
+                        NC
+                        <span ng-show="sortType == 'nc' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'nc' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
+                </tr>
+                {% endverbatim %}
 
-</section>
-<section class="fill">
-    <table cellspacing="0" cellpadding="0" border="0" class="org-table">
-        {% verbatim %}
-        <tr class="headers">
-            <th></th>
-            <th ng-click="sortType = 'orgName'; sortReverse = !sortReverse">
-                Organization Name
-                <span ng-show="sortType == 'orgName' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'orgName' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-            <th ng-click="sortType = 'abbreviation'; sortReverse = !sortReverse">
-                Abbreviation
-                <span ng-show="sortType == 'abbreviation' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'abbreviation' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-            <th ng-click="sortType = 'cluster'; sortReverse = !sortReverse">
-                Cluster
-                <span ng-show="sortType == 'cluster' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'cluster' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-            <th ng-click="sortType = 'ec'; sortReverse = !sortReverse">
-                EC
-                <span ng-show="sortType == 'ec' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'ec' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-            <th ng-click="sortType = 'lc'; sortReverse = !sortReverse">
-                LC
-                <span ng-show="sortType == 'lc' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'lc' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-            <th ng-click="sortType = 'ei'; sortReverse = !sortReverse">
-                EI
-                <span ng-show="sortType == 'ei' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'ei' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-            <th ng-click="sortType = 'li'; sortReverse = !sortReverse">
-                LI
-                <span ng-show="sortType == 'li' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'li' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-            <th ng-click="sortType = 'p'; sortReverse = !sortReverse">
-                P
-                <span ng-show="sortType == 'p' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'p' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-            <th ng-click="sortType = 'nc'; sortReverse = !sortReverse">
-                NC
-                <span ng-show="sortType == 'nc' && !sortReverse" class="fa fa-caret-up"></span>
-                <span ng-show="sortType == 'nc' && sortReverse" class="fa fa-caret-down"></span>
-            </th>
-        </tr>
-        {% endverbatim %}
-
-        {% verbatim %}
-        <!--<tr ng-repeat="org in org_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm">-->
-        <tr ng-repeat="org in filteredOrgs = ( org_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm)">
-            <td>{{$index + 1}}</td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.orgName }}</a></td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.abbreviation }}</a></td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.cluster }}</a></td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.ec }}</a></td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.lc}}</a></td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.ei}}</a></td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.li}}</a></td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.p}}</a></td>
-            <td><a href="/organization/{{org.abbreviation}}">{{ org.nc}}</a></td>
-        </tr>
-        <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length != 0 && filteredOrgs.length != 1">{{filteredOrgs.length}} results found.</p>
-        <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length == 1">{{filteredOrgs.length}} result found.</p>
-        <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length == 0">No results found.</p>
-        {% endverbatim %}
-    </table>
-</section>
-</body>
+                {% verbatim %}
+                <!--<tr ng-repeat="org in org_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm">-->
+                <tr ng-repeat="org in filteredOrgs = ( org_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm)">
+                    <td>{{$index + 1}}</td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.orgName }}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.abbreviation }}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.cluster }}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.ec }}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.lc}}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.ei}}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.li}}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.p}}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.nc}}</a></td>
+                </tr>
+                <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length != 0 && filteredOrgs.length != 1">{{filteredOrgs.length}} results found.</p>
+                <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length == 1">{{filteredOrgs.length}} result found.</p>
+                <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length == 0">No results found.</p>
+                {% endverbatim %}
+            </table>
+        </section>
+    </body>
 </html>

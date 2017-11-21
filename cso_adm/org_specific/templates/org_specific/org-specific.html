@@ -100,16 +100,18 @@
                     <p>{{modalActivity}}</p>
                 </div>
                 <div>
-                    <b>Status</b>
-                    {% endverbatim %}
-                    {% if user.is_superuser %}
-                        <p id="submitStatus" contenteditable="true">
-                    {% else %}
-                        <p id="submitStatus" contenteditable="false">
-                    {% endif %}
-                    {% verbatim %}
-                        {{modalStatus}}
-                    </p>
+                     <b>Status</b>
+                     {% endverbatim %}
+                     {% if request.user|has_group:"moderator" %}
+                     <select id="submitStatusCB" ng-model="modalStatus"
+                        ng-options="status.long as status.long for status in statusList">
+                     </select>
+                     {% else %}
+                     {% verbatim %}
+                     <p id="submitStatusCB" contenteditable="false">{{modalStatus}}</p>
+                     {% endverbatim %}
+                     {% endif %}
+                     {% verbatim %}
                 </div>
                 <div>
                     <b>Checked by</b>

@@ -14,13 +14,37 @@ dashboardApp.config(function($sceDelegateProvider) {
 
 dashboardApp.controller('mainController', function($scope, $http) {
 
+  var transformSearch = function(item) {
+    var str = item;
+    var searchLen = str.length;
+    var s = 0;
+
+    for(var i = 0; i < searchLen; i++) {
+        if(str.charAt(s) == '[' || str.charAt(s) == ']' || str.charAt(s) == '^' || str.charAt(s) == '$' ||
+            str.charAt(s) == '.' || str.charAt(s) == '|' || str.charAt(s) == '?' || str.charAt(s) == '+' ||
+            str.charAt(s) == '(' || str.charAt(s) == ')' || str.charAt(s) == '{' || str.charAt(s) == '}' ||
+            str.charAt(s) == '\\') {
+
+            if(s == 0) {
+                str = "\\" + str.toString();
+            }
+            else {
+                str = str.toString().slice(0, s) + "\\" + str.toString().slice(s);
+            }
+
+            s++;
+        }
+        s++;
+    }
+
+    return str;
+  }
   var include = function(item, val) {
 
     if(!val)
       return true;
 
-    var regex = new RegExp('.*' + val + '.*', 'i');
-
+    var regex = new RegExp('.*(' + val + ').*', 'i');
 
     return item.n.search(regex) == 0;
   };
@@ -81,7 +105,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker)
       return true;
 
-    return include(postact, $scope.filterSearch) && searchMonth(postact, $scope.filterMonth) &&
+    return include(postact, transformSearch($scope.filterSearch)) && searchMonth(postact, $scope.filterMonth) &&
         searchTerm(postact, $scope.filterTerm) && searchType(postact, $scope.filterType) &&
         searchStatus(postact, $scope.filterStatus) && searchChecker(postact, $scope.filterChecker);
   };
@@ -174,9 +198,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   ];
 
   $scope.typeList = [
-      {'short' : 'I', 'long' : 'Pending'},
-      {'short' : 'IP', 'long' : 'Initial Pending'},
-      {'short' : 'S', 'long' : 'Submission'},
+      {'short' : 'P', 'long' : 'Pended'},
       {'short' : 'IS', 'long' : 'Initial Submission'}
   ];
 
@@ -185,7 +207,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'EC', 'long' : 'Early Complete'},
       {'short' : 'LC', 'long' : 'Late Complete'},
       {'short' : 'EI', 'long' : 'Early Incomplete'},
-      {'short' : 'LI', 'long' : 'Late Incomplete'}
+      {'short' : 'LI', 'long' : 'Late Incomplete'},
+      {'short' : 'AC', 'long' : 'Acknowledged Cancellation'}
   ];
 
   $scope.checkerList = [
