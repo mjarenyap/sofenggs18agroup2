@@ -29,9 +29,7 @@
     </head>
     <body ng-app="dashboardApp" ng-controller="mainController">
     <script>
-        console.log("Converting...");
-        var context_log = "{{logs|safe}}";
-        var object_log = JSON.parse(context_log);
+        var org = "{{data.abbreviation}}";
     </script>
         <!-- THE MODAL OVERLAY -->
         <div id="modal-wrapper">

@@ -243,9 +243,19 @@ dashboardApp.controller('mainController', function($scope, $http) {
       
   ];
 
+  $http.get(org + "/get_org_specific_contexts/", {params: {}})
+          .success(function(response) {
+              console.log("success");
+              var obj_logs = JSON.parse(response.logs);
+              console.log(obj_logs);
 
+              $scope.postact_data = obj_logs;
+            })
+            .error(function(response){
+                console.log("failed");
+            });
   // Dummy frontend data
-  $scope.postact_data = object_log;
+  // $scope.postact_data = object_log;
   // [
   // {
   //   'timestamp': '2017/09/09  16:43',
