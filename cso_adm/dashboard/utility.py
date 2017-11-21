@@ -43,7 +43,7 @@ def sync():
                 current_col = data[i].col
 
                 try:
-                    key = Map.objects.get(value=str(current_col)).key
+                    key = Map.objects.get(value="COLUMN " + str(current_col)).key
                     setattr(log, key, str(data[i].value))
                 except Exception as e:
                     print("ERROR: " + str(e))
