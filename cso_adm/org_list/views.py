@@ -209,7 +209,7 @@ class OrgGeneralView(View):
         return render(request, self.template_name, context)
 
     # process form data
-    def post(self, request):
+    def post(self, request, org_name):
         utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
@@ -222,7 +222,7 @@ class OrgGeneralView(View):
             if user is not None:
                 login(request, user)
 
-                return redirect('org_list:index')
+                return redirect('org_list:general_orgs', org_name=org_name)
             else:
                 # TODO: Spew out content of orgs list then add to context
 
@@ -241,7 +241,7 @@ class OrgGeneralView(View):
 
             return render(request, self.template_name, context)
         else:
-            return redirect('page_404:test_url')
+            return redirect('page_404:page_404')
 
 
 # TODO: Placeholder class-based view, will be modified
@@ -266,12 +266,12 @@ class OrgSpecificView(View):
 
 
     # process form data
-    def post(self, request):
+    def post(self, request, org_name):
         utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)
-
+        org = Organization.objects.get(shortname__iexact=org_name)
         # If the username and password objects exist in the request dictionary, then it is a login POST
         if username is not False and password is not False:
             user = authenticate(request, username=username, password=password)
@@ -279,11 +279,11 @@ class OrgSpecificView(View):
             if user is not None:
                 login(request, user)
 
-                return redirect('org_list:index')
+                return redirect('org_list:specific_org')
             else:
                 # TODO: Spew out content of orgs list then add to context
 
-                context = getContext()
+                context = getSpecificContext(org)
 
                 messages.error(request, 'Sign in failed. Your username or password is incorrect.')
 
@@ -294,8 +294,8 @@ class OrgSpecificView(View):
 
             # TODO: Spew out content of orgs list then add to context
 
-            context = getContext()
+            context = getSpecificContext(org)
 
             return render(request, self.template_name, context)
         else:
-            return redirect('page_404:test_url')
+            return redirect('page_404:page_404')
