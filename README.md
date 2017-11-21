@@ -19,3 +19,30 @@ CSO ADM Dashboard
 9. angular modal function
 10. dropdown sign in form
 11. sticky filters
+
+
+
+--- Version 0.2 (November 13, 2017) Issues Resolved ---
+
+1. Connected to gspread and used as database
+2. List of organizations and their statistics
+3. Org-specific page reflects information accordingly
+    - Name of the Organization
+    - Statistics (Number of post-acts falling under certain criterion)
+    - List of post-acts exclusive for that certain org
+4. Modal displays appropriate info according to clicked post-act
+5. Polished all forms of table in terms of alignment & custom width per column
+6. Displays 404-page up to certain cases
+7. Further redesigned the settings page
+    - Edit settings tab
+8. Revised URL patterns
+    - /organization
+    - /organization/org-abbreviation
+
+
+
+--- Version 0.3 (November 21, 2017) Issues Resolved ---
+1. Modals for settings page
+2. Fixed filter by month
+3. Fixed incorrect filter for status and time
+4. post-acts data converted to ajax for capsulation
