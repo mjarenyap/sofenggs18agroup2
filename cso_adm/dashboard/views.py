@@ -15,16 +15,7 @@ from dashboard.models import PostActsLog, Organization, Map
 # Create your views here.
 
 def get_response_context(request):
-    # print(request)
-    # id = request.GET.get("id", False)
-    # if id is not False:
-    #     log_json = PostActsLog.objects.get(id=int(id)).getFullJSON()
-    #     print("JSON for id=" + str(id) + ": " + log_json)
-    #     response = {'status': 1, 'message': "Ok", "log": log_json, 'url': reverse('dashboard:index')}
-    #
-    #     return HttpResponse(json.dumps(response), content_type='application/json')
-    # else:
-    #     return redirect(reverse('dashboard:index'))
+    print('HERE AT DASHBOARD CONTEXT')
     logs_set = "["
     for log in PostActsLog.objects.all():
         logs_set = logs_set + str(log.getJSON2())

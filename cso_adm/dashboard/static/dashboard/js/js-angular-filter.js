@@ -227,7 +227,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'PROBE', 'long' : 'Alliance of Professional Organizations of Business and Economics'} 
   ];
 
-  $http.get("/get_orgs_logs/", {params: {}})
+  $http.get("/get_dashboard_contexts/", {params: {}})
           .success(function(response) {
               console.log("success");
               var obj_logs = JSON.parse(response.logs);
