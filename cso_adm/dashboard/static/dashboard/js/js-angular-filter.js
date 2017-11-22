@@ -113,9 +113,11 @@ dashboardApp.controller('mainController', function($scope, $http) {
   $scope.sortType = 't';  // set the default sort type
   $scope.sortReverse = true;    // set the default sort order
 
+  $scope.filterTerm = defaultTerm.split(' ')[1];
   // Checks all filters
   $scope.filters = function(postact) {
     // console.log("Checking Filters");
+    console.log("default term: " + $scope.filterTerm);
     // console.log(postact.timestamp.split('/')[2].split(' ')[0]);
 
     if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker && !$scope.filterOrg)
