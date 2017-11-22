@@ -46,3 +46,9 @@ CSO ADM Dashboard
 2. Fixed filter by month
 3. Fixed incorrect filter for status and time
 4. post-acts data converted to ajax for capsulation
+
+
+
+--- Version 0.4 (November 22, 2017) Issues Resolved ---
+1. Added banner in update post-acts
+2. refined the filter bar issue
