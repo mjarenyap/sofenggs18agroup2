@@ -52,3 +52,4 @@ CSO ADM Dashboard
 --- Version 0.4 (November 22, 2017) Issues Resolved ---
 1. Added banner in update post-acts
 2. refined the filter bar issue
+3. Rename ModelJSON.py to modelJSON.py
