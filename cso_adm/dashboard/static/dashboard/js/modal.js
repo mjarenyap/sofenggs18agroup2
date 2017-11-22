@@ -104,6 +104,8 @@ $(document).ready(function(){
             success: function(response) {
                 if (response.status == 1) {
                     $("p.messages#saving_msg").text("Saved Successfully.");
+
+                    window.location.href ="/";
                 } else {
                     $("p.messages#saving_msg").text("Saved Failed.");
                 }
