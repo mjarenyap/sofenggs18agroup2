@@ -100,13 +100,15 @@
                             <b>Status</b>
                             {% endverbatim %}
                             {% if request.user|has_group:"moderator" %}
-                                <p id="submitStatus" contenteditable="true">
+                            <select id="submitStatus" ng-model="modalStatus"
+                                    ng-options="status.long as status.long for status in statusList">
+                            </select>
                             {% else %}
-                                <p id="submitStatus" contenteditable="false">
+                            {% verbatim %}
+                            <p id="submitStatus" contenteditable="false">{{modalStatus}}</p>
+                            {% endverbatim %}
                             {% endif %}
                             {% verbatim %}
-                                {{modalStatus}}
-                            </p>
                         </div>
                         <div>
                             <b>Checked by</b>

@@ -117,7 +117,6 @@ dashboardApp.controller('mainController', function($scope, $http) {
   // Checks all filters
   $scope.filters = function(postact) {
     // console.log("Checking Filters");
-    console.log("default term: " + $scope.filterTerm);
     // console.log(postact.timestamp.split('/')[2].split(' ')[0]);
 
     if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker && !$scope.filterOrg)
@@ -151,6 +150,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
 
   $scope.showModal = function(status) {
+    console.log(status.hello);
     $http.get("/get_log/", {params: {"id": status.id}})
           .success(function(response) {
               console.log("success");
@@ -183,6 +183,17 @@ dashboardApp.controller('mainController', function($scope, $http) {
     console.log("LOAD MODAL");
 
   };
+
+  // tooltip
+    $scope.currTooltip = '';
+    $scope.setTooltip = function(data) {
+        var org = data.o;
+        for(var i = 0, numOrgs = $scope.orgList.length; i < numOrgs; i++) {
+            if($scope.orgList[i].short == org) {
+                $scope.currTooltip = $scope.orgList[i].long;
+            }
+        }
+    }
 
   // Filters
     $scope.monthList = [

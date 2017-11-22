@@ -84,6 +84,12 @@ input.grey, button.grey{
     color: var(--theme-light-neutral);
 }
 
+button.grey:disabled{
+    border: var(--theme-grey-neutral-2);
+    background-color: var(--theme-grey-neutral-2);
+    color: var(--theme-light-neutral);
+}
+
 input#search{
     text-indent: 30px;
     font-size: 0.79em;

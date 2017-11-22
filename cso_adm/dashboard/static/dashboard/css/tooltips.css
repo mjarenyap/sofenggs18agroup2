@@ -1,0 +1,44 @@
+.tool {
+		position: relative;
+}
+
+.tool::before,
+.tool::after {
+    position: absolute;
+    opacity: 0;
+}
+
+.tool:hover::before,
+.tool:focus::before,
+.tool:hover::after,
+.tool:focus::after {
+		opacity: 1;
+		z-index: 100;
+		transform: scale(1) translateY(0);
+}
+/*
+
+.tool:hover::before,
+.tool:focus::before {
+		transition-delay: .2s;
+}
+*/
+
+.tool::after {
+	background: #3e474f;
+    border-radius: .25em;
+    bottom: 30%;
+    color: #edeff0;
+    width: auto;
+    padding: 1em;
+    margin-left: -8.75em;
+    content: attr(data-tip);
+    transform: scale(.6) translateY(50%);
+    transition: ease all .3s;
+}
+
+
+.tool:hover::after,
+.tool:focus::after {
+		transition-delay: 0s;
+}
