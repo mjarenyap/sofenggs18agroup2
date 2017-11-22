@@ -12,6 +12,16 @@ def get_all_log_json():
 
     return logs_set
 
+def get_org_log_json(org):
+    logs_set = "["
+    for log in PostActsLog.objects.filter(organization=org):
+        logs_set = logs_set + str(log.getJSON2())
+    if len(logs_set) > 1:
+        logs_set = logs_set[:-1]
+    logs_set = logs_set + "]"
+    print("JSON for " + org + " Logs: " + logs_set)
+
+    return logs_set
 
 def get_all_org_json():
     organization_set = "["

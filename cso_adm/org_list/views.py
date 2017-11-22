@@ -11,27 +11,12 @@ from django.views import View
 from dashboard.models import PostActsLog, Organization, Map
 import json
 from dashboard import utility
-
-# # TODO: Tester url, will be modified
-# # TODO: Embed content of SPECIFIC org list
-# def test_url(request, username):
-#     # TODO: implement org name validation
-#     template_name = 'org_list/org-specific.html'
-#
-#     return render(request, template_name)
-
-# TODO: Placeholder class-based view, will be modified
-# TODO: Embed content of general orgs list
+from dashboard import modelJSON
 
 def get_response_context(request):
     print('HERE AT ORG LIST CONTEXT')
-    organization_set = "["
-    for org in Organization.objects.all():
-        organization_set = organization_set + str(org.getJSON2())
-    if len(organization_set) > 1:
-        organization_set = organization_set[:-1]
-    organization_set = organization_set + "]"
-    print("JSON for Organizations  : " + organization_set)
+    organization_set = modelJSON.get_all_org_json()
+    cluster_set = modelJSON.get_all_cluster_json()
 
     data_set = "["
     for org in Organization.objects.all():
@@ -56,19 +41,23 @@ def get_response_context(request):
     data_set = data_set + "]"
     print("JSON for Data: " + data_set)
 
-    response = {'status': 1, 'message': "Ok", 'data_set': data_set, 'orgs': organization_set, 'url': reverse('org_list:general_orgs')}
+    response = {'status': 1, 'message': "Ok", 'data_set': data_set, 'orgs': organization_set, 'cluster': cluster_set, 'url': reverse('org_list:general_orgs')}
     return HttpResponse(json.dumps(response), content_type='application/json')
 
 def get_response_context_specific(request, org):
-    logs_set = "["
-    for log in PostActsLog.objects.filter(organization=org):
-        logs_set = logs_set + str(log.getJSON2())
-    if len(logs_set) > 1:
-        logs_set = logs_set[:-1]
-    logs_set = logs_set + "]"
-    print("JSON for " + org + " Logs: " + logs_set)
+    logs_set = modelJSON.get_org_log_json(org)
+    mod_set = modelJSON.get_all_moderator_json()
+    type_set = modelJSON.get_all_type_json()
+    status_set = modelJSON.get_all_status_set()
 
-    response = {'status': 1, 'message': "Ok", 'logs': logs_set}
+    response = {
+        'status': 1,
+        'message': "Ok",
+        'logs': logs_set,
+        'mod': mod_set,
+        'type': type_set,
+        'status': status_set
+    }
     return HttpResponse(json.dumps(response), content_type='application/json')
 
 def get_log(request):
@@ -85,27 +74,39 @@ def get_log(request):
 
 
 def save_post_acts(request):
+    print("Saving post acts")
     # Get the ID edited from the POST request
     id = request.POST.get('id', False)
+    print(request.user)
+
+    if not request.user.is_authenticated():
+        print("Saved failed. Not logged in.")
+        response = {'status': 0}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
     # If an ID was found, this request contains payload
     # If not, then the URL was just manually entered, and nothing would be done
     if id is not False:
         # Get the actual postactslog from the retrieved ID
         edited_post_acts_log = PostActsLog.objects.get(id=id)
-        row = str(edited_post_acts_log.row)
+        row = str(edited_post_acts_log.row_number)
         # Modify the necessary fields
         list = []
         edited_post_acts_log.status = request.POST.get('status')
+        print(edited_post_acts_log.status)
         log = [row, Map.objects.get(key="status").value, edited_post_acts_log.status]
         list.append(log)
-        edited_post_acts_log.checked_by = request.POST.get('cb')
+        edited_post_acts_log.checked_by = request.user.get_full_name()
+        print(edited_post_acts_log.checked_by)
         log = [row, Map.objects.get(key="checked_by").value, edited_post_acts_log.checked_by]
         list.append(log)
         edited_post_acts_log.date_checked = datetime.now().strftime('%m/%d/%Y %H:%M:%S')
+        print(edited_post_acts_log.date_checked)
         log = [row, Map.objects.get(key="date_checked").value, edited_post_acts_log.date_checked]
         list.append(log)
         edited_post_acts_log.remarks = request.POST.get('remarks')
+        print(edited_post_acts_log.remarks)
         log = [row, Map.objects.get(key="remarks").value, edited_post_acts_log.remarks]
         list.append(log)
 
@@ -113,64 +114,22 @@ def save_post_acts(request):
         if utility.update_cells(list):
             edited_post_acts_log.save()
         else:
-            print ("Update failed. Changes not saved.")
+            print("Update failed. Changes not saved.")
+            response = {'status': 0}
 
-        # TODO send message update not done
+            return HttpResponse(json.dumps(response), content_type='application/json')
 
         # Then go back to the index URL with the updated values
-        response = {'status': 1, 'message': "Ok", 'url': reverse('dashboard:index')}
+        response = {'status': 1, 'message': "Ok"}
 
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
-        return redirect(reverse('dashboard:index'))
+        print("Saving failed.")
+        response = {'status': 0}
 
-def getContext():
-    organization_set = "["
-    for org in Organization.objects.all():
-        organization_set = organization_set + str(org.getJSON())
-    if len(organization_set) > 1:
-        organization_set = organization_set[:-1]
-    organization_set = organization_set + "]"
-    print("JSON for Organizations: " + organization_set)
-
-    data_set = "["
-    for org in Organization.objects.all():
-        org_log = PostActsLog.objects.filter(organization=org.shortname)
-        data_set = data_set + "{\\\"abbreviation\\\":\\\"" + org.shortname + "\\\","
-        data_set = data_set + "\\\"orgName\\\":\\\"" + org.name + "\\\","
-        data_set = data_set + "\\\"cluster\\\":\\\"" + org.cluster + "\\\","
-        ec_cnt = org_log.filter(status='Early Complete').count()
-        data_set = data_set + "\\\"ec\\\":" + str(ec_cnt) + ","
-        lc_cnt = org_log.filter(status='Late Complete').count()
-        data_set = data_set + "\\\"lc\\\":" + str(lc_cnt) + ","
-        ei_cnt = org_log.filter(status='Early Incomplete').count()
-        data_set = data_set + "\\\"ei\\\":" + str(ei_cnt) + ","
-        li_cnt = org_log.filter(status='Late Incomplete').count()
-        data_set = data_set + "\\\"li\\\":" + str(li_cnt) + ","
-        p_cnt = org_log.filter(status='Pending').count()
-        data_set = data_set + "\\\"p\\\":" + str(p_cnt) + ","
-        cnt = org_log.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt
-        data_set = data_set + "\\\"nc\\\":" + str(cnt) + "},"
-    if len(data_set) > 1:
-        data_set = data_set[:-1]
-    data_set = data_set + "]"
-    print("JSON for Data: " + data_set)
-
-    context = {
-        "organizations": organization_set,
-        "data": data_set,
-    }
-    return context
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
 def getSpecificContext(org):
-    ""
-    logs_set = "["
-    for log in PostActsLog.objects.filter(organization=org.shortname):
-        logs_set = logs_set + str(log.getJSON())
-    if len(logs_set) > 1:
-        logs_set = logs_set[:-1]
-    logs_set = logs_set + "]"
-    print("JSON for " + org.shortname + " Logs: " + logs_set)
 
     org_log = PostActsLog.objects.filter(organization=org.shortname)
     data_set = "{\"abbreviation\":\"" + org.shortname + "\","
@@ -192,8 +151,8 @@ def getSpecificContext(org):
     print("JSON for Data: " + data_set)
 
     context = {
-        "logs": logs_set,
         "data": json.loads(data_set),
+        "term": Map.objects.get(key="default_term").value,
     }
     return context
 
@@ -204,7 +163,7 @@ class OrgGeneralView(View):
         utility.sync()
         # TODO: Spew out content of orgs list then add to context
 
-        context = getContext()
+        context = {}
 
         return render(request, self.template_name, context)
 
@@ -226,7 +185,7 @@ class OrgGeneralView(View):
             else:
                 # TODO: Spew out content of orgs list then add to context
 
-                context = getContext()
+                context = {}
 
                 messages.error(request, 'Sign in failed. Your username or password is incorrect.')
 
@@ -237,7 +196,7 @@ class OrgGeneralView(View):
 
             # TODO: Spew out content of orgs list then add to context
 
-            context = getContext()
+            context = {}
 
             return render(request, self.template_name, context)
         else:

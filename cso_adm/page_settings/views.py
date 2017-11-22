@@ -14,10 +14,10 @@ from django.shortcuts import render, redirect
 #     return render(request, template_name)
 from django.urls import reverse
 from django.views import View
-from dashboard import ModelJSON
+from dashboard import modelJSON
 
 def get_response_context(request):
-    mod_info_set = ModelJSON.get_all_moderator_info_json()
+    mod_info_set = modelJSON.get_all_moderator_info_json()
     response = {
         'status': 1,
         'message': "Ok",
