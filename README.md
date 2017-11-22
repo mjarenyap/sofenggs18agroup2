@@ -61,3 +61,13 @@ CSO ADM Dashboard
 2. Sign-in form, with error message, automatically shows when input attempt fails.
 3. The whole table row is now clickable
 4. Added the ADM logo; clickable and will direct to home dashboard
+
+
+
+--- Version 0.6 (November 23, 2017) Issues Resolved ---
+1. Whole table row in organization list is now clickable
+2. Fixed status dropdown in org-specific modal
+3. Fixed search bar function
+4. Added an org tooptip feature on main dashboard
+5. Fixed the z-layer of the filter dropdown bar
+6. Added the ADM logo to page settings
