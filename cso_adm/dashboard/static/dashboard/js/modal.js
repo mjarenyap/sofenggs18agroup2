@@ -43,7 +43,6 @@ $(document).ready(function(){
     });
 
     $('#modal-details-wrapper-settings').click(function(e){
-        console.log("wrapper s");
         e.stopPropagation();
     });
 
@@ -60,6 +59,18 @@ $(document).ready(function(){
     
     $("div#modal-details-wrapper #discard").click(function(){
         $("div#modal-wrapper").css("display", "none");
+    });
+
+     /// settings page
+    $(document).on("click", "table.users-table tr td", function(e){
+        $("#modal-details-wrapper-settings").css("height", "410px");
+    });
+
+    $("#btn-add-user").click(function() {
+        console.log("BTN ADD USER");
+        $("#modal-details-wrapper-settings").css("height", "630px");
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
     });
 /*
     $("div#modal-details-wrapper div.content-wrapper p").click(function(){

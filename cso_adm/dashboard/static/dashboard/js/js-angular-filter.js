@@ -15,6 +15,9 @@ dashboardApp.config(function($sceDelegateProvider) {
 dashboardApp.controller('mainController', function($scope, $http) {
 
   var transformSearch = function(item) {
+    if(!item)
+        return null;
+
     var str = item;
     var searchLen = str.length;
     var s = 0;
@@ -39,6 +42,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
     return str;
   }
+
   var include = function(item, val) {
 
     if(!val)
@@ -53,7 +57,6 @@ dashboardApp.controller('mainController', function($scope, $http) {
     if(!val)
       return true;
     var regex = new RegExp(val, 'i');
-    // var month = item.t.split('/')[2].split(' ')[0];
     var month = item.t.split('/')[1];
     console.log("Search month: " + month);
 
