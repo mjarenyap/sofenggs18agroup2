@@ -172,6 +172,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
               $scope.modalChckedBy = obj.cb;
               $scope.modalDateChcked = obj.d;
               $scope.modalRemarks = obj.mk;
+              $scope.modalMsg = "";
             })
             .error(function(response){
                 console.log("failed");

@@ -107,9 +107,13 @@
                 </div>
                 <div class="content-wrapper" id="csoDetails">
                     <form id="modalForm" method="post">
+
                         {% endverbatim %}
                         {% csrf_token %}
                         {% verbatim %}
+                        <div class="error" id="saving_banner" style="display: none">
+                            <p class="messages" id="saving_msg"></p>
+                        </div>
                         <input type="hidden" name="id" value="{{modalId}}"/>
                         <div>
                             <b>Activity Title</b>
@@ -119,29 +123,19 @@
                             <b>Status</b>
                             {% endverbatim %}
                             {% if request.user|has_group:"moderator" %}
-                            <select id="submitStatusCB" ng-model="modalStatus"
+                            <select id="submitStatus" ng-model="modalStatus"
                                     ng-options="status.long as status.long for status in statusList">
                             </select>
                             {% else %}
                             {% verbatim %}
-                            <p id="submitStatusCB" contenteditable="false">{{modalStatus}}</p>
+                            <p id="submitStatus" contenteditable="false">{{modalStatus}}</p>
                             {% endverbatim %}
                             {% endif %}
                             {% verbatim %}
                         </div>
                         <div>
                             <b>Checked by</b>
-                            {% endverbatim %}
-                            {% if request.user|has_group:"moderator" %}
-                            <select id="submitCB" ng-model="modalChckedBy"
-                                    ng-options="checker as checker for checker in checkerList">
-                            </select>
-                            {% else %}
-                            {% verbatim %}
                             <p id="submitCB" contenteditable="false">{{modalChckedBy}}</p>
-                            {% endverbatim %}
-                            {% endif %}
-                            {% verbatim %}
                         </div>
                         <div>
                             <b>Date Checked</b>

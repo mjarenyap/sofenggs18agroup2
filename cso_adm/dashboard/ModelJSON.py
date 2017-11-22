@@ -69,3 +69,15 @@ def get_all_moderator_json():
     print("JSON for Moderators: " + mod_set)
 
     return mod_set
+
+def get_all_moderator_info_json():
+    mod_info_set = "["
+    mods = User.objects.filter(groups__name='moderator')
+    for mod in mods:
+        mod_info_set = mod_info_set + "\"" + mod.get_full_name() + "\","
+    if len(mod_info_set) > 1:
+        mod_info_set = mod_info_set[:-1]
+    mod_info_set = mod_info_set + "]"
+    print("JSON for Moderator Info: " + mod_info_set)
+
+    return mod_info_set

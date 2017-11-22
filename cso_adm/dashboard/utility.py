@@ -75,7 +75,7 @@ def update_cells(list):
         sheet = client.open_by_key(worksheet_key).worksheet(sheet_name)
         print("Updating cell...")
         for cell in list:
-            sheet.update_cell(cell[0], cell[1], cell[2])
+            sheet.update_cell(cell[0], cell[1].split(" ")[1], cell[2])
         print("Updating finish!")
         return True
     except Exception as e:

@@ -35,6 +35,7 @@ $(document).ready(function(){
     });
     
     $('#modal-wrapper, .closeModal, .closeModal i').click(function(){
+        $("div.error#saving_banner").css("display", "none");
         $('#modal-wrapper, #modal-details-wrapper').hide();
     });
 
@@ -54,6 +55,7 @@ $(document).ready(function(){
     });
     
     $("div#modal-wrapper i.close").click(function(){
+        $("div.error#saving_banner").css("display", "none");
         $("div#modal-wrapper").css("display", "none");
     });
     
@@ -78,9 +80,10 @@ $(document).ready(function(){
     });
 */
     $("#modalForm").submit(function(){
-        var status = $("#submitStatus").html();
-        //var cb = $("#submitCB").html();
-        var cb = $("#submitCB").find(":selected").text();
+        $("div.error#saving_banner").css("display", "flex");
+        $("p.messages#saving_msg").text("Saving...");
+        var status = $("#submitStatus").find(":selected").text();
+        var cb = $("#submitCB").html();
         var dc = $("#submitDC").html();
         var remarks = $("#submitRemarks").html();
 
@@ -100,7 +103,9 @@ $(document).ready(function(){
                     + '&remarks=' + $.trim(remarks),
             success: function(response) {
                 if (response.status == 1) {
-                    window.location.href = response.url
+                    $("p.messages#saving_msg").text("Saved Successfully.");
+                } else {
+                    $("p.messages#saving_msg").text("Saved Failed.");
                 }
             }
         });

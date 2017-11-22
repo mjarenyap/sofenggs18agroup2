@@ -75,8 +75,16 @@ def get_log(request):
 
 
 def save_post_acts(request):
+    print("Saving post acts")
     # Get the ID edited from the POST request
     id = request.POST.get('id', False)
+    print(request.user)
+
+    if not request.user.is_authenticated():
+        print("Saved failed. Not logged in.")
+        response = {'status': 0}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
     # If an ID was found, this request contains payload
     # If not, then the URL was just manually entered, and nothing would be done
@@ -87,15 +95,19 @@ def save_post_acts(request):
         # Modify the necessary fields
         list = []
         edited_post_acts_log.status = request.POST.get('status')
+        print(edited_post_acts_log.status)
         log = [row, Map.objects.get(key="status").value, edited_post_acts_log.status]
         list.append(log)
-        edited_post_acts_log.checked_by = request.POST.get('cb')
+        edited_post_acts_log.checked_by = request.user.get_full_name()
+        print(edited_post_acts_log.checked_by)
         log = [row, Map.objects.get(key="checked_by").value, edited_post_acts_log.checked_by]
         list.append(log)
         edited_post_acts_log.date_checked = datetime.now().strftime('%m/%d/%Y %H:%M:%S')
+        print(edited_post_acts_log.date_checked)
         log = [row, Map.objects.get(key="date_checked").value, edited_post_acts_log.date_checked]
         list.append(log)
         edited_post_acts_log.remarks = request.POST.get('remarks')
+        print(edited_post_acts_log.remarks)
         log = [row, Map.objects.get(key="remarks").value, edited_post_acts_log.remarks]
         list.append(log)
 
@@ -104,6 +116,9 @@ def save_post_acts(request):
             edited_post_acts_log.save()
         else:
             print("Update failed. Changes not saved.")
+            response = {'status': 0}
+
+            return HttpResponse(json.dumps(response), content_type='application/json')
 
         # TODO send message update not done
 
@@ -112,7 +127,10 @@ def save_post_acts(request):
 
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
-        return redirect(reverse('dashboard:index'))
+        print("Saving failed.")
+        response = {'status': 0}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
 
 class UserFormView(View):
