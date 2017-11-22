@@ -177,7 +177,6 @@ section.filter-wrapper span{
     width: 100%;
     box-sizing: border-box;
     background-color: var(--theme-light-neutral-2);
-    z-index: 2500;
 }
 
 nav{
@@ -219,6 +218,19 @@ nav button.active{
     color: white;
     background-color: var(--theme-color);
     border-color: var(--theme-color);
+}
+
+nav > a.logo-banner{
+    display: flex;
+    align-items: center;
+}
+
+nav > a.logo-banner p{
+    display: inline-block;
+}
+
+img#site-logo{
+    width: 30px;
 }
 
 section.settings-tab-wrapper{
@@ -279,6 +291,7 @@ form#sign-in{
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0px 0px 11px var(--theme-grey-neutral-2);
+    z-index: 3000;
 }
 
 form#sign-in input{
