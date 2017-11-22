@@ -1,6 +1,10 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # # Create your views here.
@@ -8,6 +12,7 @@ from django.shortcuts import render, redirect
 # def test_url(request):
 #     template_name = 'page_settings/settings.html'
 #     return render(request, template_name)
+from django.urls import reverse
 from django.views import View
 
 
@@ -60,3 +65,72 @@ class SettingsView(UserPassesTestMixin, View):
             return redirect('dashboard:index')
         else:
             return redirect('page_404:page_404')
+
+
+# TODO: Adjust accordingly to frontend changes
+
+# Remove a moderator
+def remove_moderator(request):
+    # Get the relevant credentials from the POST request
+    username = request.POST.get('username', False)
+
+    # Check if the POST request is valid
+    if username is not False:
+        # Get the user from the given username
+        user = User.objects.get(username=username)
+
+        # Purge the user
+        user.delete()
+
+        # Then go back to the previous URL with the updated values
+        response = {'status': 1, 'message': "Ok", 'url': reverse('settings:settings')}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        return redirect(reverse('settings:settings'))
+
+
+# Add a moderator
+def add_moderator(request):
+    # Get the relevant credentials from the POST request
+    new_username = request.POST.get('new_username', False)
+    new_password = request.POST.get('new_password', False)
+
+    # Check if the POST request is valid
+    if new_username is not False and new_password is not False:
+        # Get the user from the old username
+        user = User.objects.create_user(new_username, None, new_password)
+
+        # Then go back to the previous URL with the updated values
+        response = {'status': 1, 'message': "Ok", 'url': reverse('settings:settings')}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        return redirect(reverse('settings:settings'))
+
+
+# Update a moderator
+def update_moderator(request):
+    # Get the relevant credentials from the POST request
+    old_username = request.POST.get('old_username', False)
+    new_username = request.POST.get('new_username', False)
+    new_password = request.POST.get('new_password', False)
+
+    # Check if the POST request is valid
+    if old_username is not False and new_username is not False and new_password is not False:
+        # Get the user from the old username
+        user = User.objects.get(username=old_username)
+
+        # Change the relevant credentials
+        user.set_username(new_username)
+        user.set_password(new_password)
+
+        # Commit the changes to the database
+        user.save()
+
+        # Then go back to the previous URL with the updated values
+        response = {'status': 1, 'message': "Ok", 'url': reverse('settings:settings')}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        return redirect(reverse('settings:settings'))
