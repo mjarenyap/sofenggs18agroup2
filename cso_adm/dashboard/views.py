@@ -119,7 +119,7 @@ class UserFormView(View):
     def get(self, request):
         utility.sync()
 
-        context = getContext()
+        context = {}
 
         return render(request, self.template_name, context)
 
@@ -140,7 +140,7 @@ class UserFormView(View):
                 return redirect('dashboard:index')
             else:
                 # Retrieve logs
-                context = getContext()
+                context = {}
 
                 messages.error(request, 'Sign in failed. Your username or password is incorrect.')
 
@@ -150,7 +150,7 @@ class UserFormView(View):
             logout(request)
 
             # Retrieve logs
-            context = getContext()
+            context = {}
 
             return render(request, self.template_name, context)
         else:
