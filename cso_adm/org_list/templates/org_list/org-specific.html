@@ -139,7 +139,10 @@
         </div>
 
         <nav>
-            <p><b>CSO</b>Dashboard</p>
+            <a href="{% url 'dashboard:index' %}" class="logo-banner">
+                <img src="{% static 'dashboard/assets/images/ADM-logo.png' %}" id="site-logo"/>
+                <p><b>CSO</b>Dashboard</p>
+            </a>
             <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
             <ul>
                 <a href="{% url 'dashboard:index' %}"><li>Home</li></a>

@@ -89,8 +89,8 @@ dashboardApp.controller('mainController', function($scope, $http, $window) {
   $http.get("get_org_list_contexts/", {params: {}})
           .success(function(response) {
               console.log("success");
-              $scope.org_data = JSON.parse(response.orgs);
-              $scope.orgList = JSON.parse(response.data_set);
+              $scope.org_data = JSON.parse(response.data_set);
+              $scope.orgList = JSON.parse(response.orgs);
               $scope.clusterList = JSON.parse(response.cluster);
             })
             .error(function(response){
