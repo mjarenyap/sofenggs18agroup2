@@ -12,6 +12,16 @@ def get_all_log_json():
 
     return logs_set
 
+def get_org_log_json(org):
+    logs_set = "["
+    for log in PostActsLog.objects.filter(organization=org):
+        logs_set = logs_set + str(log.getJSON2())
+    if len(logs_set) > 1:
+        logs_set = logs_set[:-1]
+    logs_set = logs_set + "]"
+    print("JSON for " + org + " Logs: " + logs_set)
+
+    return logs_set
 
 def get_all_org_json():
     organization_set = "["
@@ -69,3 +79,20 @@ def get_all_moderator_json():
     print("JSON for Moderators: " + mod_set)
 
     return mod_set
+
+def get_all_moderator_info_json():
+    mod_info_set = "["
+    mods = User.objects.filter(groups__name='moderator')
+    for mod in mods:
+        mod_info_set = mod_info_set + "{\"firstName\":\"" + mod.first_name + "\","
+        mod_info_set = mod_info_set + "\"lastName\":\"" + mod.last_name + "\","
+        mod_info_set = mod_info_set + "\"email\":\"" + mod.email + "\","
+        mod_info_set = mod_info_set + "\"username\":\"" + mod.username + "\","
+        mod_info_set = mod_info_set + "\"postActsChecked\":\"" + str(PostActsLog.objects.filter(checked_by=mod.get_full_name()).count()) + "\"},"
+
+    if len(mod_info_set) > 1:
+        mod_info_set = mod_info_set[:-1]
+    mod_info_set = mod_info_set + "]"
+    print("JSON for Moderator Info: " + mod_info_set)
+
+    return mod_info_set

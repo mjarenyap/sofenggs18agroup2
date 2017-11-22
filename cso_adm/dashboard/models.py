@@ -2,37 +2,6 @@ from django.db import models
 from django.urls import reverse
 
 import datetime
-#
-# SubmissionType = (
-#     ('Initial Submission', 'Initial Submission'),
-#     ('Pended', 'Pended'),
-# )
-#
-# Status = (
-#     ("NC", "Not Checked"),
-#     ("EC", "Early Complete"),
-#     ("LC", "Late Complete"),
-#     ("EI", "Early Incomplete"),
-#     ("LI", "Late Incomplete"),
-#     ("AC", "Acknowledge Cancellation"),
-#     ("P", "Pending"),
-# )
-#
-# Term = (
-#     ('1', '1'),
-#     ('2', '2'),
-#     ('3', '3'),
-#     ('Yearlong', 'Yearlong'),
-# )
-#
-# Checker = (
-#     ('Hordy Mojica', 'Hordy Mojica'),
-#     ('Kyle Gecana', 'Kyle Gecana'),
-#     ('Nami Inomata', 'Nami Inomata'),
-#     ('Jana Josef', 'Jana Josef'),
-#     ('Julianne Sy', 'Julianne Sy'),
-#     ('Krystel Tan', 'Krystel Tan'),
-# )
 
 Cluster = (
     ("ASO", "ASO"),
@@ -157,7 +126,7 @@ class PostActsLog(models.Model):
         s = s + "\"sb\":\"" + self.submitted_by + "\","
         s = s + "\"num\":\"" + self.contact_no + "\","
         s = s + "\"ml\":\"" + self.email + "\","
-        s = s + "\"mk\":\"" + self.tie_up_orgs.replace("\"", "\\\"") + "\"}"
+        s = s + "\"mk\":\"" + self.remarks.replace("\"", "\\\"") + "\"}"
 
         return s
 

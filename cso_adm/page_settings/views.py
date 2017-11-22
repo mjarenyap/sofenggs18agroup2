@@ -14,7 +14,16 @@ from django.shortcuts import render, redirect
 #     return render(request, template_name)
 from django.urls import reverse
 from django.views import View
+from dashboard import modelJSON
 
+def get_response_context(request):
+    mod_info_set = modelJSON.get_all_moderator_info_json()
+    response = {
+        'status': 1,
+        'message': "Ok",
+        'mod': mod_info_set
+    }
+    return HttpResponse(json.dumps(response), content_type='application/json')
 
 class SettingsView(UserPassesTestMixin, View):
     template_name = 'page_settings/settings.html'
