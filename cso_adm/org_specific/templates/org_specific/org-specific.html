@@ -116,7 +116,7 @@
                 <div>
                     <b>Checked by</b>
                     {% endverbatim %}
-                    {% if user.is_superuser %}
+                    {% if request.user|has_group:"moderator" %}
                         <select ng-model="modalChckedBy" ng-options="checker as checker for checker in checkerList">
                         </select>
                     {% else %}
@@ -133,7 +133,7 @@
                 <div>
                     <b>Remarks</b>
                     {% endverbatim %}
-                    {% if user.is_superuser %}
+                    {% if request.user|has_group:"moderator" %}
                         <p id="submitRemarks" contenteditable="true">
                     {% else %}
                         <p id="submitRemarks" contenteditable="false">
