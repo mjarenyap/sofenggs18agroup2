@@ -204,45 +204,45 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : 'yearlong', 'long' : 'Yearlong'}
   ];
 
-  $scope.typeList = [
-      {'short' : 'P', 'long' : 'Pended'},
-      {'short' : 'IS', 'long' : 'Initial Submission'}
-  ];
-
-  $scope.statusList = [
-      {'short' : 'P', 'long' : 'Pending'},
-      {'short' : 'EC', 'long' : 'Early Complete'},
-      {'short' : 'LC', 'long' : 'Late Complete'},
-      {'short' : 'EI', 'long' : 'Early Incomplete'},
-      {'short' : 'LI', 'long' : 'Late Incomplete'},
-      {'short' : 'AC', 'long' : 'Acknowledged Cancellation'}
-  ];
-
-  $scope.checkerList = [
-      'Hordy Mojica', 'Julianne Sy', 'Kristel Tan'
-  ];
-  
-  $scope.clusterList = [
-      {'short' : 'ASO', 'long' : 'Alliance of Science Organizations'},  
-      {'short' : 'ASPIRE', 'long' : 'Alliance of Special Interest and Socio-Civic Organizations'},  
-      {'short' : 'CAP 12', 'long' : 'College of Liberal Arts Professional Organizations'},  
-      {'short' : 'ENGAGE', 'long' : 'Engineering Alliance Geared Towards Excellence'},  
-      {'short' : 'PROBE', 'long' : 'Alliance of Professional Organizations of Business and Economics'} 
-  ];
+  // $scope.typeList = [
+  //     {'short' : 'P', 'long' : 'Pended'},
+  //     {'short' : 'IS', 'long' : 'Initial Submission'}
+  // ];
+  //
+  // $scope.statusList = [
+  //     {'short' : 'P', 'long' : 'Pending'},
+  //     {'short' : 'EC', 'long' : 'Early Complete'},
+  //     {'short' : 'LC', 'long' : 'Late Complete'},
+  //     {'short' : 'EI', 'long' : 'Early Incomplete'},
+  //     {'short' : 'LI', 'long' : 'Late Incomplete'},
+  //     {'short' : 'AC', 'long' : 'Acknowledged Cancellation'}
+  // ];
+  //
+  // $scope.checkerList = [
+  //     'Hordy Mojica', 'Julianne Sy', 'Kristel Tan'
+  // ];
+  //
+  // $scope.clusterList = [
+  //     {'short' : 'ASO', 'long' : 'Alliance of Science Organizations'},
+  //     {'short' : 'ASPIRE', 'long' : 'Alliance of Special Interest and Socio-Civic Organizations'},
+  //     {'short' : 'CAP 12', 'long' : 'College of Liberal Arts Professional Organizations'},
+  //     {'short' : 'ENGAGE', 'long' : 'Engineering Alliance Geared Towards Excellence'},
+  //     {'short' : 'PROBE', 'long' : 'Alliance of Professional Organizations of Business and Economics'}
+  // ];
 
   $http.get("/get_dashboard_contexts/", {params: {}})
-          .success(function(response) {
-              console.log("success");
-              var obj_logs = JSON.parse(response.logs);
-              console.log(obj_logs);
-              var obj_orgs = JSON.parse(response.orgs);
-              console.log(obj_orgs);
-              $scope.postact_data = obj_logs;
-              $scope.orgList = obj_orgs;
-            })
-            .error(function(response){
-                console.log("failed");
-            });
+      .success(function(response) {
+          console.log("success");
+          $scope.postact_data = JSON.parse(response.logs);
+          $scope.orgList = JSON.parse(response.orgs);
+          $scope.clusterList = JSON.parse(response.cluster);
+          $scope.checkerList = JSON.parse(response.mod);
+          $scope.statusList = JSON.parse(response.status);
+          $scope.typeList = JSON.parse(response.type);
+        })
+        .error(function(response){
+            console.log("failed");
+        });
 
   // $scope.orgList = object_org;
   // $scope.orgList = [
