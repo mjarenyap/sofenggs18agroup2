@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+
 import datetime
 #
 # SubmissionType = (
@@ -172,4 +173,5 @@ class Map(models.Model):
 
     def __str__(self):
         return self.key
-# [{\"id\":1,\"t\":\"2016/09/27 16:46:02\",\"n\":\"IBS/MGT Thesis 2 Orientation\",\"o\":\"BMS\",\"term\":\"1\",\"st\":\"Initial Submission\",\"s\":\"Pending\",\"cb\":\"J
+
+
