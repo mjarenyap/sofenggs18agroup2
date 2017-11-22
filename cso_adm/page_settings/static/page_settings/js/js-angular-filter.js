@@ -20,13 +20,21 @@ dashboardApp.controller('mainController', function($scope, $http) {
   $scope.sortType = 't';  // set the default sort type
   $scope.sortReverse = true;    // set the default sort order
 
+  $scope.showAddUserModal = false;
   // modal content
+  $scope.modalId = '';
   $scope.modalUsername = '';
   $scope.modalPassword = '';
 
   $scope.showModal = function(checker) {
+    $scope.showAddUserModal = false;
+    $scope.modalId = '';
     $scope.modalUsername = checker.username;
     $scope.modalPassword = checker.password;
+  }
+
+  $scope.modalAddUserShow = function() {
+    $scope.showAddUserModal = true;
   }
 
   // Dummy frontend data

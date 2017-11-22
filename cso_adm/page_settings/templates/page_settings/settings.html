@@ -29,22 +29,57 @@
     <i class="fa fa-times close"></i>
     <div id="modal-details-wrapper-settings" class="modal-smaller">
         <ul class="tab-wrapper">
-            <li class="active" data-id="genActs">Change user account details</li>
+            <li class="active" ng-show="!showAddUserModal">Change user account details</li>
+            <li class="active" ng-show="showAddUserModal">Add user account</li>
         </ul>
-        <div class="content-wrapper visible" id="csoDetails">
-            <form id="modalForm" method="post">
+        <div class="content-wrapper visible" id="csoDetails" ng-show="!showAddUserModal">
+            <form id="modalEditUser" method="post">
                 {% verbatim %}
                 <div>
                     <b>Username</b>
                     <input type="text" value={{modalUsername}} >
                 </div>
                 <div>
-                    <b>Password</b>
-                    <input type="password" value={{modalPassword}} >
+                    <b>New Password</b>
+                    <input type="password">
+                </div>
+                <div>
+                    <b>Confirm Password</b>
+                    <input type="password">
                 </div>
                 {% endverbatim %}
             <button type="submit" class="button grey">Discard</button>
             <button type="submit" class="button">Save</button>
+            </form>
+        </div>
+        <div class="content-wrapper visible" ng-show="showAddUserModal">
+            <form id="modalAddUser" method="post">
+                <div>
+                    <b>First Name</b>
+                    <input type="text">
+                </div>
+                <div>
+                    <b>Last Name</b>
+                    <input type="text">
+                </div>
+                <div>
+                    <b>Username</b>
+                    <input type="text">
+                </div>
+                <div>
+                    <b>Email</b>
+                    <input type="text">
+                </div>
+                <div>
+                    <b>Password</b>
+                    <input type="password">
+                </div>
+                <div>
+                    <b>Confirm Password</b>
+                    <input type="password">
+                </div>
+            <button type="submit" class="button grey">Discard</button>
+            <button type="submit" class="button">Add</button>
             </form>
         </div>
     </div>
@@ -104,8 +139,8 @@
     <div class="user-tray">
         <h3>All Users: No users selected</h3>
         <div>
-            <button class="grey">- Delete Users</button>
-            <button>+ Add Users</button>
+            <button id="btn-del-user" class="grey">- Delete Users</button>
+            <button id="btn-add-user" ng-click="modalAddUserShow()">+ Add Users</button>
         </div>
     </div>
     <table cellspacing="0" cellpadding="0" border="0" class="users-table">

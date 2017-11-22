@@ -10,29 +10,31 @@ from django.views import View
 
 from dashboard import utility
 from dashboard.models import PostActsLog, Organization, Map
+from dashboard import ModelJSON
 
 
 # Create your views here.
 
 def get_response_context(request):
-    print('HERE AT DASHBOARD CONTEXT')
-    logs_set = "["
-    for log in PostActsLog.objects.all():
-        logs_set = logs_set + str(log.getJSON2())
-    if len(logs_set) > 1:
-        logs_set = logs_set[:-1]
-    logs_set = logs_set + "]"
-    print("JSON for Logs: " + logs_set)
+    print('HERE AT DASHBOARD AJAX CONTEXT')
 
-    organization_set = "["
-    for org in Organization.objects.all():
-        organization_set = organization_set + str(org.getJSON2())
-    if len(organization_set) > 1:
-        organization_set = organization_set[:-1]
-    organization_set = organization_set + "]"
-    print("JSON for Organizations: " + organization_set)
+    logs_set = ModelJSON.get_all_log_json()
+    organization_set = ModelJSON.get_all_org_json()
+    cluster_set = ModelJSON.get_all_cluster_json()
+    mod_set = ModelJSON.get_all_moderator_json()
+    type_set = ModelJSON.get_all_type_json()
+    status_set = ModelJSON.get_all_status_set()
 
-    response = {'status': 1, 'message': "Ok", 'logs': logs_set, 'orgs': organization_set, 'url': reverse('dashboard:index')}
+    response = {
+        'status': 1,
+        'message': "Ok",
+        'logs': logs_set,
+        'orgs': organization_set,
+        'cluster': cluster_set,
+        'mod': mod_set,
+        'type': type_set,
+        'status': status_set
+    }
     return HttpResponse(json.dumps(response), content_type='application/json')
 
 def getContext():

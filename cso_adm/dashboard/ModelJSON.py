@@ -31,7 +31,7 @@ def get_all_cluster_json():
     clusters_set = clusters_set + "{\"short\":\"ASPIRE\",\"long\":\"Alliance of Special Interest and Socio-Civic Organizations\"},"
     clusters_set = clusters_set + "{\"short\":\"CAP 12\",\"long\":\"College of Liberal Arts Professional Organizations\"},"
     clusters_set = clusters_set + "{\"short\":\"ENGAGE\",\"long\":\"Engineering Alliance Geared Towards Excellence\"},"
-    clusters_set = clusters_set + "{\"short\":\"PROBE\",\"long\": \"Alliance of Professional Organizations of Business and Economics\"}"
+    clusters_set = clusters_set + "{\"short\":\"PROBE\",\"long\": \"Alliance of Professional Organizations of Business and Economics\"},"
     clusters_set = clusters_set + "{\"short\":\"OTHERS\",\"long\":\"Others\"}]"
     print("JSON for Cluster: " + clusters_set)
 
@@ -39,7 +39,7 @@ def get_all_cluster_json():
 
 
 def get_all_type_json():
-    type_set = "[[{'short':'P','long':'Pended'},{'short':'IS','long':'Initial Submission'}]"
+    type_set = "[{\"short\":\"P\",\"long\":\"Pended\"},{\"short\":\"IS\",\"long\":\"Initial Submission\"}]"
     print("JSON for Type: " + type_set)
 
     return type_set
@@ -47,12 +47,12 @@ def get_all_type_json():
 
 def get_all_status_set():
     status_set = "["
-    status_set = status_set + "{'short':'P','long':'Pending'},"
-    status_set = status_set + "{'short':'EC','long':'Early Complete'},"
-    status_set = status_set + "{'short':'LC','long':'Late Complete'},"
-    status_set = status_set + "{'short':'EI','long':'Early Incomplete'},"
-    status_set = status_set + "{'short':'LI','long':'Late Incomplete'},"
-    status_set = status_set + "{'short':'AC','long':'Acknowledged Cancellation'}]"
+    status_set = status_set + "{\"short\":\"P\",\"long\":\"Pending\"},"
+    status_set = status_set + "{\"short\":\"EC\",\"long\":\"Early Complete\"},"
+    status_set = status_set + "{\"short\":\"LC\",\"long\":\"Late Complete\"},"
+    status_set = status_set + "{\"short\":\"EI\",\"long\":\"Early Incomplete\"},"
+    status_set = status_set + "{\"short\":\"LI\",\"long\":\"Late Incomplete\"},"
+    status_set = status_set + "{\"short\":\"AC\",\"long\":\"Acknowledged Cancellation\"}]"
     print("JSON for Status: " + status_set)
 
     return status_set

@@ -15,6 +15,8 @@ dashboardApp.config(function($sceDelegateProvider) {
 dashboardApp.controller('mainController', function($scope, $http) {
 
   var transformSearch = function(item) {
+    if(!item)
+        return null;
     var str = item;
     var searchLen = str.length;
     var s = 0;
