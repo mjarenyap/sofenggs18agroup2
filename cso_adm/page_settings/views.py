@@ -3,9 +3,11 @@ import json
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+
+from django.contrib.auth.decorators import user_passes_test
 
 # # Create your views here.
 # # This is only for testing purposes. You may comment this out
@@ -78,7 +80,18 @@ class SettingsView(UserPassesTestMixin, View):
 
 # TODO: Adjust accordingly to frontend changes
 
+# Useradmin should be logged in to perform changes!
+def has_group(user):
+    try:
+        group = Group.objects.get(name='useradmin')
+    except Group.DoesNotExist:
+        return False
+
+    return group in user.groups.all()
+
+
 # Remove a moderator
+@user_passes_test(has_group)
 def remove_moderator(request):
     # Get the relevant credentials from the POST request
     username = request.POST.get('username', False)
@@ -100,6 +113,7 @@ def remove_moderator(request):
 
 
 # Add a moderator
+@user_passes_test(has_group)
 def add_moderator(request):
     # Get the relevant credentials from the POST request
     new_username = request.POST.get('new_username', False)
@@ -119,6 +133,7 @@ def add_moderator(request):
 
 
 # Update a moderator
+@user_passes_test(has_group)
 def update_moderator(request):
     # Get the relevant credentials from the POST request
     old_username = request.POST.get('old_username', False)

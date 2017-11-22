@@ -29,10 +29,11 @@
     <i class="fa fa-times close"></i>
     <div id="modal-details-wrapper-settings" class="modal-smaller">
         <ul class="tab-wrapper">
-            <li class="active" ng-show="!showAddUserModal">Change user account details</li>
-            <li class="active" ng-show="showAddUserModal">Add user account</li>
+            <li class="active" ng-show="!showAddUserModal && !showDelUserModal">Change user account details</li>
+            <li class="active" ng-show="showAddUserModal && !showDelUserModal">Add user account</li>
+            <li class="active" ng-show="!showAddUserModal && showDelUserModal">Remove account(s)</li>
         </ul>
-        <div class="content-wrapper visible" id="csoDetails" ng-show="!showAddUserModal">
+        <div class="content-wrapper visible" id="csoDetails" ng-show="!showAddUserModal && !showDelUserModal">
             <form id="modalEditUser" method="post">
                 {% verbatim %}
                 <div>
@@ -52,7 +53,7 @@
             <button type="submit" class="button">Save</button>
             </form>
         </div>
-        <div class="content-wrapper visible" ng-show="showAddUserModal">
+        <div class="content-wrapper visible" ng-show="showAddUserModal && !showDelUserModal">
             <form id="modalAddUser" method="post">
                 <div>
                     <b>First Name</b>
@@ -80,6 +81,20 @@
                 </div>
             <button type="submit" class="button grey">Discard</button>
             <button type="submit" class="button">Add</button>
+            </form>
+        </div>
+        <div class="content-wrapper visible" ng-show="!showAddUserModal && showDelUserModal">
+            <form id="modalDeleteUser" method="post">
+                <div class="label-delete">
+                    <b>Delete the following users?</b>
+                </div>
+                {% verbatim %}
+                <div ng-repeat="du in delUsers" class="label-delete-name">
+                    <p>{{du.firstName}} {{du.lastName}}</p>
+                </div>
+                {% endverbatim %}
+                <button type="submit" class="button grey">Cancel</button>
+                <button type="submit" class="button">Delete</button>
             </form>
         </div>
     </div>
@@ -137,9 +152,14 @@
 </section>
 <section class="fill" id="manage-users">
     <div class="user-tray">
-        <h3>All Users: No users selected</h3>
+        {% verbatim %}
+        <h3 ng-show="selectUsers == 0">All Users: No users selected</h3>
+        <h3 ng-show="selectUsers == 1">All Users: 1 user selected</h3>
+        <h3 ng-show="selectUsers > 1">All Users: {{selectUsers}} users selected</h3>
+        {% endverbatim %}
+
         <div>
-            <button id="btn-del-user" class="grey">- Delete Users</button>
+            <button id="btn-del-user" ng-click="modalDelUser(checkers)" class="grey">- Delete Users</button>
             <button id="btn-add-user" ng-click="modalAddUserShow()">+ Add Users</button>
         </div>
     </div>
@@ -154,7 +174,7 @@
         </tr>
         {% verbatim %}
         <tr ng-repeat="checker in checkers" ng-click="showModal(checker)">
-            <td><input type="checkbox"/></td>
+            <td><input type="checkbox" ng-model="checker.SELECTED" ng-true-value="'Y'" ng-false-value="'N'" ng-change="updateSelectCount(checkers)"/></td>
             <td>{{ checker.username }}</td>
             <td>{{ checker.firstName }}</td>
             <td>{{ checker.lastName }}</td>

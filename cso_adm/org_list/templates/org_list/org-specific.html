@@ -88,6 +88,9 @@
 
                 <div class="content-wrapper" id="csoDetails">
                     <form id="modalForm" method="post">
+                        {% endverbatim %}
+                        {% csrf_token %}
+                        {% verbatim %}
                         <input type="hidden" name="id" value="{{modalId}}"/>
                         <div>
                             <b>Activity Title</b>
@@ -97,13 +100,15 @@
                             <b>Status</b>
                             {% endverbatim %}
                             {% if request.user|has_group:"moderator" %}
-                                <p id="submitStatus" contenteditable="true">
+                            <select id="submitStatus" ng-model="modalStatus"
+                                    ng-options="status.long as status.long for status in statusList">
+                            </select>
                             {% else %}
-                                <p id="submitStatus" contenteditable="false">
+                            {% verbatim %}
+                            <p id="submitStatus" contenteditable="false">{{modalStatus}}</p>
+                            {% endverbatim %}
                             {% endif %}
                             {% verbatim %}
-                                {{modalStatus}}
-                            </p>
                         </div>
                         <div>
                             <b>Checked by</b>
@@ -159,7 +164,11 @@
             </form>
             {% else %}
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+            {% if messages %}
+            <form id="sign-in" action="" style="display: block;" method="POST">
+            {% else %}
             <form id="sign-in" action="" method="POST">
+                {% endif %}
                 {% if messages %}
                     <div class="error">
                         {% for message in messages %}
