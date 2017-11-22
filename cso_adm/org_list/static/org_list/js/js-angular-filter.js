@@ -63,7 +63,7 @@ dashboardApp.controller('mainController', function($scope, $http, $window) {
       console.log("show org");
       console.log(org);
       console.log(org.short);
-      $window.location.href = '/organization/' + org.short;
+      $window.location.href = '/organization/' + org.abbreviation;
       // $location.path('/organization/' + org.abbreviation);
 
   }
