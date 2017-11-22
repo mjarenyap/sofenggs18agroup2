@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load dashboard_extras %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -95,7 +96,7 @@
                         <div>
                             <b>Status</b>
                             {% endverbatim %}
-                            {% if user.is_superuser %}
+                            {% if request.user|has_group:"moderator" %}
                                 <p id="submitStatus" contenteditable="true">
                             {% else %}
                                 <p id="submitStatus" contenteditable="false">
@@ -115,7 +116,7 @@
                         <div>
                             <b>Remarks</b>
                             {% endverbatim %}
-                            {% if user.is_superuser %}
+                            {% if request.user|has_group:"moderator" %}
                                 <p id="submitRemarks" contenteditable="true">
                             {% else %}
                                 <p id="submitRemarks" contenteditable="false">
@@ -127,8 +128,10 @@
                         <br/>
                         {% endverbatim %}
                         <!--{% if user.is_authenticated %}-->
+                        {% if request.user|has_group:"moderator" %}
                         <input type="submit" value="Save"/>
                         <input id="discard" type="button" value="Discard" class="hallow"/>
+                        {% endif %}
                         <!--{% csrf_token %}-->
                         <!--<button type="submit" class="button grey">Discard</button>-->
                         <!--<button type="submit" class="button">Save</button>-->

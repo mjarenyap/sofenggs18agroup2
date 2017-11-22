@@ -53,3 +53,11 @@ CSO ADM Dashboard
 1. Added banner in update post-acts
 2. refined the filter bar issue
 3. Rename ModelJSON.py to modelJSON.py
+
+
+
+--- Version 0.5 (November 22, 2017) Issues Resolved ---
+1. Fixed the overlapping issues with the sign-in form
+2. Sign-in form, with error message, automatically shows when input attempt fails.
+3. The whole table row is now clickable
+4. Added the ADM logo; clickable and will direct to home dashboard
