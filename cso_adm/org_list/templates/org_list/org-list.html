@@ -36,7 +36,11 @@
             </form>
             {% else %}
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+            {% if messages %}
+            <form id="sign-in" action="" style="display: block;" method="POST">
+            {% else %}
             <form id="sign-in" action="" method="POST">
+            {% endif%}
                 {% if messages %}
                     <div class="error">
                         {% for message in messages %}
