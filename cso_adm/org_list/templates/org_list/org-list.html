@@ -15,10 +15,13 @@
         <script src="{% static 'dashboard/js/sign-in.js' %}" type="text/javascript"></script>
         <script src="{% static 'org_list/js/js-angular-filter.js' %}" type="text/javascript"></script>
     </head>
-<body ng-app="dashboardApp" ng-controller="mainController">
+    <body ng-app="dashboardApp" ng-controller="mainController">
 
-<nav>
-            <p><b>CSO</b>Dashboard</p>
+        <nav>
+            <a href="{% url 'dashboard:index' %}" class="logo-banner">
+                <img src="{% static 'dashboard/assets/images/ADM-logo.png' %}" id="site-logo"/>
+                <p><b>CSO</b>Dashboard</p>
+            </a>
             <input type="text" id="search" placeholder="Search organizations..." ng-model="filterSearchOrg"/>
             <ul>
                 <a href="{% url 'dashboard:index' %}">
