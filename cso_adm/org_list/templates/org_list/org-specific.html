@@ -156,24 +156,33 @@
                 <a href="{% url 'dashboard:index' %}"><li>Home</li></a>
                 <a href="{% url 'org_list:general_orgs' %}"><li class="active">Organization List</li></a>
             </ul>
+            {% if user.is_authenticated %}
+            <form id="sign-out" action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="logout"/>
+                <button type="submit">Sign out</button>
+            </form>
+            {% else %}
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
-        </nav>
-        <form id="sign-in">
-            {% if messages %}
-                <div class="error">
-                    {% for message in messages %}
-                    <p class="messages">Invalid username or password.</p>
-                    <p id="form-close"><i class="fa fa-times-circle"></i></p>
-                    {% endfor %}
-                </div>
+            <form id="sign-in" action="" method="POST">
+                {% if messages %}
+                    <div class="error">
+                        {% for message in messages %}
+                        <p class="messages">Invalid username or password.</p>
+                        <p id="form-close"><i class="fa fa-times-circle"></i></p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% csrf_token %}
+                <p>Username</p>
+                <input type="text" placeholder="username" name="username" id="username"/>
+                <p>Password</p>
+                <input type="password" placeholder="password" name="password" id="password"/>
+                <br/><br/>
+                <button type="submit">Sign in</button>
+            </form>
             {% endif %}
-            <p>Username</p>
-            <input type="text" placeholder="username" id="username" />
-            <p>Password</p>
-            <input type="password" placeholder="password" id="password" />
-            <br/><br/>
-            <button>Sign in</button>
-        </form>
+        </nav>
         <header>
             <h1 class="org-name">{{data.orgName}} ({{data.abbreviation}})</h1>
             <div class="status">
