@@ -21,6 +21,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   $scope.sortReverse = true;    // set the default sort order
 
   $scope.showAddUserModal = false;
+  $scope.showDelUserModal = false;
   // modal content
   $scope.modalId = '';
   $scope.modalUsername = '';
@@ -28,6 +29,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
   $scope.showModal = function(checker) {
     $scope.showAddUserModal = false;
+    $scope.showDelUserModal = false;
     $scope.modalId = '';
     $scope.modalUsername = checker.username;
     $scope.modalPassword = checker.password;
@@ -35,6 +37,35 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
   $scope.modalAddUserShow = function() {
     $scope.showAddUserModal = true;
+    $scope.showDelUserModal = false;
+  }
+
+  $scope.delUsers = [ "hi ho" ];
+  $scope.selectUsers = 0;
+
+  $scope.modalDelUser = function(data) {
+    console.log("DELETE USER CLICKED");
+    var arr = [];
+    for(var i in data) {
+        if(data[i].SELECTED=='Y'){
+            arr.push(data[i]);
+        }
+    }
+    $scope.delUsers = arr;
+    console.log("Delete users: " + $scope.delUsers);
+    $scope.showAddUserModal = false;
+    $scope.showDelUserModal = true;
+  }
+
+  $scope.updateSelectCount = function(data) {
+      var cnt = 0;
+      for(var i in data) {
+        if(data[i].SELECTED=='Y'){
+            cnt++;
+        }
+      }
+      $scope.selectUsers = cnt;
+      console.log($scope.delUsers);
   }
 
   $http.get("get_settings_contexts/", {params: {}})
