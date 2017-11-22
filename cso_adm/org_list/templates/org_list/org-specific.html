@@ -88,6 +88,9 @@
 
                 <div class="content-wrapper" id="csoDetails">
                     <form id="modalForm" method="post">
+                        {% endverbatim %}
+                        {% csrf_token %}
+                        {% verbatim %}
                         <input type="hidden" name="id" value="{{modalId}}"/>
                         <div>
                             <b>Activity Title</b>
@@ -161,7 +164,11 @@
             </form>
             {% else %}
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+            {% if messages %}
+            <form id="sign-in" action="" style="display: block;" method="POST">
+            {% else %}
             <form id="sign-in" action="" method="POST">
+                {% endif %}
                 {% if messages %}
                     <div class="error">
                         {% for message in messages %}
