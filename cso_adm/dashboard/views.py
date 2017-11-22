@@ -10,54 +10,32 @@ from django.views import View
 
 from dashboard import utility
 from dashboard.models import PostActsLog, Organization, Map
+from dashboard import modelJSON
 
 
 # Create your views here.
 
 def get_response_context(request):
-    print('HERE AT DASHBOARD CONTEXT')
-    logs_set = "["
-    for log in PostActsLog.objects.all():
-        logs_set = logs_set + str(log.getJSON2())
-    if len(logs_set) > 1:
-        logs_set = logs_set[:-1]
-    logs_set = logs_set + "]"
-    print("JSON for Logs: " + logs_set)
+    print('HERE AT DASHBOARD AJAX CONTEXT')
 
-    organization_set = "["
-    for org in Organization.objects.all():
-        organization_set = organization_set + str(org.getJSON2())
-    if len(organization_set) > 1:
-        organization_set = organization_set[:-1]
-    organization_set = organization_set + "]"
-    print("JSON for Organizations: " + organization_set)
+    logs_set = modelJSON.get_all_log_json()
+    organization_set = modelJSON.get_all_org_json()
+    cluster_set = modelJSON.get_all_cluster_json()
+    mod_set = modelJSON.get_all_moderator_json()
+    type_set = modelJSON.get_all_type_json()
+    status_set = modelJSON.get_all_status_set()
 
-    response = {'status': 1, 'message': "Ok", 'logs': logs_set, 'orgs': organization_set, 'url': reverse('dashboard:index')}
-    return HttpResponse(json.dumps(response), content_type='application/json')
-
-def getContext():
-    logs_set = "["
-    for log in PostActsLog.objects.all():
-        logs_set = logs_set + str(log.getJSON())
-    if len(logs_set) > 1:
-        logs_set = logs_set[:-1]
-    logs_set = logs_set + "]"
-
-    organization_set = "["
-    for org in Organization.objects.all():
-        organization_set = organization_set + str(org.getJSON())
-    if len(organization_set) > 1:
-        organization_set = organization_set[:-1]
-    organization_set = organization_set + "]"
-    print("JSON for Organizations: " + organization_set)
-
-    context = {
-        "logs": logs_set,
-        "organizations": organization_set,
+    response = {
+        'status': 1,
+        'message': "Ok",
+        'logs': logs_set,
+        'orgs': organization_set,
+        'cluster': cluster_set,
+        'mod': mod_set,
+        'type': type_set,
+        'status': status_set
     }
-
-    return context
-
+    return HttpResponse(json.dumps(response), content_type='application/json')
 
 def get_log(request):
     print(request)
@@ -73,8 +51,16 @@ def get_log(request):
 
 
 def save_post_acts(request):
+    print("Saving post acts")
     # Get the ID edited from the POST request
     id = request.POST.get('id', False)
+    print(request.user)
+
+    if not request.user.is_authenticated():
+        print("Saved failed. Not logged in.")
+        response = {'status': 0}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
     # If an ID was found, this request contains payload
     # If not, then the URL was just manually entered, and nothing would be done
@@ -85,15 +71,19 @@ def save_post_acts(request):
         # Modify the necessary fields
         list = []
         edited_post_acts_log.status = request.POST.get('status')
+        print(edited_post_acts_log.status)
         log = [row, Map.objects.get(key="status").value, edited_post_acts_log.status]
         list.append(log)
-        edited_post_acts_log.checked_by = request.POST.get('cb')
+        edited_post_acts_log.checked_by = request.user.get_full_name()
+        print(edited_post_acts_log.checked_by)
         log = [row, Map.objects.get(key="checked_by").value, edited_post_acts_log.checked_by]
         list.append(log)
         edited_post_acts_log.date_checked = datetime.now().strftime('%m/%d/%Y %H:%M:%S')
+        print(edited_post_acts_log.date_checked)
         log = [row, Map.objects.get(key="date_checked").value, edited_post_acts_log.date_checked]
         list.append(log)
         edited_post_acts_log.remarks = request.POST.get('remarks')
+        print(edited_post_acts_log.remarks)
         log = [row, Map.objects.get(key="remarks").value, edited_post_acts_log.remarks]
         list.append(log)
 
@@ -102,15 +92,19 @@ def save_post_acts(request):
             edited_post_acts_log.save()
         else:
             print("Update failed. Changes not saved.")
+            response = {'status': 0}
 
-        # TODO send message update not done
+            return HttpResponse(json.dumps(response), content_type='application/json')
 
         # Then go back to the index URL with the updated values
-        response = {'status': 1, 'message': "Ok", 'url': reverse('dashboard:index')}
+        response = {'status': 1, 'message': "Ok"}
 
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
-        return redirect(reverse('dashboard:index'))
+        print("Saving failed.")
+        response = {'status': 0}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
 
 class UserFormView(View):
@@ -119,7 +113,9 @@ class UserFormView(View):
     def get(self, request):
         utility.sync()
 
-        context = {}
+        context = {
+            "term" : Map.objects.get(key="default_term").value
+        }
 
         return render(request, self.template_name, context)
 
@@ -140,7 +136,9 @@ class UserFormView(View):
                 return redirect('dashboard:index')
             else:
                 # Retrieve logs
-                context = {}
+                context = {
+                    "term": Map.objects.get(key="default_term").value
+                }
 
                 messages.error(request, 'Sign in failed. Your username or password is incorrect.')
 
@@ -150,7 +148,9 @@ class UserFormView(View):
             logout(request)
 
             # Retrieve logs
-            context = {}
+            context = {
+                "term": Map.objects.get(key="default_term").value
+            }
 
             return render(request, self.template_name, context)
         else:

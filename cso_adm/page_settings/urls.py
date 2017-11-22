@@ -15,4 +15,6 @@ urlpatterns = [
 
     # /update/
     url(r'update/$', views.update_moderator, name='update'),
+
+    url(r'get_settings_contexts/$', views.get_response_context, name='get_settings_contexts'),
 ]
