@@ -88,6 +88,9 @@
 
                 <div class="content-wrapper" id="csoDetails">
                     <form id="modalForm" method="post">
+                        {% endverbatim %}
+                        {% csrf_token %}
+                        {% verbatim %}
                         <input type="hidden" name="id" value="{{modalId}}"/>
                         <div>
                             <b>Activity Title</b>
