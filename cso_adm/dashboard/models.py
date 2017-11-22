@@ -157,7 +157,7 @@ class PostActsLog(models.Model):
         s = s + "\"sb\":\"" + self.submitted_by + "\","
         s = s + "\"num\":\"" + self.contact_no + "\","
         s = s + "\"ml\":\"" + self.email + "\","
-        s = s + "\"mk\":\"" + self.tie_up_orgs.replace("\"", "\\\"") + "\"}"
+        s = s + "\"mk\":\"" + self.remarks.replace("\"", "\\\"") + "\"}"
 
         return s
 

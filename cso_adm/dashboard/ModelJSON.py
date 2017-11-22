@@ -74,7 +74,12 @@ def get_all_moderator_info_json():
     mod_info_set = "["
     mods = User.objects.filter(groups__name='moderator')
     for mod in mods:
-        mod_info_set = mod_info_set + "\"" + mod.get_full_name() + "\","
+        mod_info_set = mod_info_set + "{\"firstName\":\"" + mod.first_name + "\","
+        mod_info_set = mod_info_set + "\"lastName\":\"" + mod.last_name + "\","
+        mod_info_set = mod_info_set + "\"email\":\"" + mod.email + "\","
+        mod_info_set = mod_info_set + "\"username\":\"" + mod.username + "\","
+        mod_info_set = mod_info_set + "\"postActsChecked\":\"" + str(PostActsLog.objects.filter(checked_by=mod.get_full_name()).count()) + "\"},"
+
     if len(mod_info_set) > 1:
         mod_info_set = mod_info_set[:-1]
     mod_info_set = mod_info_set + "]"
