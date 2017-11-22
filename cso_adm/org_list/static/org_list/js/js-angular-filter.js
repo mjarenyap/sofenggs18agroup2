@@ -12,7 +12,7 @@ dashboardApp.config(function($sceDelegateProvider) {
     ])
 });
 
-dashboardApp.controller('mainController', function($scope, $http) {
+dashboardApp.controller('mainController', function($scope, $http, $window) {
 
   var transformSearch = function(item) {
     if(!item)
@@ -59,6 +59,14 @@ dashboardApp.controller('mainController', function($scope, $http) {
     return item.cluster.search(regex) == 0;
   };
 
+  $scope.showOrg = function(org) {
+      console.log("show org");
+      console.log(org);
+      console.log(org.short);
+      $window.location.href = '/organization/' + org.short;
+      // $location.path('/organization/' + org.abbreviation);
+
+  }
 
   $scope.getTrustedUploadSrc = function(id) {
     return "/upload/" + id;
