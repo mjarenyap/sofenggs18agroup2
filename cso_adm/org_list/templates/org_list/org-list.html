@@ -125,7 +125,8 @@
                 {% verbatim %}
                 <!--<tr ng-repeat="org in org_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm">-->
                 <a href="/organization/{{org.abbreviation}}">
-                <tr ng-repeat="org in filteredOrgs = ( org_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm)">
+                <tr ng-repeat="org in filteredOrgs = ( org_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm)"
+                    ng-click="showOrg(org)">
                     <td>{{$index + 1}}</td>
                     <td><a href="/organization/{{org.abbreviation}}">{{ org.orgName }}</a></td>
                     <td><a href="/organization/{{org.abbreviation}}">{{ org.abbreviation }}</a></td>
