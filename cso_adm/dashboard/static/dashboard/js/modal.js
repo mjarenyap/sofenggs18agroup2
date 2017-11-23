@@ -63,43 +63,43 @@ $(document).ready(function(){
         $("div#modal-wrapper").css("display", "none");
     });
 
-     /// settings page
-    document.getElementById("btn-del-user").disabled = true;
-
-    $(document).on("click", "table.users-table tr td", function(e){
-        $("#modal-details-wrapper-settings").css("height", "410px");
-    });
-
-    $("#btn-add-user").click(function() {
-        console.log("BTN ADD USER");
-        $("#modal-details-wrapper-settings").css("height", "630px");
-        $("div#modal-wrapper").css("display", "flex");
-        $("div#modal-details-wrapper").css("display", "block");
-    });
-
-    var checkCount = 0;
-    $(document).on("click", "td input:checkbox", function(e) {
-        checkCount = 0;
-        $("tr input:checkbox").each(function() {
-            checkCount += (this.checked ? 1 : 0);
-        });
-        if(checkCount >= 1) {
-            document.getElementById("btn-del-user").disabled = false;
-        } else {
-            document.getElementById("btn-del-user").disabled = true;
-        }
-    });
-
-
-
-    $("#btn-del-user").click(function() {
-        console.log("BTN DEL USER");
-        $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
-        $("div#modal-wrapper").css("display", "flex");
-        $("div#modal-details-wrapper").css("display", "block");
-
-
-    });
+    //  /// settings page
+    // document.getElementById("btn-del-user").disabled = true;
+    //
+    // $(document).on("click", "table.users-table tr td", function(e){
+    //     $("#modal-details-wrapper-settings").css("height", "410px");
+    // });
+    //
+    // $("#btn-add-user").click(function() {
+    //     console.log("BTN ADD USER");
+    //     $("#modal-details-wrapper-settings").css("height", "630px");
+    //     $("div#modal-wrapper").css("display", "flex");
+    //     $("div#modal-details-wrapper").css("display", "block");
+    // });
+    //
+    // var checkCount = 0;
+    // $(document).on("click", "td input:checkbox", function(e) {
+    //     checkCount = 0;
+    //     $("tr input:checkbox").each(function() {
+    //         checkCount += (this.checked ? 1 : 0);
+    //     });
+    //     if(checkCount >= 1) {
+    //         document.getElementById("btn-del-user").disabled = false;
+    //     } else {
+    //         document.getElementById("btn-del-user").disabled = true;
+    //     }
+    // });
+    //
+    //
+    //
+    // $("#btn-del-user").click(function() {
+    //     console.log("BTN DEL USER");
+    //     $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
+    //     $("div#modal-wrapper").css("display", "flex");
+    //     $("div#modal-details-wrapper").css("display", "block");
+    //
+    //
+    // });
 
 /*
     $("div#modal-details-wrapper div.content-wrapper p").click(function(){
