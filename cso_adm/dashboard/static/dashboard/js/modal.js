@@ -37,6 +37,8 @@ $(document).ready(function(){
     $('#modal-wrapper, .closeModal, .closeModal i').click(function(){
         $("div.error#saving_banner").css("display", "none");
         $('#modal-wrapper, #modal-details-wrapper').hide();
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
         $scope.$apply(function() {
             $scope.removeContentModal();
             console.log("EYY")
@@ -61,6 +63,8 @@ $(document).ready(function(){
     $("div#modal-wrapper i.close").click(function(){
         $("div.error#saving_banner").css("display", "none");
         $("div#modal-wrapper").css("display", "none");
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
         $scope.$apply(function() {
             $scope.removeContentModal();
             console.log("EYY")
