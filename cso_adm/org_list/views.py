@@ -173,7 +173,6 @@ class OrgGeneralView(View):
 
     # process form data
     def post(self, request):
-        utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)
@@ -230,7 +229,6 @@ class OrgSpecificView(View):
 
     # process form data
     def post(self, request, org_name):
-        utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)
