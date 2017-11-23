@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link href="{% static 'dashboard/css/theme.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'dashboard/css/tooltips.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
 
@@ -269,7 +270,7 @@
                     <td>{{$index + 1}}</td>
                     <td>{{ user_person.t }}</td>
                     <td>{{ user_person.n }}</td>
-                    <td>{{ user_person.o }}</td>
+                    <td ng-mouseover="setTooltip(user_person)" class="tool" data-tip={{currTooltip}}>{{ user_person.o }}</td>
                     <td>{{ user_person.st }}</td>
                     <td>{{ user_person.s }}</td>
                     <td>{{ user_person.cb }}</td>

@@ -84,6 +84,12 @@ input.grey, button.grey{
     color: var(--theme-light-neutral);
 }
 
+button.grey:disabled{
+    border: var(--theme-grey-neutral-2);
+    background-color: var(--theme-grey-neutral-2);
+    color: var(--theme-light-neutral);
+}
+
 input#search{
     text-indent: 30px;
     font-size: 0.79em;
@@ -177,6 +183,7 @@ section.filter-wrapper span{
     width: 100%;
     box-sizing: border-box;
     background-color: var(--theme-light-neutral-2);
+    z-index: 300;
 }
 
 nav{
