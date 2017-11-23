@@ -228,3 +228,9 @@ div#modal-details-wrapper-settings div.content-wrapper .label-delete-name {
     width: auto;
     padding: 8px;
 }
+
+form .form-error {
+    color: indianred;
+    font-size: 14px;
+    display: none;
+}
