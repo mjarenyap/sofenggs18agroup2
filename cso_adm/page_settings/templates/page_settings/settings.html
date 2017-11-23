@@ -19,6 +19,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
         <script src="{% static 'page_settings/js/js-angular-filter.js' %}" type="text/javascript"></script>
+        <script src="{% static 'page_settings/js/modal.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/settings-normalize.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/settings.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/modal.js' %}" type="text/javascript"></script>
@@ -38,18 +39,21 @@
                         {% verbatim %}
                         <div>
                             <b>Username</b>
-                            <input type="text" value={{modalUsername}} >
+                            <input class="inpEditMod" type="text" ng-model="modalUsername">
                         </div>
                         <div>
                             <b>New Password</b>
-                            <input type="password">
+                            <input class="inpEditMod" type="password">
                         </div>
                         <div>
                             <b>Confirm Password</b>
-                            <input type="password">
+                            <input class="inpEditMod" type="password">
                         </div>
+
+                        <p class="form-error" id="err-mod-edit-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
+                        <p class="form-error" id="err-mod-edit-pmatch">Passwords do not match.</p>
+                        <p class="form-error" id="err-mod-edit-pregex">Password should have 6-25 characters and should only contain alphanumeric characters or '_'.</p>
                         {% endverbatim %}
-                    <button type="submit" class="button grey">Discard</button>
                     <button type="submit" class="button">Save</button>
                     </form>
                 </div>
@@ -57,29 +61,32 @@
                     <form id="modalAddUser" method="post">
                         <div>
                             <b>First Name</b>
-                            <input type="text">
+                            <input class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Last Name</b>
-                            <input type="text">
+                            <input class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Username</b>
-                            <input type="text">
+                            <input class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Email</b>
-                            <input type="text">
+                            <input class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Password</b>
-                            <input type="password">
+                            <input class="inpAddMod" type="password">
                         </div>
                         <div>
                             <b>Confirm Password</b>
-                            <input type="password">
+                            <input class="inpAddMod" type="password">
                         </div>
-                    <button type="submit" class="button grey">Discard</button>
+                        <p class="form-error" id="err-mod-add-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
+                        <p class="form-error" id="err-mod-add-eregex">Invalid email.</p>
+                        <p class="form-error" id="err-mod-add-pmatch">Passwords do not match.</p>
+                        <p class="form-error" id="err-mod-add-pregex">Password should have 6-25 characters and should only contain alphanumeric characters or '_'.</p>
                     <button type="submit" class="button">Add</button>
                     </form>
                 </div>
@@ -93,7 +100,6 @@
                             <p>{{du.firstName}} {{du.lastName}}</p>
                         </div>
                         {% endverbatim %}
-                        <button type="submit" class="button grey">Cancel</button>
                         <button type="submit" class="button">Delete</button>
                     </form>
                 </div>

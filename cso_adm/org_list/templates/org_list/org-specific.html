@@ -11,7 +11,6 @@
         <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
 
         <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
-        <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/angular.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/js-angular-filter.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/normalize.js' %}" type="text/javascript"></script>
@@ -91,6 +90,9 @@
                         {% endverbatim %}
                         {% csrf_token %}
                         {% verbatim %}
+                        <div class="error" id="saving_banner" style="display: none">
+                            <p class="messages" id="saving_msg"></p>
+                        </div>
                         <input type="hidden" name="id" value="{{modalId}}"/>
                         <div>
                             <b>Activity Title</b>
@@ -207,8 +209,12 @@
                     <h2>{{data.li}}</h2>
                 </div>
                 <div>
-                    <p>Pended</p>
+                    <p>Pending</p>
                     <h2>{{data.p}}</h2>
+                </div>
+                <div>
+                    <p>Acknowledged Cancellation</p>
+                    <h2>{{data.ac}}</h2>
                 </div>
                 <div>
                     <p>Not Checked</p>
