@@ -183,6 +183,7 @@ section.filter-wrapper span{
     width: 100%;
     box-sizing: border-box;
     background-color: var(--theme-light-neutral-2);
+    z-index: 300;
 }
 
 nav{

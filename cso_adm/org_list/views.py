@@ -20,21 +20,23 @@ def get_response_context(request):
 
     data_set = "["
     for org in Organization.objects.all():
-        org_log = PostActsLog.objects.filter(organization=org.shortname)
+        org_log = PostActsLog.objects.filter(organization__iexact=org.shortname)
         data_set = data_set + "{\"abbreviation\":\"" + org.shortname + "\","
         data_set = data_set + "\"orgName\":\"" + org.name + "\","
         data_set = data_set + "\"cluster\":\"" + org.cluster + "\","
-        ec_cnt = org_log.filter(status='Early Complete').count()
+        ec_cnt = org_log.filter(status__iexact='Early Complete').count()
         data_set = data_set + "\"ec\":" + str(ec_cnt) + ","
-        lc_cnt = org_log.filter(status='Late Complete').count()
+        lc_cnt = org_log.filter(status__iexact='Late Complete').count()
         data_set = data_set + "\"lc\":" + str(lc_cnt) + ","
-        ei_cnt = org_log.filter(status='Early Incomplete').count()
+        ei_cnt = org_log.filter(status__iexact='Early Incomplete').count()
         data_set = data_set + "\"ei\":" + str(ei_cnt) + ","
-        li_cnt = org_log.filter(status='Late Incomplete').count()
+        li_cnt = org_log.filter(status__iexact='Late Incomplete').count()
         data_set = data_set + "\"li\":" + str(li_cnt) + ","
-        p_cnt = org_log.filter(status='Pending').count()
+        p_cnt = org_log.filter(status__iexact='Pending').count()
         data_set = data_set + "\"p\":" + str(p_cnt) + ","
-        cnt = org_log.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt
+        ac_cnt = org_log.filter(status__iexact='Acknowledged Cancellation').count()
+        data_set = data_set + "\"ac\":" + str(ac_cnt) + ","
+        cnt = org_log.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt - ac_cnt
         data_set = data_set + "\"nc\":" + str(cnt) + "},"
     if len(data_set) > 1:
         data_set = data_set[:-1]
@@ -131,21 +133,23 @@ def save_post_acts(request):
 
 def getSpecificContext(org):
 
-    org_log = PostActsLog.objects.filter(organization=org.shortname)
+    org_log = PostActsLog.objects.filter(organization__iexact=org.shortname)
     data_set = "{\"abbreviation\":\"" + org.shortname + "\","
     data_set = data_set + "\"orgName\":\"" + org.name + "\","
     data_set = data_set + "\"cluster\":\"" + org.cluster + "\","
-    ec_cnt = org_log.filter(status='Early Complete').count()
+    ec_cnt = org_log.filter(status__iexact='Early Complete').count()
     data_set = data_set + "\"ec\":" + str(ec_cnt) + ","
-    lc_cnt = org_log.filter(status='Late Complete').count()
+    lc_cnt = org_log.filter(status__iexact='Late Complete').count()
     data_set = data_set + "\"lc\":" + str(lc_cnt) + ","
-    ei_cnt = org_log.filter(status='Early Incomplete').count()
+    ei_cnt = org_log.filter(status__iexact='Early Incomplete').count()
     data_set = data_set + "\"ei\":" + str(ei_cnt) + ","
-    li_cnt = org_log.filter(status='Late Incomplete').count()
+    li_cnt = org_log.filter(status__iexact='Late Incomplete').count()
     data_set = data_set + "\"li\":" + str(li_cnt) + ","
-    p_cnt = org_log.filter(status='Pending').count()
+    p_cnt = org_log.filter(status__iexact='Pending').count()
     data_set = data_set + "\"p\":" + str(p_cnt) + ","
-    cnt = org_log.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt
+    ac_cnt = org_log.filter(status__iexact='Acknowledged Cancellation').count()
+    data_set = data_set + "\"ac\":" + str(ac_cnt) + ","
+    cnt = org_log.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt - ac_cnt
     data_set = data_set + "\"nc\":" + str(cnt) + "}"
 
     print("JSON for Data: " + data_set)
