@@ -98,7 +98,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
   $scope.sortType = 't';  // set the default sort type
   $scope.sortReverse = true;    // set the default sort order
-
+  console.log(defaultTerm);
+  $scope.filterTerm = defaultTerm.split(' ')[1];
   // Checks all filters
   $scope.filters = function(postact) {
     console.log("Checking Filters");
@@ -113,6 +114,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   };
 
   // modal content
+  $scope.modalObj = null;
   $scope.modalId = '';
   $scope.modalActivity = '';
   $scope.modalOrg = '';
@@ -131,13 +133,35 @@ dashboardApp.controller('mainController', function($scope, $http) {
   $scope.modalDateChcked = '';
   $scope.modalRemarks = '';
 
+  $scope.removeContentModal = function() {
+      $scope.modalObj = null;
+      $scope.modalId = '';
+      $scope.modalActivity = '';
+      $scope.modalOrg = '';
+      $scope.modalTieUp = '';
+      $scope.modalEnp = '';
+      $scope.modalEnmp = '';
+      $scope.modalAnp = '';
+      $scope.modalAnmp = '';
+      $scope.modalTimeS = '';
+      $scope.modalSubType = '';
+      $scope.modalSubBy = '';
+      $scope.modalContact = '';
+      $scope.modalEmail = '';
+      $scope.modalStatus = '';
+      $scope.modalChckedBy = '';
+      $scope.modalDateChcked = '';
+      $scope.modalRemarks = '';
+      $('#submitRemarks').text("");
+  };
   $scope.showModal = function(status) {
+    console.log(status.hello);
     $http.get("/get_log/", {params: {"id": status.id}})
           .success(function(response) {
               console.log("success");
-              console.log(response.log);
               var obj = JSON.parse(response.log);
-              console.log(obj);
+
+              $scope.modalObj = obj;
               $scope.modalId = obj.id;
               $scope.modalActivity = obj.n;
               $scope.modalOrg = obj.o;
@@ -155,10 +179,11 @@ dashboardApp.controller('mainController', function($scope, $http) {
               $scope.modalChckedBy = obj.cb;
               $scope.modalDateChcked = obj.d;
               $scope.modalRemarks = obj.mk;
+              $('#submitRemarks').text(obj.mk);
             })
             .error(function(response){
                 console.log("failed");
-            })
+            });
 
     console.log("LOAD MODAL");
 

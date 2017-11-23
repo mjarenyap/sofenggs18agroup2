@@ -121,7 +121,6 @@ class UserFormView(View):
 
     # process form data
     def post(self, request):
-        utility.sync()
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)

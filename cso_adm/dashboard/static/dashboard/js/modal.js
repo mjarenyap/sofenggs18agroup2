@@ -37,6 +37,10 @@ $(document).ready(function(){
     $('#modal-wrapper, .closeModal, .closeModal i').click(function(){
         $("div.error#saving_banner").css("display", "none");
         $('#modal-wrapper, #modal-details-wrapper').hide();
+        $scope.$apply(function() {
+            $scope.removeContentModal();
+            console.log("EYY")
+        });
     });
 
     $('#modal-details-wrapper').click(function(e){
@@ -57,10 +61,26 @@ $(document).ready(function(){
     $("div#modal-wrapper i.close").click(function(){
         $("div.error#saving_banner").css("display", "none");
         $("div#modal-wrapper").css("display", "none");
+        $scope.$apply(function() {
+            $scope.removeContentModal();
+            console.log("EYY")
+        });
     });
     
     $("div#modal-details-wrapper #discard").click(function(){
-        $("div#modal-wrapper").css("display", "none");
+        console.log("AWWW");
+        var remarks = "";
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+        $scope.$apply(function() {
+            $scope.modalStatus = $scope.modalObj.s;
+            $scope.modalChckedBy = $scope.modalObj.cb;
+            $scope.modalDateChcked = $scope.modalObj.d;
+            remarks = $scope.modalObj.mk;
+            console.log("EYY");
+        });
+        $("#submitRemarks").text(remarks);
+        // $("div#modal-wrapper").css("display", "none");
     });
 
     //  /// settings page
@@ -118,25 +138,37 @@ $(document).ready(function(){
                     + '&status=' + $.trim(status)
                     + '&cb=' + $.trim(cb)
                     + '&dc=' + encodeURIComponent(clean(dc))
-                    + '&remarks=' + $.trim(remarks))
-
-        $.ajax({
-            type: "POST",
-            url: "/update/",
-            data: $("#modalForm").serialize()
-                    + '&status=' + $.trim(status)
-                    + '&cb=' + $.trim(cb)
-                    + '&dc=' + encodeURIComponent(clean(dc))
-                    + '&remarks=' + $.trim(remarks),
-            success: function(response) {
-                if (response.status == 1) {
-                    $("p.messages#saving_msg").text("Saved Successfully.");
-
-                    window.location.href ="/";
-                } else {
-                    $("p.messages#saving_msg").text("Saved Failed.");
-                }
+                    + '&remarks=' + $.trim(remarks));
+        var flag = true;
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+        $scope.$apply(function() {
+            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+                flag = false;
             }
+            console.log("EYY");
         });
+        if(flag) {
+            $.ajax({
+                type: "POST",
+                url: "/update/",
+                data: $("#modalForm").serialize()
+                + '&status=' + $.trim(status)
+                + '&cb=' + $.trim(cb)
+                + '&dc=' + encodeURIComponent(clean(dc))
+                + '&remarks=' + $.trim(remarks),
+                success: function (response) {
+                    if (response.status == 1) {
+                        $("p.messages#saving_msg").text("Saved Successfully.");
+
+                        window.location.href = "/";
+                    } else {
+                        $("p.messages#saving_msg").text("Saved Failed.");
+                    }
+                }
+            });
+        } else {
+            $("p.messages#saving_msg").text("No changes detected.");
+        }
     });
 });
