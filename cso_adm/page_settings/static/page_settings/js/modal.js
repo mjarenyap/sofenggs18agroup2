@@ -22,7 +22,6 @@ function clean(str) {
 }
 
 $(document).ready(function(){
-    console.log("page settings moodal!");
     $("div#modal-details-wrapper ul.tab-wrapper li").click(function(e){
         if(!$(e.target).hasClass("closeModal") && !$(e.target).hasClass("fa")) {
             $("div#modal-details-wrapper ul.tab-wrapper li").removeClass("active");
@@ -52,12 +51,28 @@ $(document).ready(function(){
     document.getElementById("btn-del-user").disabled = true;
 
     $(document).on("click", "table.users-table tr td", function(e){
+        var formErrors = $(".form-error").hide();
+        var inpEdit = $(".inpEditMod");
+
+        for(i = 0; i < inpEdit.length; i++) {
+            if (i != 0) {
+                $(inpEdit[i]).val("");
+            }
+            $(inpEdit[i]).css("border", "thin solid var(--theme-grey-neutral-3)");
+        }
         $("#modal-details-wrapper-settings").css("height", "410px");
     });
 
     $("#btn-add-user").click(function() {
-        console.log("BTN ADD USER");
-        $("#modal-details-wrapper-settings").css("height", "630px");
+        $(".form-error").hide();
+        var inpAdd = $(".inpAddMod");
+
+        for(i = 0; i < inpAdd.length; i++) {
+            $(inpAdd[i]).val("");
+            $(inpAdd[i]).css("border", "thin solid var(--theme-grey-neutral-3)");
+        }
+
+        $("#modal-details-wrapper-settings").css("height",  "630px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
@@ -76,64 +91,115 @@ $(document).ready(function(){
     });
 
     $("#btn-del-user").click(function() {
-        console.log("BTN DEL USER");
         $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
-
-
     });
 
     $("#modalAddUser").submit(function(e){
-        alert('modal add user submit intercepted');
-
         var inpAdd = $(".inpAddMod");
-        console.log(inpAdd);
-        console.log(inpAdd[2].value);
-        var userRegex = "[A-Za-z0-9_]{5,12}";
-        var usernameVal = inpAdd[2].value;
 
-        // check valid
+        var userRegex = "[A-Za-z0-9_]{6,25}"; // alphanumeric and underscore (5-12 characters)
+        var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var passRegex = "[A-Za-z0-9_]{6,25}"; // alphanumeric and underscore (6-15 characters)
+
+        var usernameVal = inpAdd[2].value;
+        var emailVal = inpAdd[3].value;
+        var passVal1 = inpAdd[4].value;
+        var passVal2 = inpAdd[5].value;
+
+        // username check
         if(!usernameVal.match(userRegex)) {
-            alert("ERROR USER");
             $(inpAdd[2]).css("border", "thin solid palevioletred");
+            $("#err-mod-add-uregex").show();
+            e.preventDefault(e);
         } else {
-            alert("OK USER");
+            $("#err-mod-add-uregex").hide();
+            $(inpAdd[2]).css("border", "thin solid var(--theme-grey-neutral-3)");
         }
 
-        e.preventDefault(e);
-    });
-/*
-    $("div#modal-details-wrapper div.content-wrapper p").click(function(){
-        $(this).select();
+        // email check
+        if(!emailRegex.test(emailVal)) {
+            $("#err-mod-add-eregex").show();
+            $(inpAdd[3]).css("border", "thin solid palevioletred");
+            e.preventDefault(e);
+        } else {
+            $("#err-mod-add-eregex").hide();
+            $(inpAdd[3]).css("border", "thin solid var(--theme-grey-neutral-3)");
+        }
+
+        // password check
+        if(passVal1 != passVal2) {
+            $("#err-mod-add-pmatch").show();
+            e.preventDefault(e);
+        } else {
+            $(inpAdd[4]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[5]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $("#err-mod-add-pmatch").hide();
+        }
+
+        if(!passVal1.match(passRegex)) {
+            $("#err-mod-add-pregex").show();
+            e.preventDefault(e);
+        } else {
+            $(inpAdd[4]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[5]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $("#err-mod-add-pregex").hide();
+        }
+
+        if(passVal1 != passVal2 || !passVal1.match(passRegex)) {
+            $(inpAdd[4]).css("border", "thin solid palevioletred");
+            $(inpAdd[5]).css("border", "thin solid palevioletred");
+        }
+
+        var formErrors = $("#modalAddUser .form-error:visible");
+        $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 45) + 630) + "px");
     });
 
-    $("#modalForm").submit(function(){
-        var status = $("#submitStatus").html();
-        var cb = $("#submitCB").html();
-        var dc = $("#submitDC").html();
-        var remarks = $("#submitRemarks").html();
+    $("#modalEditUser").submit(function(e){
+        var inpAdd = $(".inpEditMod");
 
-        console.log($("#modalForm").serialize()
-                    + '&status=' + $.trim(status)
-                    + '&cb=' + $.trim(cb)
-                    + '&dc=' + encodeURIComponent(clean(dc))
-                    + '&remarks=' + $.trim(remarks))
+        var userRegex = "[A-Za-z0-9_]{6,25}"; // alphanumeric and underscore (5-12 characters)
+        var passRegex = "[A-Za-z0-9_]{6,25}"; // alphanumeric and underscore (6-15 characters)
 
-        $.ajax({
-            type: "POST",
-            url: "/update/",
-            data: $("#modalForm").serialize()
-                    + '&status=' + $.trim(status)
-                    + '&cb=' + $.trim(cb)
-                    + '&dc=' + encodeURIComponent(clean(dc))
-                    + '&remarks=' + $.trim(remarks),
-            success: function(response) {
-                if (response.status == 1) {
-                    window.location.href = response.url
-                }
-            }
-        });
+        var usernameVal = inpAdd[0].value;
+        var passVal1 = inpAdd[1].value;
+        var passVal2 = inpAdd[2].value;
+
+        // username check
+        if(!usernameVal.match(userRegex)) {
+            $(inpAdd[0]).css("border", "thin solid palevioletred");
+            $("#err-mod-edit-uregex").show();
+            e.preventDefault(e);
+        } else {
+            $(inpAdd[0]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $("#err-mod-edit-uregex").hide();
+        }
+
+        // password match check
+        if(passVal1 != passVal2) {
+            $(inpAdd[1]).css("border", "thin solid palevioletred");
+            $(inpAdd[2]).css("border", "thin solid palevioletred");
+            $("#err-mod-edit-pmatch").show();
+            e.preventDefault(e);
+        } else {
+            $("#err-mod-edit-pmatch").hide();
+        }
+
+        // password regex check
+        if(!passVal1.match(passRegex)) {
+            $(inpAdd[1]).css("border", "thin solid palevioletred");
+            $(inpAdd[2]).css("border", "thin solid palevioletred");
+            $("#err-mod-edit-pregex").show();
+            e.preventDefault(e);
+        } else {
+            $(inpAdd[1]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[2]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $("#err-mod-edit-pregex").hide();
+        }
+
+        var formErrors = $("#modalEditUser .form-error:visible");
+        $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 40) + 410) + "px");
     });
-    */
+    
 });
