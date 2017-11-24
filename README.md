@@ -71,3 +71,10 @@ CSO ADM Dashboard
 4. Added an org tooptip feature on main dashboard
 5. Fixed the z-layer of the filter dropdown bar
 6. Added the ADM logo to page settings
+
+
+
+--- Version 0.7 (November 24, 2017) Issues Resolved ---
+1. Fixed modal remarks and discarding functions
+2. Changes made in application reflects on the gsheets
+3. Syncing is now persistent
