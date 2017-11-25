@@ -7,6 +7,44 @@ sheet_name = Map.objects.get(key='sheet_name').value
 
 start_row = int(Map.objects.get(key='start_row').value)
 
+def resync():
+    try:
+        print("Authorizing credentials...")
+        scope = ['https://spreadsheets.google.com/feeds']
+        creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+        client = gspread.authorize(creds)
+
+        print("Accessing worksheet...")
+        sheet = client.open_by_key(worksheet_key).worksheet(sheet_name)
+
+        print("Checking for changes...")
+        data = sheet.range(start_row, 1, sheet.row_count, sheet.col_count)
+
+        current_row = data[0].row
+        i = 0
+        log = PostActsLog.objects.get(row_number=current_row)
+        cnt = 0
+        while i < len(data):
+            if current_row != data[i].row:
+                log.save()
+                current_row = data[i].row
+                log = PostActsLog.objects.get(row_number=current_row)
+                cnt = cnt + 1
+            current_col = data[i].col
+
+            try:
+                key = Map.objects.get(value="COLUMN " + str(current_col)).key
+                setattr(log, key, str(data[i].value))
+            except Exception as e:
+                print("ERROR: " + str(e))
+                print(">> Set attribute error for row " + str(current_row) + " column " + str(current_col) + ".")
+
+            i = i + 1
+
+    except Exception as e:
+        print("ERROR: " + str(e))
+        print(">> Sync failed.")
+
 def sync():
     try:
         print("Authorizing credentials...")

@@ -90,6 +90,9 @@
                         {% endverbatim %}
                         {% csrf_token %}
                         {% verbatim %}
+                        <div class="error" id="saving_banner" style="display: none">
+                            <p class="messages" id="saving_msg"></p>
+                        </div>
                         <input type="hidden" name="id" value="{{modalId}}"/>
                         <div>
                             <b>Activity Title</b>
