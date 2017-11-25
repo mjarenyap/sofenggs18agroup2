@@ -39,7 +39,11 @@
             </form>
             {% else %}
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+            {% if messages %}
+            <form id="sign-in" action="" style="display: block;" method="POST">
+            {% else %}
             <form id="sign-in" action="" method="POST">
+            {% endif%}
                 {% if messages %}
                     <div class="error">
                         {% for message in messages %}
@@ -117,6 +121,11 @@
                         <span ng-show="sortType == 'p' && !sortReverse" class="fa fa-caret-up"></span>
                         <span ng-show="sortType == 'p' && sortReverse" class="fa fa-caret-down"></span>
                     </th>
+                    <th ng-click="sortType = 'ac'; sortReverse = !sortReverse">
+                        AC
+                        <span ng-show="sortType == 'ac' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType == 'ac' && sortReverse" class="fa fa-caret-down"></span>
+                    </th>
                     <th ng-click="sortType = 'nc'; sortReverse = !sortReverse">
                         NC
                         <span ng-show="sortType == 'nc' && !sortReverse" class="fa fa-caret-up"></span>
@@ -139,6 +148,7 @@
                     <td><a href="/organization/{{org.abbreviation}}">{{ org.ei}}</a></td>
                     <td><a href="/organization/{{org.abbreviation}}">{{ org.li}}</a></td>
                     <td><a href="/organization/{{org.abbreviation}}">{{ org.p}}</a></td>
+                    <td><a href="/organization/{{org.abbreviation}}">{{ org.ac}}</a></td>
                     <td><a href="/organization/{{org.abbreviation}}">{{ org.nc}}</a></td>
                 </tr>
                 </a>

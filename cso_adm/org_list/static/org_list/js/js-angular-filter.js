@@ -48,7 +48,7 @@ dashboardApp.controller('mainController', function($scope, $http, $window) {
 
     var regex = new RegExp('.*(' + val + ').*', 'i');
 
-    return item.n.search(regex) == 0;
+    return item.orgName.search(regex) == 0 || item.abbreviation.search(regex) == 0;;
   };
 
   var searchCluster = function(item, val) {

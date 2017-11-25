@@ -24,12 +24,12 @@ input#search:focus{
     background-image: url('../assets/icons/search-active.svg');
 }
 
-button.hallow:hover{
+button.hallow:not([disabled]):hover{
     color: white;
     background-color: #738bd7;
 }
 
-button:hover, input[type="submit"]:hover{
+button:not([disabled]):hover, input[type="submit"]:hover{
     background-color: var(--theme-dark-accent);
     border-color: var(--theme-dark-accent);
 }
