@@ -39,11 +39,11 @@
                         {% verbatim %}
                         <div>
                             <b>Username</b>
-                            <input class="inpEditMod" type="text" ng-model="modalUsername">
+                            <input id="username" class="inpEditMod" type="text" ng-model="modalUsername">
                         </div>
                         <div>
                             <b>New Password</b>
-                            <input class="inpEditMod" type="password">
+                            <input id="password" class="inpEditMod" type="password">
                         </div>
                         <div>
                             <b>Confirm Password</b>
@@ -59,29 +59,30 @@
                 </div>
                 <div class="content-wrapper visible" ng-show="showAddUserModal && !showDelUserModal">
                     <form id="modalAddUser" method="post">
+                        {% csrf_token %}
                         <div>
                             <b>First Name</b>
-                            <input class="inpAddMod" type="text">
+                            <input id="firstName" class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Last Name</b>
-                            <input class="inpAddMod" type="text">
+                            <input id="lastName" class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Username</b>
-                            <input class="inpAddMod" type="text">
+                            <input id="username" class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Email</b>
-                            <input class="inpAddMod" type="text">
+                            <input id="email" class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Password</b>
-                            <input class="inpAddMod" type="password">
+                            <input id="password" class="inpAddMod" type="password">
                         </div>
                         <div>
                             <b>Confirm Password</b>
-                            <input class="inpAddMod" type="password">
+                            <input id="confPassword" class="inpAddMod" type="password">
                         </div>
                         <p class="form-error" id="err-mod-add-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
                         <p class="form-error" id="err-mod-add-eregex">Invalid email.</p>

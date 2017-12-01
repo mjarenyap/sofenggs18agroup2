@@ -18,6 +18,7 @@ from django.urls import reverse
 from django.views import View
 from dashboard import modelJSON
 
+
 def get_response_context(request):
     mod_info_set = modelJSON.get_all_moderator_info_json()
     response = {
@@ -26,6 +27,7 @@ def get_response_context(request):
         'mod': mod_info_set
     }
     return HttpResponse(json.dumps(response), content_type='application/json')
+
 
 class SettingsView(UserPassesTestMixin, View):
     template_name = 'page_settings/settings.html'
@@ -116,13 +118,20 @@ def remove_moderator(request):
 @user_passes_test(has_group)
 def add_moderator(request):
     # Get the relevant credentials from the POST request
-    new_username = request.POST.get('new_username', False)
-    new_password = request.POST.get('new_password', False)
+    firstName = request.POST.get('fn', False)
+    lastName = request.POST.get('ln', False)
+    username = request.POST.get('un', False)
+    email = request.POST.get('em', False)
+    password = request.POST.get('pw', False)
 
     # Check if the POST request is valid
-    if new_username is not False and new_password is not False:
-        # Get the user from the old username
-        user = User.objects.create_user(new_username, None, new_password)
+    if firstName is not False and lastName is not False and username is not False and email is not False and password is not False:
+        # Create a new user out of the given data
+        user = User.objects.create_user(first_name=firstName,
+                                        last_name=lastName,
+                                        username=username,
+                                        email=email,
+                                        password=password)
 
         # Then go back to the previous URL with the updated values
         response = {'status': 1, 'message': "Ok", 'url': reverse('settings:settings')}
@@ -136,12 +145,10 @@ def add_moderator(request):
 @user_passes_test(has_group)
 def update_moderator(request):
     # Get the relevant credentials from the POST request
-    old_username = request.POST.get('old_username', False)
-    new_username = request.POST.get('new_username', False)
-    new_password = request.POST.get('new_password', False)
+    password = request.POST.get('pw', False)
 
     # Check if the POST request is valid
-    if old_username is not False and new_username is not False and new_password is not False:
+    if password is not False:
         # Get the user from the old username
         user = User.objects.get(username=old_username)
 
