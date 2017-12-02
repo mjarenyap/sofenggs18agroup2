@@ -53,7 +53,7 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
-    $(document).on("click", "table.post-acts-table tr td, table.users-table tr td", function(e){
+    $(document).on("click", "table.post-acts-table tr td", function(e){
         if(event.target.type != "checkbox") {
             $("div#modal-wrapper").css("display", "flex");
             $("div#modal-details-wrapper").css("display", "block");

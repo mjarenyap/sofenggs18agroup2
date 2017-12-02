@@ -30,11 +30,12 @@
             <i class="fa fa-times close"></i>
             <div id="modal-details-wrapper-settings" class="modal-smaller">
                 <ul class="tab-wrapper">
-                    <li class="active" ng-show="!showAddUserModal && !showDelUserModal">Change user account details</li>
-                    <li class="active" ng-show="showAddUserModal && !showDelUserModal">Add user account</li>
-                    <li class="active" ng-show="!showAddUserModal && showDelUserModal">Remove account(s)</li>
+                    <li class="active" ng-show="activeModal('edit')">Change user account details</li>
+                    <li class="active" ng-show="activeModal('add')">Add user account</li>
+                    <li class="active" ng-show="activeModal('del')">Remove account(s)</li>
+                    <li class="active" ng-show="activeModal('test')">Test Modal Title</li>
                 </ul>
-                <div class="content-wrapper visible" id="csoDetails" ng-show="!showAddUserModal && !showDelUserModal">
+                <div class="content-wrapper visible" id="csoDetails" ng-show="activeModal('edit')">
                     <form id="modalEditUser" method="post">
                         {% verbatim %}
                         <div>
@@ -57,7 +58,7 @@
                     <button type="submit" class="button">Save</button>
                     </form>
                 </div>
-                <div class="content-wrapper visible" ng-show="showAddUserModal && !showDelUserModal">
+                <div class="content-wrapper visible" ng-show="activeModal('add')">
                     <form id="modalAddUser" method="post">
                         <div>
                             <b>First Name</b>
@@ -90,7 +91,7 @@
                     <button type="submit" class="button">Add</button>
                     </form>
                 </div>
-                <div class="content-wrapper visible" ng-show="!showAddUserModal && showDelUserModal">
+                <div class="content-wrapper visible" ng-show="activeModal('del')">
                     <form id="modalDeleteUser" method="post">
                         <div class="label-delete">
                             <b>Delete the following users?</b>
@@ -101,6 +102,17 @@
                         </div>
                         {% endverbatim %}
                         <button type="submit" class="button">Delete</button>
+                    </form>
+                </div>
+                <div class="content-wrapper visible" ng-show="activeModal('test')">
+                    <form id="test-modal-id" method="post">
+                        <div class="label-delete">
+                            <b>Are you sure you want to change the following sheet settings:</b>
+                        </div>
+                        <p>Worksheet key</p>
+                        <p>Sheet name</p>
+                        <button type="submit" class="button grey">No</button>
+                        <button type="submit" class="button">Yes</button>
                     </form>
                 </div>
             </div>
@@ -154,10 +166,66 @@
         <section class="settings-tab-wrapper">
             <nav>
                 <ul>
-                    <li class="active" id="manage">Manage Users</li>
+                    <li class="active" id="audit">Audit Trail</li>
+                    <li id="manage">Manage Users</li>
+                    <li id="organizations">Manage Organizations</li>
                     <li id="edit">Edit Settings</li>
                 </ul>
             </nav>
+        </section>
+        <section class="fill" id="audit-trail">
+
+            <table cellspacing="0" cellpadding="0" border="0" class="users-table">
+                <tr class="headers">
+                    <th>Timestamp</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                    <th>Post-act Title</th>
+                </tr>
+                <tr>
+                    <td>2017/01/01 13:31</td>
+                    <td>hordy.mojica</td>
+                    <td>Changed post-act status to Early Complete</td>
+                    <td>Thesis-It!</td>
+                </tr>
+                <tr>
+                    <td>2017/01/01 13:31</td>
+                    <td>hordy.mojica</td>
+                    <td>Changed post-act status to Early Complete</td>
+                    <td>Thesis-It!</td>
+                </tr>
+                <tr>
+                    <td>2017/01/01 13:31</td>
+                    <td>hordy.mojica</td>
+                    <td>Changed post-act status to Early Complete</td>
+                    <td>Thesis-It!</td>
+                </tr>
+                <tr>
+                    <td>2017/01/01 13:31</td>
+                    <td>hordy.mojica</td>
+                    <td>Changed post-act status to Early Complete</td>
+                    <td>Thesis-It!</td>
+                </tr>
+                <tr>
+                    <td>2017/01/01 13:31</td>
+                    <td>hordy.mojica</td>
+                    <td>Changed post-act status to Early Complete</td>
+                    <td>Thesis-It!</td>
+                </tr>
+                <tr>
+                    <td>2017/01/01 13:31</td>
+                    <td>hordy.mojica</td>
+                    <td>Changed post-act status to Early Complete</td>
+                    <td>Thesis-It!</td>
+                </tr>
+                <tr>
+                    <td>2017/01/01 13:31</td>
+                    <td>hordy.mojica</td>
+                    <td>Changed post-act status to Early Complete</td>
+                    <td>Thesis-It!</td>
+                </tr>
+
+            </table>
         </section>
         <section class="fill" id="manage-users">
             <div class="user-tray">
@@ -180,15 +248,17 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Post-acts Checked</th>
+                    <th></th>
                 </tr>
                 {% verbatim %}
-                <tr ng-repeat="checker in checkers" ng-click="showModal(checker)">
+                <tr ng-repeat="checker in checkers" >
                     <td><input type="checkbox" ng-model="checker.SELECTED" ng-true-value="'Y'" ng-false-value="'N'" ng-change="updateSelectCount(checkers)"/></td>
                     <td>{{ checker.username }}</td>
                     <td>{{ checker.firstName }}</td>
                     <td>{{ checker.lastName }}</td>
                     <td>{{ checker.email }}</td>
                     <td>{{ checker.postActsChecked }}</td>
+                    <td><button ng-click="showModal(checker)">Edit User</button></td>
                 </tr>
                 {% endverbatim %}
                 <!--<tr>-->
@@ -286,6 +356,7 @@
             <div class="settings-content-wrapper">
                 <h4 class="neutral">Google Sheets Link:</h4>
                 <input type="text" placeholder="https://github.com/sofenggs18agroup2"/>
+                <button id="btn-modal-test" ng-click="modalTest()">Open Test Modal</button>
             </div>
             <h3>Set default term</h3>
             <div class="settings-content-wrapper">
