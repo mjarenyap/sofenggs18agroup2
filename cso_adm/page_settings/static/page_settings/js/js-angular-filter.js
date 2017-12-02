@@ -41,6 +41,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     hideAllModals();
     $scope.showEditUserModal = true;
     $scope.modalId = '';
+    $scope.modalOldUsername = checker.username;
     $scope.modalUsername = checker.username;
     $scope.modalPassword = checker.password;
   }

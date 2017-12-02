@@ -39,13 +39,15 @@
                 <div class="content-wrapper visible" id="csoDetails" ng-show="activeModal('edit')">
                     <form id="modalEditUser" class="form-settings" method="post">
                         {% verbatim %}
+                        {% csrf_token %}
                         <div>
                             <b>Username</b>
-                            <input class="inpEditMod" type="text" ng-model="modalUsername">
+                            <input id="oldUsername" type="hidden" ng-value="modalOldUsername">
+                            <input id="username" class="inpEditMod" type="text" ng-model="modalUsername">
                         </div>
                         <div>
                             <b>New Password</b>
-                            <input class="inpEditMod" type="password">
+                            <input id="password" class="inpEditMod" type="password">
                         </div>
                         <div>
                             <b>Confirm Password</b>
@@ -55,35 +57,35 @@
                         <p class="form-error" id="err-mod-edit-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
                         <p class="form-error" id="err-mod-edit-pmatch">Passwords do not match.</p>
                         <p class="form-error" id="err-mod-edit-pregex">Password should have 6-25 characters and should only contain alphanumeric characters or '_'.</p>
-                        {% endverbatim %}
                     <button type="submit" class="button">Save</button>
                     </form>
                 </div>
                 <div class="content-wrapper visible" ng-show="activeModal('add')">
                     <form id="modalAddUser" class="form-settings"  method="post">
+                        {% csrf_token %}
                         <div>
                             <b>First Name</b>
-                            <input class="inpAddMod" type="text">
+                            <input id="firstName" class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Last Name</b>
-                            <input class="inpAddMod" type="text">
+                            <input id="lastName" class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Username</b>
-                            <input class="inpAddMod" type="text">
+                            <input id="username" class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Email</b>
-                            <input class="inpAddMod" type="text">
+                            <input id="email" class="inpAddMod" type="text">
                         </div>
                         <div>
                             <b>Password</b>
-                            <input class="inpAddMod" type="password">
+                            <input id="password" class="inpAddMod" type="password">
                         </div>
                         <div>
                             <b>Confirm Password</b>
-                            <input class="inpAddMod" type="password">
+                            <input id="confPassword" class="inpAddMod" type="password">
                         </div>
                         <p class="form-error" id="err-mod-add-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
                         <p class="form-error" id="err-mod-add-eregex">Invalid email.</p>
@@ -171,6 +173,7 @@
                     <li id="manage">Manage Users</li>
                     <li id="organizations">Manage Organizations</li>
                     <li id="edit">Edit Settings</li>
+                    <li id="changePass">Password Settings</li>
                 </ul>
             </nav>
         </section>
@@ -262,94 +265,6 @@
                     <td><button ng-click="showModal(checker)">Edit User</button></td>
                 </tr>
                 {% endverbatim %}
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
             </table>
         </section>
         <section id="edit-settings" class="fill">
@@ -372,6 +287,23 @@
                 <button class="hallow">Discard</button>
                 <button>Save</button>
             </div>
+        </section>
+        <section id="change-password" class="fill">
+            <h3>Change Password</h3>
+            <form>
+                <h4 class="neutral">New Password</h4>
+                <input type="password" placeholder="Type your new password" class="new-pass"/>
+                <br/>
+                <h4 class="neutral">Old Password</h4>
+                <input type="password" placeholder="Type your old password"/>
+                <br/>
+                <h4 class="neutral">Re-type old Password</h4>
+                <input type="password" placeholder="Re-type your old password"/>
+                <div class="flex-end">
+                    <button class="hallow">Discard</button>
+                    <button>Save</button>
+                </div>
+            </form>
         </section>
     </body>
 </html>
