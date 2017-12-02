@@ -260,6 +260,19 @@ section.settings-tab-wrapper nav ul li{
     padding: 15px 20px;
 }
 
+section#change-password form{
+    margin: 30px 50px;
+}
+
+section#change-password h4{
+    margin-bottom: 10px;
+}
+
+section#change-password form input[type="password"]{
+    width: 350px;
+    margin-bottom: 30px;
+}
+
 div.user-tray{
     display: flex;
     justify-content: space-between;

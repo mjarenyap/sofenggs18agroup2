@@ -171,6 +171,7 @@
                     <li id="manage">Manage Users</li>
                     <li id="organizations">Manage Organizations</li>
                     <li id="edit">Edit Settings</li>
+                    <li id="changePass">Password Settings</li>
                 </ul>
             </nav>
         </section>
@@ -262,94 +263,6 @@
                     <td><button ng-click="showModal(checker)">Edit User</button></td>
                 </tr>
                 {% endverbatim %}
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox"/></td>-->
-                    <!--<td>hordymojica</td>-->
-                    <!--<td>Hordy</td>-->
-                    <!--<td>Mojica</td>-->
-                    <!--<td>hordymojica@gmail.com</td>-->
-                    <!--<td>34</td>-->
-                <!--</tr>-->
             </table>
         </section>
         <section id="edit-settings" class="fill">
@@ -372,6 +285,23 @@
                 <button class="hallow">Discard</button>
                 <button>Save</button>
             </div>
+        </section>
+        <section id="change-password" class="fill">
+            <h3>Change Password</h3>
+            <form>
+                <h4 class="neutral">New Password</h4>
+                <input type="password" placeholder="Type your new password" class="new-pass"/>
+                <br/>
+                <h4 class="neutral">Old Password</h4>
+                <input type="password" placeholder="Type your old password"/>
+                <br/>
+                <h4 class="neutral">Re-type old Password</h4>
+                <input type="password" placeholder="Re-type your old password"/>
+                <div class="flex-end">
+                    <button class="hallow">Discard</button>
+                    <button>Save</button>
+                </div>
+            </form>
         </section>
     </body>
 </html>
