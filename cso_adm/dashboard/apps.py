@@ -6,4 +6,4 @@ class DashboardConfig(AppConfig):
 
     def ready(self):
         from dashboard import utility
-        utility.resync()
+        utility.sync()

@@ -155,6 +155,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
       $('#submitRemarks').text("");
   };
   $scope.showModal = function(status) {
+    $scope.showPAModal = true;
+
     console.log(status.hello);
     $http.get("/get_log/", {params: {"id": status.id}})
           .success(function(response) {
@@ -211,6 +213,23 @@ dashboardApp.controller('mainController', function($scope, $http) {
       {'short' : '3', 'long' : 'Term 3'},
       {'short' : 'yearlong', 'long' : 'Yearlong'}
   ];
+
+  $scope.comments = [
+      {'timestamp' : '2017/01/01 14:22:12', 'username' : 'julianne_sy', 'comment':'This is a test comment!'},
+      {'timestamp' : '2017/01/01 15:20:42', 'username' : 'hordy_mojica', 'comment':'Yet another test comment.'},
+      {'timestamp' : '2017/01/09 15:25:58', 'username' : 'hordy_mojica', 'comment':'This is a test comment that\'s a little longer. I hope this one looks okay.'},
+      {'timestamp' : '2017/01/14 10:08:37', 'username' : 'julianne_sy', 'comment':'This is the last test comment here.'}
+  ];
+
+  $scope.showPAModal = true;
+  $scope.commentSort = 'timestamp';  // set the default sort type
+  $scope.commentSortReverse = true;    // set the default sort order
+
+  $scope.showCommentModal = function() {
+      console.log("showcommentmodal");
+      $scope.showPAModal = false;
+
+  }
 
 
 
