@@ -32,6 +32,8 @@ def get_response_context(request):
 class SettingsView(UserPassesTestMixin, View):
     template_name = 'page_settings/settings.html'
 
+    login_url = '/'
+
     def test_func(self):
         return self.request.user.groups.filter(name='useradmin').exists()
 
@@ -96,15 +98,31 @@ def has_group(user):
 @user_passes_test(has_group)
 def remove_moderator(request):
     # Get the relevant credentials from the POST request
-    username = request.POST.get('username', False)
+    username = request.POST.get('un0', False)
 
-    # Check if the POST request is valid
+    # Check if the POST request is valid (if at least one user gets deleted)
     if username is not False:
-        # Get the user from the given username
-        user = User.objects.get(username=username)
+        users_deleted = 0
 
-        # Purge the user
-        user.delete()
+        # For every succeeding user
+        while username is not False:
+            try:
+                # Get the user from the given username
+                user = User.objects.get(username=username)
+
+                # Purge the user
+                user.delete()
+
+                # Increment the deleted users
+                users_deleted += 1
+
+                # Try to go to the next user
+                key = 'un' + str(users_deleted)
+
+                # Get the relevant credentials from the POST request
+                username = request.POST.get(key, False)
+            except User.DoesNotExist:
+                break
 
         # Then go back to the previous URL with the updated values
         response = {'status': 1, 'message': "Ok", 'url': reverse('settings:settings')}

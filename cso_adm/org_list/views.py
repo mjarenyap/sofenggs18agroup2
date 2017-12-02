@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse
@@ -160,8 +161,13 @@ def getSpecificContext(org):
     }
     return context
 
-class OrgGeneralView(View):
+class OrgGeneralView(UserPassesTestMixin, View):
     template_name = 'org_list/org-list.html'
+
+    login_url = '/settings/'
+
+    def test_func(self):
+        return not self.request.user.groups.filter(name='useradmin').exists()
 
     def get(self, request):
         utility.sync()
@@ -208,8 +214,13 @@ class OrgGeneralView(View):
 
 # TODO: Placeholder class-based view, will be modified
 # TODO: Embed content of general orgs list
-class OrgSpecificView(View):
+class OrgSpecificView(UserPassesTestMixin, View):
     template_name = 'org_list/org-specific.html'
+
+    login_url = '/settings/'
+
+    def test_func(self):
+        return not self.request.user.groups.filter(name='useradmin').exists()
 
     def get(self, request, org_name):
         utility.sync()

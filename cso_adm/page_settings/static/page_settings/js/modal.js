@@ -102,24 +102,24 @@ $(document).ready(function(){
             console.log("EYY");
         });
 
-        if(flag) {
-            $.ajax({
-                type: "POST",
-                url: "/settings/remove/",
-                data: // TODO: insert arr of deleted users,
-                success: function (response) {
-                    if (response.status == 1) {
-                        $("p.messages#saving_msg").text("Saved Successfully.");
-
-                        window.location.href = "/settings/";
-                    } else {
-                        $("p.messages#saving_msg").text("Saved Failed.");
-                    }
-                }
-            });
-        } else {
-            $("p.messages#saving_msg").text("No changes detected.");
-        }
+//        if(flag) {
+//            $.ajax({
+//                type: "POST",
+//                url: "/settings/remove/",
+//                data: // TODO: insert arr of deleted users,
+//                success: function (response) {
+//                    if (response.status == 1) {
+//                        $("p.messages#saving_msg").text("Saved Successfully.");
+//
+//                        window.location.href = "/settings/";
+//                    } else {
+//                        $("p.messages#saving_msg").text("Saved Failed.");
+//                    }
+//                }
+//            });
+//        } else {
+//            $("p.messages#saving_msg").text("No changes detected.");
+//        }
 
         $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
         $("div#modal-wrapper").css("display", "flex");

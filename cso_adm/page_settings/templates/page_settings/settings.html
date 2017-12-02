@@ -93,6 +93,7 @@
                 </div>
                 <div class="content-wrapper visible" ng-show="!showAddUserModal && showDelUserModal">
                     <form id="modalDeleteUser" method="post">
+                        {% csrf_token %}
                         <div class="label-delete">
                             <b>Delete the following users?</b>
                         </div>
@@ -101,7 +102,7 @@
                             <p>{{du.firstName}} {{du.lastName}}</p>
                         </div>
                         {% endverbatim %}
-                        <button type="submit" class="button">Delete</button>
+                        <button id="btn-del-user-final" type="submit" class="button">Delete</button>
                     </form>
                 </div>
             </div>
