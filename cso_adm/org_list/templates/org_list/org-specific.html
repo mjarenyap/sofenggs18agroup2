@@ -9,7 +9,7 @@
         <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
-        <link href="{% static 'dashboard/css/org_specific.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'dashboard/css/org-specific.css' %}" rel="stylesheet" type="text/css"/>
 
         <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/angular.min.js' %}" type="text/javascript"></script>
@@ -33,7 +33,7 @@
                     <li data-id="submission" ng-show="showPAModal">Submission Details</li>
                     <li data-id="csoDetails" ng-show="showPAModal">CSO Details</li>
                     {% verbatim %}
-                    <li data-id="commentTab" ng-show="!showPAModal">Comments for Organization</li>
+                    <li data-id="commentContent" ng-show="!showPAModal">Comments for Organization</li>
                     {% endverbatim %}
                 </ul>
                 {% verbatim %}
@@ -149,12 +149,14 @@
                         <!--{% endif %}-->
                     </form>
                 </div>
-                <div class="content-wrapper" id="commentContent" ng-show="!showPAModal">
-                    <div>
-                        <div ng-repeat="com in comments">
-                            <p>{{com.username}} {{com.timestamp}}</p>
-                            <p>{{com.comment}}</p>
+                <div class="content-wrapper visible" id="commentContent" ng-show="!showPAModal">
+                    <div id="comment-wrapper-wrapper">
+                        {% verbatim %}
+                        <div ng-repeat="com in comments | orderBy:commentSort:commentSortReverse" class="comment-wrapper">
+                            <p class="comment-user">{{com.username}}&nbsp&nbsp&nbsp&nbsp&nbsp<span>{{com.timestamp}}</span></p>
+                            <p class="comment-text">{{com.comment}}</p>
                         </div>
+                        {% endverbatim %}
                     </div>
                 </div>
             </div>

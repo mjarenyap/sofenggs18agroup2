@@ -12,6 +12,7 @@
         <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'dashboard/css/settings.css' %}" rel="stylesheet" type="text/css"/>
 
         <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
         <!--<script src="js/angular.js" type="text/javascript"></script>-->
@@ -36,7 +37,8 @@
                     <li class="active" ng-show="activeModal('test')">Test Modal Title</li>
                 </ul>
                 <div class="content-wrapper visible" id="csoDetails" ng-show="activeModal('edit')">
-                    <form id="modalEditUser" method="post">
+                    <form id="modalEditUser" class="form-settings" method="post">
+                        {% verbatim %}
                         {% csrf_token %}
                         <div>
                             <b>Username</b>
@@ -59,7 +61,7 @@
                     </form>
                 </div>
                 <div class="content-wrapper visible" ng-show="activeModal('add')">
-                    <form id="modalAddUser" method="post">
+                    <form id="modalAddUser" class="form-settings"  method="post">
                         {% csrf_token %}
                         <div>
                             <b>First Name</b>
@@ -93,7 +95,7 @@
                     </form>
                 </div>
                 <div class="content-wrapper visible" ng-show="activeModal('del')">
-                    <form id="modalDeleteUser" method="post">
+                    <form id="modalDeleteUser" class="form-settings" method="post">
                         <div class="label-delete">
                             <b>Delete the following users?</b>
                         </div>
