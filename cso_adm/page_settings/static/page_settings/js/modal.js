@@ -91,6 +91,36 @@ $(document).ready(function(){
     });
 
     $("#btn-del-user").click(function() {
+        var flag = true;
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+
+        $scope.$apply(function() {
+            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+                flag = false;
+            }
+            console.log("EYY");
+        });
+
+        if(flag) {
+            $.ajax({
+                type: "POST",
+                url: "/settings/remove/",
+                data: // TODO: insert arr of deleted users,
+                success: function (response) {
+                    if (response.status == 1) {
+                        $("p.messages#saving_msg").text("Saved Successfully.");
+
+                        window.location.href = "/settings/";
+                    } else {
+                        $("p.messages#saving_msg").text("Saved Failed.");
+                    }
+                }
+            });
+        } else {
+            $("p.messages#saving_msg").text("No changes detected.");
+        }
+
         $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
@@ -152,6 +182,56 @@ $(document).ready(function(){
             $(inpAdd[5]).css("border", "thin solid palevioletred");
         }
 
+        $("div.error#saving_banner").css("display", "flex");
+        $("p.messages#saving_msg").text("Saving...");
+
+        var fn = $("#modalAddUser #firstName").val();
+        var ln = $("#modalAddUser #lastName").val();
+        var un = $("#modalAddUser #username").val();
+        var em = $("#modalAddUser #email").val();
+        var pw = $("#modalAddUser #password").val();
+
+        console.log("Test " + $("#modalAddUser").serialize()
+                    + '&fn=' + $.trim(fn)
+                    + '&ln=' + $.trim(ln)
+                    + '&un=' + $.trim(un)
+                    + '&em=' + $.trim(em)
+                    + '&pw=' + $.trim(pw));
+
+        var flag = true;
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+
+        $scope.$apply(function() {
+            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+                flag = false;
+            }
+            console.log("EYY");
+        });
+        if(flag) {
+            $.ajax({
+                type: "POST",
+                url: "/settings/add/",
+                data: $("#modalAddUser").serialize()
+                    + '&fn=' + $.trim(fn)
+                    + '&ln=' + $.trim(ln)
+                    + '&un=' + $.trim(un)
+                    + '&em=' + $.trim(em)
+                    + '&pw=' + $.trim(pw),
+                success: function (response) {
+                    if (response.status == 1) {
+                        $("p.messages#saving_msg").text("Saved Successfully.");
+
+                        window.location.href = "/settings/";
+                    } else {
+                        $("p.messages#saving_msg").text("Saved Failed.");
+                    }
+                }
+            });
+        } else {
+            $("p.messages#saving_msg").text("No changes detected.");
+        }
+
         var formErrors = $("#modalAddUser .form-error:visible");
         $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 45) + 630) + "px");
     });
@@ -172,6 +252,7 @@ $(document).ready(function(){
             $("#err-mod-edit-uregex").show();
             e.preventDefault(e);
         } else {
+            $(inpAdd[0]).css("border", "thin solid var(--theme-grey-neutral-3)");
             $(inpAdd[0]).css("border", "thin solid var(--theme-grey-neutral-3)");
             $("#err-mod-edit-uregex").hide();
         }
@@ -196,6 +277,47 @@ $(document).ready(function(){
             $(inpAdd[1]).css("border", "thin solid var(--theme-grey-neutral-3)");
             $(inpAdd[2]).css("border", "thin solid var(--theme-grey-neutral-3)");
             $("#err-mod-edit-pregex").hide();
+        }
+
+        var ou = $("#modalEditUser #oldUsername").val();
+        var un = $("#modalEditUser #username").val();
+        var pw = $("#modalEditUser #password").val();
+
+        console.log("Test " + $("#modalEditUser").serialize()
+                    + '&ou=' + $.trim(ou)
+                    + '&un=' + $.trim(un)
+                    + '&pw=' + $.trim(pw));
+
+        var flag = true;
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+
+        $scope.$apply(function() {
+            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+                flag = false;
+            }
+            console.log("EYY");
+        });
+        if(flag) {
+            $.ajax({
+                type: "POST",
+                url: "/settings/edit/",
+                data: $("#modalEditUser").serialize()
+                    + '&ou=' + $.trim(ou)
+                    + '&un=' + $.trim(un)
+                    + '&pw=' + $.trim(pw),
+                success: function (response) {
+                    if (response.status == 1) {
+                        $("p.messages#saving_msg").text("Saved Successfully.");
+
+                        window.location.href = "/settings/";
+                    } else {
+                        $("p.messages#saving_msg").text("Saved Failed.");
+                    }
+                }
+            });
+        } else {
+            $("p.messages#saving_msg").text("No changes detected.");
         }
 
         var formErrors = $("#modalEditUser .form-error:visible");
