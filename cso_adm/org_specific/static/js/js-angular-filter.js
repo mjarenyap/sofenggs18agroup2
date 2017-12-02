@@ -215,18 +215,36 @@ dashboardApp.controller('mainController', function($scope, $http) {
   ];
 
   $scope.comments = [
-      {'timestamp' : '2017/01/01 14:22:12', 'username' : 'julianne_sy', 'comment':'This is a test comment!'},
-      {'timestamp' : '2017/01/01 15:20:42', 'username' : 'hordy_mojica', 'comment':'Yet another test comment.'},
-      {'timestamp' : '2017/01/09 15:25:58', 'username' : 'hordy_mojica', 'comment':'This is a test comment that\'s a little longer. I hope this one looks okay.'},
-      {'timestamp' : '2017/01/14 10:08:37', 'username' : 'julianne_sy', 'comment':'This is the last test comment here.'}
+      {'timestamp' : '2017/01/01 14:22:12',
+          'username' : 'julianne_sy',
+          'comment':'This is a test comment!'},
+      {'timestamp' : '2017/01/01 15:20:42',
+          'username' : 'hordy_mojica',
+          'comment':'Yet another test comment.'},
+      {'timestamp' : '2017/01/09 15:25:58',
+          'username' : 'hordy_mojica',
+          'comment':'This is a test comment that\'s a little longer. I hope this one looks okay.'},
+      {'timestamp' : '2017/01/14 10:08:37',
+          'username' : 'nami_inomata',
+          'comment':'This is another test comment. Its\'a me! Mario! You guys have a lot of post-acts this term.'},
+      {'timestamp' : '2017/01/14 10:16:39',
+          'username' : 'hordy_mojica',
+          'comment':'Mama who bore me, Mama who gave me, No way to handle things, Who made me so bad'},
+      {'timestamp' : '2017/01/14 10:16:39',
+          'username' : 'hordy_mojica',
+          'comment':'She said love may make you blind, kid. I come to one and all.'},
+      {'timestamp' : '2017/01/14 10:27:07',
+          'username' : 'julianne_sy',
+          'comment':'This is the last test comment here. I wonder if this looks okay?'},
   ];
 
   $scope.showPAModal = true;
-  $scope.commentSort = 'timestamp';  // set the default sort type
-  $scope.commentSortReverse = true;    // set the default sort order
+  $scope.commentSort = 'timestamp';  // sort comments by timestamp
+  $scope.commentSortReverse = true;    // show newer comments first
 
   $scope.showCommentModal = function() {
       console.log("showcommentmodal");
+      console.log($scope.comments);
       $scope.showPAModal = false;
 
   }
