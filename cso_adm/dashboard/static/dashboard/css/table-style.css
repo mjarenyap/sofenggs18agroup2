@@ -92,3 +92,18 @@ table.org-table tr td:nth-child(3),
 table.org-table tr td:nth-child(4){
     text-align: left;
 }
+
+table.checklist-table{
+    margin-top: 20px;
+}
+
+table.checklist-table tr td:nth-child(1){
+    font-weight: bold;
+}
+
+table.checklist-table tr td{
+    font-size: 0.85em;
+    color: #444;
+    padding: 15px 20px;
+    border-bottom: thin solid #ccc;
+}
