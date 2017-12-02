@@ -31,6 +31,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     $scope.showAddUserModal = false;
     $scope.showDelUserModal = false;
     $scope.modalId = '';
+    $scope.modalOldUsername = checker.username;
     $scope.modalUsername = checker.username;
     $scope.modalPassword = checker.password;
   }

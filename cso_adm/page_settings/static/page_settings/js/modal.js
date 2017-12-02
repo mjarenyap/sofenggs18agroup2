@@ -91,6 +91,36 @@ $(document).ready(function(){
     });
 
     $("#btn-del-user").click(function() {
+        var flag = true;
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+
+        $scope.$apply(function() {
+            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+                flag = false;
+            }
+            console.log("EYY");
+        });
+
+        if(flag) {
+            $.ajax({
+                type: "POST",
+                url: "/settings/remove/",
+                data: // TODO: insert arr of deleted users,
+                success: function (response) {
+                    if (response.status == 1) {
+                        $("p.messages#saving_msg").text("Saved Successfully.");
+
+                        window.location.href = "/settings/";
+                    } else {
+                        $("p.messages#saving_msg").text("Saved Failed.");
+                    }
+                }
+            });
+        } else {
+            $("p.messages#saving_msg").text("No changes detected.");
+        }
+
         $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
@@ -223,6 +253,7 @@ $(document).ready(function(){
             e.preventDefault(e);
         } else {
             $(inpAdd[0]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[0]).css("border", "thin solid var(--theme-grey-neutral-3)");
             $("#err-mod-edit-uregex").hide();
         }
 
@@ -248,11 +279,13 @@ $(document).ready(function(){
             $("#err-mod-edit-pregex").hide();
         }
 
-        var pw = $("#modalAddUser #password").val();
-
-        // TODO: support old username
+        var ou = $("#modalEditUser #oldUsername").val();
+        var un = $("#modalEditUser #username").val();
+        var pw = $("#modalEditUser #password").val();
 
         console.log("Test " + $("#modalEditUser").serialize()
+                    + '&ou=' + $.trim(ou)
+                    + '&un=' + $.trim(un)
                     + '&pw=' + $.trim(pw));
 
         var flag = true;
@@ -268,8 +301,10 @@ $(document).ready(function(){
         if(flag) {
             $.ajax({
                 type: "POST",
-                url: "/settings/update/",
+                url: "/settings/edit/",
                 data: $("#modalEditUser").serialize()
+                    + '&ou=' + $.trim(ou)
+                    + '&un=' + $.trim(un)
                     + '&pw=' + $.trim(pw),
                 success: function (response) {
                     if (response.status == 1) {

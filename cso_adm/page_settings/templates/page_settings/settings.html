@@ -36,9 +36,10 @@
                 </ul>
                 <div class="content-wrapper visible" id="csoDetails" ng-show="!showAddUserModal && !showDelUserModal">
                     <form id="modalEditUser" method="post">
-                        {% verbatim %}
+                        {% csrf_token %}
                         <div>
                             <b>Username</b>
+                            <input id="oldUsername" type="hidden" ng-value="modalOldUsername">
                             <input id="username" class="inpEditMod" type="text" ng-model="modalUsername">
                         </div>
                         <div>
@@ -53,7 +54,6 @@
                         <p class="form-error" id="err-mod-edit-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
                         <p class="form-error" id="err-mod-edit-pmatch">Passwords do not match.</p>
                         <p class="form-error" id="err-mod-edit-pregex">Password should have 6-25 characters and should only contain alphanumeric characters or '_'.</p>
-                        {% endverbatim %}
                     <button type="submit" class="button">Save</button>
                     </form>
                 </div>
