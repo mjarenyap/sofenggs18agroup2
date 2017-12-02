@@ -9,10 +9,12 @@
         <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'dashboard/css/org_specific.css' %}" rel="stylesheet" type="text/css"/>
 
         <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/angular.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/js-angular-filter.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/modal-org-specific.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/normalize.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/modal.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/sign-in.js' %}" type="text/javascript"></script>
@@ -27,12 +29,15 @@
             <i class="fa fa-times close"></i>
             <div id="modal-details-wrapper">
                 <ul class="tab-wrapper">
-                    <li class="active" data-id="genActs">General Activity Details</li>
-                    <li data-id="submission">Submission Details</li>
-                    <li data-id="csoDetails">CSO Details</li>
+                    <li class="active" data-id="genActs" ng-show="showPAModal">General Activity Details</li>
+                    <li data-id="submission" ng-show="showPAModal">Submission Details</li>
+                    <li data-id="csoDetails" ng-show="showPAModal">CSO Details</li>
+                    {% verbatim %}
+                    <li data-id="commentTab" ng-show="!showPAModal">Comments for Organization</li>
+                    {% endverbatim %}
                 </ul>
                 {% verbatim %}
-                <div class="content-wrapper visible" id="genActs">
+                <div class="content-wrapper visible" id="genActs" ng-show="showPAModal">
                     <div>
                         <b>Activity Title</b>
                         <p>{{modalActivity}}</p>
@@ -62,7 +67,7 @@
                         <p>{{modalAnmp}}</p>
                     </div>
                 </div>
-                <div class="content-wrapper" id="submission">
+                <div class="content-wrapper" id="submission" ng-show="showPAModal">
                     <div>
                         <b>Timestamp</b>
                         <p>{{modalTimeS | date:'medium'}}</p>
@@ -84,8 +89,7 @@
                         <p>{{modalEmail}}</p>
                     </div>
                 </div>
-
-                <div class="content-wrapper" id="csoDetails">
+                <div class="content-wrapper" id="csoDetails" ng-show="showPAModal">
                     <form id="modalForm" method="post">
                         {% endverbatim %}
                         {% csrf_token %}
@@ -144,6 +148,14 @@
                         <!--<button type="submit" class="button">Save</button>-->
                         <!--{% endif %}-->
                     </form>
+                </div>
+                <div class="content-wrapper" id="commentContent" ng-show="!showPAModal">
+                    <div>
+                        <div ng-repeat="com in comments">
+                            <p>{{com.username}} {{com.timestamp}}</p>
+                            <p>{{com.comment}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -220,6 +232,9 @@
                     <p>Not Checked</p>
                     <h2>{{data.nc}}</h2>
                 </div>
+            </div>
+            <div class="comments">
+                <button id="btn-comments" ng-click="showCommentModal()">Comments</button>
             </div>
         </header>
         <section class="filter-wrapper">
