@@ -50,9 +50,11 @@ $(document).ready(function(){
      /// settings page
     document.getElementById("btn-del-user").disabled = true;
 
-    $(document).on("click", "table.users-table tr td", function(e){
+    $(document).on("click", ".users-table button", function(e){
         var formErrors = $(".form-error").hide();
         var inpEdit = $(".inpEditMod");
+
+        console.log("click .users=table button");
 
         for(i = 0; i < inpEdit.length; i++) {
             if (i != 0) {
@@ -60,6 +62,8 @@ $(document).ready(function(){
             }
             $(inpEdit[i]).css("border", "thin solid var(--theme-grey-neutral-3)");
         }
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
         $("#modal-details-wrapper-settings").css("height", "410px");
     });
 
@@ -122,6 +126,12 @@ $(document).ready(function(){
         }
 
         $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
+
+    $("#btn-modal-test").click(function() {
+        $("#modal-details-wrapper-settings").css("height", "500px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });

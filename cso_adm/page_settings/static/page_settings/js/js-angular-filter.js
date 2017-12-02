@@ -22,14 +22,24 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
   $scope.showAddUserModal = false;
   $scope.showDelUserModal = false;
+  $scope.showEditUserModal = false;
+  $scope.showTestModal = false;
+
   // modal content
   $scope.modalId = '';
   $scope.modalUsername = '';
   $scope.modalPassword = '';
 
+  var hideAllModals = function () {
+       $scope.showAddUserModal = false;
+      $scope.showDelUserModal = false;
+      $scope.showEditUserModal = false;
+      $scope.showTestModal = false;
+  }
+
   $scope.showModal = function(checker) {
-    $scope.showAddUserModal = false;
-    $scope.showDelUserModal = false;
+    hideAllModals();
+    $scope.showEditUserModal = true;
     $scope.modalId = '';
     $scope.modalOldUsername = checker.username;
     $scope.modalUsername = checker.username;
@@ -37,14 +47,16 @@ dashboardApp.controller('mainController', function($scope, $http) {
   }
 
   $scope.modalAddUserShow = function() {
+    hideAllModals();
     $scope.showAddUserModal = true;
-    $scope.showDelUserModal = false;
   }
 
   $scope.delUsers = [ "hi ho" ];
   $scope.selectUsers = 0;
 
   $scope.modalDelUser = function(data) {
+    hideAllModals();
+    $scope.showDelUserModal = true;
     console.log("DELETE USER CLICKED");
     var arr = [];
     for(var i in data) {
@@ -54,8 +66,26 @@ dashboardApp.controller('mainController', function($scope, $http) {
     }
     $scope.delUsers = arr;
     console.log("Delete users: " + $scope.delUsers);
-    $scope.showAddUserModal = false;
-    $scope.showDelUserModal = true;
+  }
+
+  $scope.modalTest = function(data) {
+      hideAllModals();
+      $scope.showTestModal = true;
+
+  }
+
+  $scope.activeModal = function(modal) {
+
+      if(modal == 'add') {
+          return $scope.showAddUserModal;
+      } else if(modal == 'del') {
+          return $scope.showDelUserModal;
+      } else if(modal == 'edit') {
+          return $scope.showEditUserModal;
+      } else if(modal == 'test') {
+          return $scope.showTestModal;
+      }
+
   }
 
   $scope.updateSelectCount = function(data) {
