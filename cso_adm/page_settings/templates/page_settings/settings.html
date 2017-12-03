@@ -267,27 +267,122 @@
                 {% endverbatim %}
             </table>
         </section>
+        {% verbatim %}
         <section id="edit-settings" class="fill">
-            <h3>Archive Post-acts</h3>
-            <div class="settings-content-wrapper">
-                <h4 class="neutral">Google Sheets Link:</h4>
-                <input type="text" placeholder="https://github.com/sofenggs18agroup2"/>
-                <button id="btn-modal-test" ng-click="modalTest()">Open Test Modal</button>
+            <div id="settings-default-term">
+                <h3>Set default term</h3>
+                <div class="settings-content-wrapper">
+                    <h4 class="neutral">Set Default Term:</h4>
+                    <select id="submitTerm" ng-model="defaultTerm"
+                            ng-options="term for term in termList">
+                    </select>
+                </div>
+                <div class="flex-end">
+                    <button class="hallow">Discard</button>
+                    <button>Save</button>
+                </div>
             </div>
-            <h3>Set default term</h3>
-            <div class="settings-content-wrapper">
-                <h4 class="neutral">Set Default Term:</h4>
-                <select>
-                    <option>Term 1</option>
-                    <option>Term 2</option>
-                    <option>Term 3</option>
-                </select>
-            </div>
-            <div class="flex-end">
-                <button class="hallow">Discard</button>
-                <button>Save</button>
+            <hr>
+            <div id="settings-worksheet-settings">
+                <h3>Worksheet settings</h3>
+                <h6>Instructions</h6>
+                <div class="settings-content-wrapper">
+                    <div class="settings-input">
+                        <h4 class="neutral">Google Sheet Key:</h4>
+                        <input type="text" value="{{worksheetKey}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Sheet Name:</h4>
+                        <input type="text" value="{{sheetName}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Starting row:</h4>
+                        <input type="text" value="{{startRow}}"/>
+                    </div>
+                </div>
+                <h3>Attribute columns</h3>
+                <div class="settings-content-wrapper">
+                    <div class="settings-input">
+                        <h4 class="neutral">Timestamp:</h4>
+                        <input type="text" value="{{timestampCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Activity Title:</h4>
+                        <input type="text" value="{{titleCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Term:</h4>
+                        <input type="text" value="{{termCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Organization:</h4>
+                        <input type="text" value="{{orgCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Tie Up Organizations:</h4>
+                        <input type="text" value="{{tuOrgsCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Submission Type:</h4>
+                        <input type="text" value="{{typeCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">ENP:</h4>
+                        <input type="text" value="{{enpCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">ANP:</h4>
+                        <input type="text" value="{{anpCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">ENMP:</h4>
+                        <input type="text" value="{{enmpCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">ANMP:</h4>
+                        <input type="text" value="{{anmpCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Expenses Incurred:</h4>
+                        <input type="text" value="{{expenseCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Submitted By:</h4>
+                        <input type="text" value="{{subByCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Contact Number:</h4>
+                        <input type="text" value="{{contactCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Email:</h4>
+                        <input type="text" value="{{emailCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Status:</h4>
+                        <input type="text" value="{{statusCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Checked By:</h4>
+                        <input type="text" value="{{checkedCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Date Checked:</h4>
+                        <input type="text" value="{{dateCol}}"/>
+                    </div>
+                    <div class="settings-input">
+                        <h4 class="neutral">Remarks:</h4>
+                        <input type="text" value="{{remarksCol}}"/>
+                    </div>
+                </div>
+                <!--<button id="btn-modal-test" ng-click="modalTest()">Open Test Modal</button>-->
+                <div class="flex-end">
+                    <button class="hallow">Discard</button>
+                    <button>Save</button>
+                </div>
             </div>
         </section>
+        {% endverbatim %}
         <section id="change-password" class="fill">
             <h3>Change Password</h3>
             <form>

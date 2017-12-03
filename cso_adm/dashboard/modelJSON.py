@@ -96,3 +96,15 @@ def get_all_moderator_info_json():
     print("JSON for Moderator Info: " + mod_info_set)
 
     return mod_info_set
+
+def get_map_values():
+    map_set = "{"
+    maps = Map.objects.all()
+    for map in maps:
+        map_set = map_set + "\"" + map.key + "\":\"" + map.value + "\","
+    if len(map_set) > 1:
+        map_set = map_set[:-1]
+    map_set = map_set + "}"
+    print("JSON for Maps: " + map_set)
+
+    return map_set
