@@ -94,7 +94,7 @@
                         {% endverbatim %}
                         {% csrf_token %}
                         {% verbatim %}
-                        <div class="error" id="saving_banner" style="display: none">
+                        <div class="in-progress" id="saving_banner" style="display: none">
                             <p class="messages" id="saving_msg"></p>
                         </div>
                         <input type="hidden" name="id" value="{{modalId}}"/>
@@ -191,9 +191,27 @@
             </form>
             {% endif %}
         </nav>
+        
         <header>
             <h1>WELCOME TO DASHBOARD!</h1>
             <p>You can view all the post acts of different organizations.</p>
+            <div class="checklist-wrapper">
+                <table class="checklist-table">
+                    <h2>Checklist:</h2>
+                    <tr>
+                        <td>Thesis-It</td>
+                        <td>LSCS</td>
+                    </tr>
+                    <tr>
+                        <td>Thesis-It</td>
+                        <td>LSCS</td>
+                    </tr>
+                    <tr>
+                        <td>Thesis-It</td>
+                        <td>LSCS</td>
+                    </tr>
+                </table>
+            </div>
         </header>
         <section class="filter-wrapper">
             <span>Month:</span>

@@ -153,7 +153,7 @@ def getSpecificContext(org):
     cnt = org_log.all().count() - ec_cnt - lc_cnt - ei_cnt - li_cnt - p_cnt - ac_cnt
     data_set = data_set + "\"nc\":" + str(cnt) + "}"
 
-    print("JSON for Data: " + data_set)
+    #print("JSON for Data: " + data_set)
 
     context = {
         "data": json.loads(data_set),

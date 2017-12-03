@@ -16,5 +16,9 @@ urlpatterns = [
     # /settings/update/
     url(r'edit/$', views.update_moderator, name='update'),
 
+    # TODO: moderator settings URL pattern to accommodate moderator settings
+    # /settings/settings-moderator/
+    # url(r'settings-moderator/$', <view>, name='<namespace>'),
+
     url(r'get_settings_contexts/$', views.get_response_context, name='get_settings_contexts'),
 ]

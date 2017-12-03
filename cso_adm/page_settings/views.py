@@ -1,7 +1,7 @@
 import json
 
 from django.contrib import messages
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
@@ -51,6 +51,12 @@ class SettingsView(UserPassesTestMixin, View):
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)
 
+        curr_username = request.POST.get('un', False)
+        old_password = request.POST.get('op', False)
+        new_password = request.POST.get('pw', False)
+
+        print(curr_username)
+
         # If the username and password objects exist in the request dictionary, then it is a login POST
         if username is not False and password is not False:
             user = authenticate(request, username=username, password=password)
@@ -78,6 +84,36 @@ class SettingsView(UserPassesTestMixin, View):
             }
 
             return redirect('dashboard:index')
+        elif curr_username is not False and old_password is not False and new_password is not False:
+            # Check if the old password is correct
+            if request.user.check_password(old_password):
+                print("Password correct")
+
+                # Get the user from the old username
+                user = User.objects.get(username=curr_username)
+
+                # Change the relevant credentials
+                user.set_password(new_password)
+
+                # Commit the changes to the database
+                user.save()
+
+                # Refresh the session, reflecting the new password
+                update_session_auth_hash(request, user)
+
+                # Then go back to the previous URL with the updated values
+                context = {
+                }
+
+                return render(request, self.template_name, context)
+            else:
+                # Throw an incorrect old password error
+                context = {
+                }
+
+                messages.error(request, 'Password reset failed. The old password you entered was incorrect.')
+
+                return render(request, self.template_name, context)
         else:
             return redirect('page_404:page_404')
 
@@ -189,3 +225,45 @@ def update_moderator(request):
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
         return redirect(reverse('settings:settings'))
+
+
+# # Update the system admin's password
+# @user_passes_test(has_group)
+# def update_system_admin(request):
+#     # Get the relevant credentials from the POST request
+#     username = request.POST.get('un', False)
+#     old_password = request.POST.get('op', False)
+#     password = request.POST.get('pw', False)
+#
+#     # Check if the POST request is valid
+#     if username is not False and old_password is not False and password is not False:
+#         # Check if the old password is correct
+#         if request.user.check_password(old_password):
+#             print("Password correct")
+#
+#             # Get the user from the old username
+#             user = User.objects.get(username=username)
+#
+#             # Change the relevant credentials
+#             user.username = username
+#             user.set_password(password)
+#
+#             # Commit the changes to the database
+#             user.save()
+#
+#             # Refresh the session, reflecting the new password
+#             update_session_auth_hash(request, user)
+#
+#             # Then go back to the previous URL with the updated values
+#             response = {'status': 1, 'message': "Ok", 'url': reverse('dashboard:index')}
+#
+#             print("newadminpassword")
+#
+#             return HttpResponse(json.dumps(response), content_type='application/json')
+#         else:
+#             # Throw an incorrect old password error
+#             response = {'status': 0, 'message': "Fail", 'url': reverse('settings:settings')}
+#
+#             return HttpResponse(json.dumps(response), content_type='application/json')
+#     else:
+#         return redirect(reverse('settings:settings'))

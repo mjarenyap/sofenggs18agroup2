@@ -140,16 +140,20 @@ header h1.org-name{
 header div.status{
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: wrap;
 }
 
 div.status > div{
-    margin: 10px 30px;
+    margin: 10px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 div.status p{
     font-size: 0.7em;
+    max-width: 90px;
     text-transform: uppercase;
     font-weight: bold;
     color: var(--theme-grey-neutral);
@@ -157,7 +161,7 @@ div.status p{
 }
 
 div.status h2{
-    font-size: 2em;
+    font-size: 2.5em;
     text-align: center;
 }
 
@@ -256,6 +260,19 @@ section.settings-tab-wrapper nav ul li{
     padding: 15px 20px;
 }
 
+section#change-password form{
+    margin: 30px 50px;
+}
+
+section#change-password h4{
+    margin-bottom: 10px;
+}
+
+section#change-password form input[type="password"]{
+    width: 350px;
+    margin-bottom: 30px;
+}
+
 div.user-tray{
     display: flex;
     justify-content: space-between;
@@ -310,6 +327,40 @@ form#sign-in p{
     text-transform: uppercase;
 }
 
+div.successful{
+    background-color: #daf1d6;
+    padding: 5px 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: thin solid #4ab289;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.successful p.messages{
+    font-weight: bold;
+    font-size: 0.9em !important;
+    color: #4ab289;
+}
+
+div.in-progress{
+    background-color: #fef1c5;
+    padding: 5px 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: thin solid #bd892e;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.in-progress p.messages{
+    font-weight: bold;
+    font-size: 0.9em !important;
+    color: #bd892e;
+}
+
 div.error{
     background-color: #ecc8c5;
     padding: 5px 15px;
@@ -330,4 +381,17 @@ div.error p{
 div.error p.messages{
     font-weight: bold;
     font-size: 0.6em !important;
+}
+
+header div.in-progress, header div.error, header div.successful{
+    border-radius: 5px;
+    font-size: 0.8em;
+    margin-bottom: 40px;
+}
+
+header div.checklist-wrapper{
+    max-height: 400px;
+    overflow-y: scroll;
+    margin-top: 40px;
+    padding: 20px 0;
 }

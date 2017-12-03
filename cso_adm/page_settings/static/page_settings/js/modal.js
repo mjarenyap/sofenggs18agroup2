@@ -50,9 +50,11 @@ $(document).ready(function(){
      /// settings page
     document.getElementById("btn-del-user").disabled = true;
 
-    $(document).on("click", "table.users-table tr td", function(e){
+    $(document).on("click", ".users-table button", function(e){
         var formErrors = $(".form-error").hide();
         var inpEdit = $(".inpEditMod");
+
+        console.log("click .users=table button");
 
         for(i = 0; i < inpEdit.length; i++) {
             if (i != 0) {
@@ -60,6 +62,8 @@ $(document).ready(function(){
             }
             $(inpEdit[i]).css("border", "thin solid var(--theme-grey-neutral-3)");
         }
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
         $("#modal-details-wrapper-settings").css("height", "410px");
     });
 
@@ -102,26 +106,13 @@ $(document).ready(function(){
             console.log("EYY");
         });
 
-//        if(flag) {
-//            $.ajax({
-//                type: "POST",
-//                url: "/settings/remove/",
-//                data: // TODO: insert arr of deleted users,
-//                success: function (response) {
-//                    if (response.status == 1) {
-//                        $("p.messages#saving_msg").text("Saved Successfully.");
-//
-//                        window.location.href = "/settings/";
-//                    } else {
-//                        $("p.messages#saving_msg").text("Saved Failed.");
-//                    }
-//                }
-//            });
-//        } else {
-//            $("p.messages#saving_msg").text("No changes detected.");
-//        }
-
         $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
+
+    $("#btn-modal-test").click(function() {
+        $("#modal-details-wrapper-settings").css("height", "500px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
@@ -323,5 +314,33 @@ $(document).ready(function(){
         var formErrors = $("#modalEditUser .form-error:visible");
         $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 40) + 410) + "px");
     });
-    
+
+//    $("#changePswdAdmin").submit(function(e){
+//        var un = $("#changePswdAdmin #username").val();
+//        var op = $("#changePswdAdmin #oldPassword").val();
+//        var pw = $("#changePswdAdmin #password").val();
+//
+//        console.log("Test " + $("#changePswdAdmin").serialize()
+//                    + '&un=' + $.trim(un)
+//                    + '&op=' + $.trim(op)
+//                    + '&pw=' + $.trim(pw));
+//
+//        $.ajax({
+//            type: "POST",
+//            url: "/settings/admin_change/",
+//            data: $("#changePswdAdmin").serialize()
+//                + '&un=' + $.trim(un)
+//                + '&op=' + $.trim(op)
+//                + '&pw=' + $.trim(pw),
+//            success: function (response) {
+//                if (response.status == 1) {
+//                    alert("Hello")
+//
+//                    window.location.href = "/";
+//                } else {
+//                }
+//            }
+//       });
+//    });
+
 });
