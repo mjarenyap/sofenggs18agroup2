@@ -21,10 +21,12 @@ from dashboard import modelJSON
 
 def get_response_context(request):
     mod_info_set = modelJSON.get_all_moderator_info_json()
+    map_set = modelJSON.get_map_values()
     response = {
         'status': 1,
         'message': "Ok",
-        'mod': mod_info_set
+        'mod': mod_info_set,
+        'maps': map_set
     }
     return HttpResponse(json.dumps(response), content_type='application/json')
 

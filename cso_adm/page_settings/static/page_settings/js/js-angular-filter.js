@@ -103,12 +103,45 @@ dashboardApp.controller('mainController', function($scope, $http) {
           .success(function(response) {
               console.log("success");
               var obj_mod = JSON.parse(response.mod);
-
+              var obj_map = JSON.parse(response.maps);
+              console.log(obj_map);
+              setMapAttr(obj_map);
               $scope.checkers = obj_mod;
             })
             .error(function(response){
                 console.log("failed");
             });
+
+  var setMapAttr = function(maps) {
+      $scope.defaultTerm = maps.default_term;
+      $scope.worksheetKey = maps.worksheet_key;
+      $scope.sheetName = maps.sheet_name;
+      $scope.startRow = maps.start_row;
+      $scope.timestampCol = maps.timestamp.replace("COLUMN ", "");
+      $scope.titleCol = maps.activity_title.replace("COLUMN ", "");
+      $scope.termCol = maps.term.replace("COLUMN ", "");
+      $scope.orgCol = maps.organization.replace("COLUMN ", "");
+      $scope.tuOrgsCol = maps.tie_up_orgs.replace("COLUMN ", "");
+      $scope.typeCol = maps.submission_type.replace("COLUMN ", "");
+      $scope.enpCol = maps.enp.replace("COLUMN ", "");
+      $scope.anpCol = maps.anp.replace("COLUMN ", "");
+      $scope.enmpCol = maps.enmp.replace("COLUMN ", "");
+      $scope.anmpCol = maps.anmp.replace("COLUMN ", "");
+      $scope.expenseCol = maps.expenses_incurred.replace("COLUMN ", "");
+      $scope.subByCol = maps.submitted_by.replace("COLUMN ", "");
+      $scope.contactCol = maps.contact_no.replace("COLUMN ", "");
+      $scope.emailCol = maps.email.replace("COLUMN ", "");
+      $scope.statusCol = maps.status.replace("COLUMN ", "");
+      $scope.checkedCol = maps.checked_by.replace("COLUMN ", "");
+      $scope.dateCol = maps.date_checked.replace("COLUMN ", "");
+      $scope.remarksCol = maps.remarks.replace("COLUMN ", "");
+  };
+
+  $scope.termList = [
+      'Term 1',
+      'Term 2',
+      'Term 3'
+  ];
   // Dummy frontend data
   // $scope.checkers =
   // [
