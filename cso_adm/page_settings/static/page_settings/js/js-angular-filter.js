@@ -113,6 +113,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
             });
 
   var setMapAttr = function(maps) {
+      $scope.maps = maps;
       $scope.defaultTerm = maps.default_term;
       $scope.worksheetKey = maps.worksheet_key;
       $scope.sheetName = maps.sheet_name;

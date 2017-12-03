@@ -17,4 +17,6 @@ urlpatterns = [
     url(r'edit/$', views.update_moderator, name='update'),
 
     url(r'get_settings_contexts/$', views.get_response_context, name='get_settings_contexts'),
+
+    url(r'set_term/$', views.set_default_term, name='set_term'),
 ]
