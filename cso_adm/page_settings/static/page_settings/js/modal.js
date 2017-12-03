@@ -106,6 +106,25 @@ $(document).ready(function(){
             console.log("EYY");
         });
 
+        if(flag) {
+            $.ajax({
+                type: "POST",
+                url: "/settings/remove/",
+                data: "", // TODO: insert arr of deleted users,
+                success: function (response) {
+                    if (response.status == 1) {
+                        $("p.messages#saving_msg").text("Saved Successfully.");
+
+                        window.location.href = "/settings/";
+                    } else {
+                        $("p.messages#saving_msg").text("Saved Failed.");
+                    }
+                }
+            });
+        } else {
+            $("p.messages#saving_msg").text("No changes detected.");
+        }
+
         $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
@@ -315,6 +334,7 @@ $(document).ready(function(){
         $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 40) + 410) + "px");
     });
 
+<<<<<<< HEAD
 //    $("#changePswdAdmin").submit(function(e){
 //        var un = $("#changePswdAdmin #username").val();
 //        var op = $("#changePswdAdmin #oldPassword").val();
@@ -343,4 +363,27 @@ $(document).ready(function(){
 //       });
 //    });
 
+=======
+    $("#set-default-term").submit(function(){
+        var term = $("#submitTerm").find(":selected").text();
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+        var flag = true;
+        $scope.$apply(function() {
+            console.log($scope.defaultTerm);
+            console.log($scope.maps.default_term);
+            if($scope.defaultTerm == $scope.maps.default_term) {
+                flag = false;
+            }
+        });
+        if(!flag) {
+            return false;
+        }
+    });
+
+    $("#change-sheet-settings").submit(function(){
+        console.log("HEYYYYYY def");
+        return false;
+    });
+>>>>>>> 5b0615523feec08b5663fc18d3459ff2f7795326
 });

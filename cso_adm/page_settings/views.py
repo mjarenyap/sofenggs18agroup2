@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import user_passes_test
 
+from dashboard.models import Map
 # # Create your views here.
 # # This is only for testing purposes. You may comment this out
 # def test_url(request):
@@ -21,10 +22,12 @@ from dashboard import modelJSON
 
 def get_response_context(request):
     mod_info_set = modelJSON.get_all_moderator_info_json()
+    map_set = modelJSON.get_map_values()
     response = {
         'status': 1,
         'message': "Ok",
-        'mod': mod_info_set
+        'mod': mod_info_set,
+        'maps': map_set
     }
     return HttpResponse(json.dumps(response), content_type='application/json')
 
@@ -227,43 +230,10 @@ def update_moderator(request):
         return redirect(reverse('settings:settings'))
 
 
-# # Update the system admin's password
-# @user_passes_test(has_group)
-# def update_system_admin(request):
-#     # Get the relevant credentials from the POST request
-#     username = request.POST.get('un', False)
-#     old_password = request.POST.get('op', False)
-#     password = request.POST.get('pw', False)
-#
-#     # Check if the POST request is valid
-#     if username is not False and old_password is not False and password is not False:
-#         # Check if the old password is correct
-#         if request.user.check_password(old_password):
-#             print("Password correct")
-#
-#             # Get the user from the old username
-#             user = User.objects.get(username=username)
-#
-#             # Change the relevant credentials
-#             user.username = username
-#             user.set_password(password)
-#
-#             # Commit the changes to the database
-#             user.save()
-#
-#             # Refresh the session, reflecting the new password
-#             update_session_auth_hash(request, user)
-#
-#             # Then go back to the previous URL with the updated values
-#             response = {'status': 1, 'message': "Ok", 'url': reverse('dashboard:index')}
-#
-#             print("newadminpassword")
-#
-#             return HttpResponse(json.dumps(response), content_type='application/json')
-#         else:
-#             # Throw an incorrect old password error
-#             response = {'status': 0, 'message': "Fail", 'url': reverse('settings:settings')}
-#
-#             return HttpResponse(json.dumps(response), content_type='application/json')
-#     else:
-#         return redirect(reverse('settings:settings'))
+def set_default_term(request):
+    term = request.POST.get('term', '')
+    if term != '':
+        map = Map.objects.get(key='default_term')
+        map.value = term
+        map.save()
+    return redirect(reverse('settings:settings'))
