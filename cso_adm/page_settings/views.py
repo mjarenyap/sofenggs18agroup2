@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import user_passes_test
 
+from dashboard.models import Map
 # # Create your views here.
 # # This is only for testing purposes. You may comment this out
 # def test_url(request):
@@ -173,3 +174,11 @@ def update_moderator(request):
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
         return redirect(reverse('settings:settings'))
+
+def set_default_term(request):
+    term = request.POST.get('term', '')
+    if term != '':
+        map = Map.objects.get(key='default_term')
+        map.value = term
+        map.save()
+    return redirect(reverse('settings:settings'))
