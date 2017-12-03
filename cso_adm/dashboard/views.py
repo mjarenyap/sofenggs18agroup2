@@ -3,6 +3,7 @@ from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -107,8 +108,13 @@ def save_post_acts(request):
         return HttpResponse(json.dumps(response), content_type='application/json')
 
 
-class UserFormView(View):
+class UserFormView(UserPassesTestMixin, View):
     template_name = 'dashboard/index.html'
+
+    login_url = '/settings/'
+
+    def test_func(self):
+        return not self.request.user.groups.filter(name='useradmin').exists()
 
     def get(self, request):
         utility.sync()

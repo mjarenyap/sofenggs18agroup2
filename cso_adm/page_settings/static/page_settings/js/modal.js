@@ -334,6 +334,36 @@ $(document).ready(function(){
         $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 40) + 410) + "px");
     });
 
+<<<<<<< HEAD
+//    $("#changePswdAdmin").submit(function(e){
+//        var un = $("#changePswdAdmin #username").val();
+//        var op = $("#changePswdAdmin #oldPassword").val();
+//        var pw = $("#changePswdAdmin #password").val();
+//
+//        console.log("Test " + $("#changePswdAdmin").serialize()
+//                    + '&un=' + $.trim(un)
+//                    + '&op=' + $.trim(op)
+//                    + '&pw=' + $.trim(pw));
+//
+//        $.ajax({
+//            type: "POST",
+//            url: "/settings/admin_change/",
+//            data: $("#changePswdAdmin").serialize()
+//                + '&un=' + $.trim(un)
+//                + '&op=' + $.trim(op)
+//                + '&pw=' + $.trim(pw),
+//            success: function (response) {
+//                if (response.status == 1) {
+//                    alert("Hello")
+//
+//                    window.location.href = "/";
+//                } else {
+//                }
+//            }
+//       });
+//    });
+
+=======
     $("#set-default-term").submit(function(){
         var term = $("#submitTerm").find(":selected").text();
         var appElement = document.querySelector('[ng-app=dashboardApp]');
@@ -355,4 +385,5 @@ $(document).ready(function(){
         console.log("HEYYYYYY def");
         return false;
     });
+>>>>>>> 5b0615523feec08b5663fc18d3459ff2f7795326
 });

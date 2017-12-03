@@ -66,6 +66,55 @@ dashboardApp.controller('mainController', function($scope, $http) {
     }
     $scope.delUsers = arr;
     console.log("Delete users: " + $scope.delUsers);
+
+    $scope.showAddUserModal = false;
+    $scope.showDelUserModal = true;
+
+    $("#btn-del-user-final").click(function() {
+        var flag = true;
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+
+        $scope.$apply(function() {
+            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+                flag = false;
+            }
+            console.log("EYY");
+        });
+
+        var post = ''
+
+        $.each(arr, function(index, content) {
+            post += '&un' + index + '=' + content.username
+        });
+
+        console.log($("#modalDeleteUser").serialize()
+                        + post);
+
+        if(flag) {
+            $.ajax({
+                type: "POST",
+                url: "/settings/remove/",
+                data: $("#modalDeleteUser").serialize()
+                        + post,
+                success: function (response) {
+                    if (response.status == 1) {
+                        $("p.messages#saving_msg").text("Saved Successfully.");
+
+                        window.location.href = "/settings/";
+                    } else {
+                        $("p.messages#saving_msg").text("Saved Failed.");
+                    }
+                }
+            });
+        } else {
+            $("p.messages#saving_msg").text("No changes detected.");
+        }
+
+        $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
   }
 
   $scope.modalTest = function(data) {
@@ -85,7 +134,6 @@ dashboardApp.controller('mainController', function($scope, $http) {
       } else if(modal == 'test') {
           return $scope.showTestModal;
       }
-
   }
 
   $scope.updateSelectCount = function(data) {
