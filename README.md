@@ -78,3 +78,11 @@ CSO ADM Dashboard
 1. Fixed modal remarks and discarding functions
 2. Changes made in application reflects on the gsheets
 3. Syncing is now persistent
+
+
+
+--- Version 0.8 (December 4, 2017) Issues Resolved ---
+1. Status tool tips are presented with corresponding colors
+2. Implemented "things to do" feature on the dashboard
+3. Implemented the "adding of notes" feature
+4. Can add/delete/modify moderators
