@@ -29,9 +29,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'register.apps.RegisterConfig',
-    'login.apps.LoginConfig',
-    'logout.apps.LogoutConfig',
     'dashboard.apps.DashboardConfig',
     'org_list.apps.OrgListConfig',
     'org_specific.apps.OrgSpecificConfig',
