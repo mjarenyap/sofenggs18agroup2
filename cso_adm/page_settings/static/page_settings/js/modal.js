@@ -110,7 +110,7 @@ $(document).ready(function(){
             $.ajax({
                 type: "POST",
                 url: "/settings/remove/",
-                data: // TODO: insert arr of deleted users,
+                data: "", // TODO: insert arr of deleted users,
                 success: function (response) {
                     if (response.status == 1) {
                         $("p.messages#saving_msg").text("Saved Successfully.");
@@ -333,5 +333,57 @@ $(document).ready(function(){
         var formErrors = $("#modalEditUser .form-error:visible");
         $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 40) + 410) + "px");
     });
-    
+
+<<<<<<< HEAD
+//    $("#changePswdAdmin").submit(function(e){
+//        var un = $("#changePswdAdmin #username").val();
+//        var op = $("#changePswdAdmin #oldPassword").val();
+//        var pw = $("#changePswdAdmin #password").val();
+//
+//        console.log("Test " + $("#changePswdAdmin").serialize()
+//                    + '&un=' + $.trim(un)
+//                    + '&op=' + $.trim(op)
+//                    + '&pw=' + $.trim(pw));
+//
+//        $.ajax({
+//            type: "POST",
+//            url: "/settings/admin_change/",
+//            data: $("#changePswdAdmin").serialize()
+//                + '&un=' + $.trim(un)
+//                + '&op=' + $.trim(op)
+//                + '&pw=' + $.trim(pw),
+//            success: function (response) {
+//                if (response.status == 1) {
+//                    alert("Hello")
+//
+//                    window.location.href = "/";
+//                } else {
+//                }
+//            }
+//       });
+//    });
+
+=======
+    $("#set-default-term").submit(function(){
+        var term = $("#submitTerm").find(":selected").text();
+        var appElement = document.querySelector('[ng-app=dashboardApp]');
+        var $scope = angular.element(appElement).scope();
+        var flag = true;
+        $scope.$apply(function() {
+            console.log($scope.defaultTerm);
+            console.log($scope.maps.default_term);
+            if($scope.defaultTerm == $scope.maps.default_term) {
+                flag = false;
+            }
+        });
+        if(!flag) {
+            return false;
+        }
+    });
+
+    $("#change-sheet-settings").submit(function(){
+        console.log("HEYYYYYY def");
+        return false;
+    });
+>>>>>>> 5b0615523feec08b5663fc18d3459ff2f7795326
 });

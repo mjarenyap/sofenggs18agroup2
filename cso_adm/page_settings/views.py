@@ -1,7 +1,7 @@
 import json
 
 from django.contrib import messages
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import user_passes_test
 
+from dashboard.models import Map
 # # Create your views here.
 # # This is only for testing purposes. You may comment this out
 # def test_url(request):
@@ -21,16 +22,20 @@ from dashboard import modelJSON
 
 def get_response_context(request):
     mod_info_set = modelJSON.get_all_moderator_info_json()
+    map_set = modelJSON.get_map_values()
     response = {
         'status': 1,
         'message': "Ok",
-        'mod': mod_info_set
+        'mod': mod_info_set,
+        'maps': map_set
     }
     return HttpResponse(json.dumps(response), content_type='application/json')
 
 
 class SettingsView(UserPassesTestMixin, View):
     template_name = 'page_settings/settings.html'
+
+    login_url = '/'
 
     def test_func(self):
         return self.request.user.groups.filter(name='useradmin').exists()
@@ -48,6 +53,12 @@ class SettingsView(UserPassesTestMixin, View):
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         logouts = request.POST.get('logout', False)
+
+        curr_username = request.POST.get('un', False)
+        old_password = request.POST.get('op', False)
+        new_password = request.POST.get('pw', False)
+
+        print(curr_username)
 
         # If the username and password objects exist in the request dictionary, then it is a login POST
         if username is not False and password is not False:
@@ -76,6 +87,36 @@ class SettingsView(UserPassesTestMixin, View):
             }
 
             return redirect('dashboard:index')
+        elif curr_username is not False and old_password is not False and new_password is not False:
+            # Check if the old password is correct
+            if request.user.check_password(old_password):
+                print("Password correct")
+
+                # Get the user from the old username
+                user = User.objects.get(username=curr_username)
+
+                # Change the relevant credentials
+                user.set_password(new_password)
+
+                # Commit the changes to the database
+                user.save()
+
+                # Refresh the session, reflecting the new password
+                update_session_auth_hash(request, user)
+
+                # Then go back to the previous URL with the updated values
+                context = {
+                }
+
+                return render(request, self.template_name, context)
+            else:
+                # Throw an incorrect old password error
+                context = {
+                }
+
+                messages.error(request, 'Password reset failed. The old password you entered was incorrect.')
+
+                return render(request, self.template_name, context)
         else:
             return redirect('page_404:page_404')
 
@@ -96,15 +137,31 @@ def has_group(user):
 @user_passes_test(has_group)
 def remove_moderator(request):
     # Get the relevant credentials from the POST request
-    username = request.POST.get('username', False)
+    username = request.POST.get('un0', False)
 
-    # Check if the POST request is valid
+    # Check if the POST request is valid (if at least one user gets deleted)
     if username is not False:
-        # Get the user from the given username
-        user = User.objects.get(username=username)
+        users_deleted = 0
 
-        # Purge the user
-        user.delete()
+        # For every succeeding user
+        while username is not False:
+            try:
+                # Get the user from the given username
+                user = User.objects.get(username=username)
+
+                # Purge the user
+                user.delete()
+
+                # Increment the deleted users
+                users_deleted += 1
+
+                # Try to go to the next user
+                key = 'un' + str(users_deleted)
+
+                # Get the relevant credentials from the POST request
+                username = request.POST.get(key, False)
+            except User.DoesNotExist:
+                break
 
         # Then go back to the previous URL with the updated values
         response = {'status': 1, 'message': "Ok", 'url': reverse('settings:settings')}
@@ -171,3 +228,12 @@ def update_moderator(request):
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
         return redirect(reverse('settings:settings'))
+
+
+def set_default_term(request):
+    term = request.POST.get('term', '')
+    if term != '':
+        map = Map.objects.get(key='default_term')
+        map.value = term
+        map.save()
+    return redirect(reverse('settings:settings'))
