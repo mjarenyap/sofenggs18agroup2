@@ -42,7 +42,7 @@
                         <div>
                             <b>Username</b>
                             <input id="oldUsername" type="hidden" ng-value="modalOldUsername">
-                            <input id="username" class="inpEditMod" type="text" ng-model="modalUsername" required>
+                            <input id="username" class="inpEditMod" type="text" ng-model="modalUsername">
                             <span class="underline"></span>
                         </div>
                         <div>
@@ -407,6 +407,7 @@
                 <br/>
                 <h4 class="neutral">Re-type New Password</h4>
                 <input id="adminNewPasswordRetype" type="password" placeholder="Re-type your new password" required/>
+
                 <div class="flex-end">
                     <button id="discard-pwform-changes" class="hallow">Discard</button>
                     <input type="submit" value="Save">
