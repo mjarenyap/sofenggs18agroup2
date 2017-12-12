@@ -16,4 +16,49 @@ form.form-settings input[type="text"],
 form.form-settings input[type="password"] {
     border: none;
     border-bottom: thin solid var(--theme-grey-neutral-3);
+    padding: 5px 10px;
+    width: 180px;
+    color: var(--theme-grey-neutral-3);
+
+}
+
+form.form-settings input[type="text"]:focus,
+form.form-settings input[type="password"]:focus {
+    color: var(--theme-grey-neutral);
+}
+
+h4.neutral {
+    width: 170px;
+}
+
+/*from https://codepen.io/fongfan999/pen/ozVYoW*/
+
+
+form.form-settings input[type="text"]:focus+.underline,
+form.form-settings input[type="password"]:focus+.underline{
+  transform: scale(1);
+}
+
+.underline {
+  background-color: var(--theme-color);
+  display: inline-block;
+  height: 1px;
+  left: 260px;
+  margin-top: 28px;
+  position: absolute;
+  /*top: 183px;*/
+  -webkit-transform: scale(0, 1);
+  transform: scale(0, 1);
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  width: 199px;
+}
+
+div#modal-details-wrapper-settings div.content-wrapper div b {
+    width: 150px;
+}
+
+div#modal-details-wrapper-settings button[type="submit"] {
+    position: absolute;
+    right: 40px;
 }
