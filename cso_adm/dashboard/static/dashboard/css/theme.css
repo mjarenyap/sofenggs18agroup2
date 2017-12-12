@@ -49,7 +49,7 @@ span{
     color: var(--theme-grey-neutral);
 }
 
-input, button{
+input, button, textarea {
     border-radius: 3px;
     padding: 11px 20px;
     font-size: 0.85em;

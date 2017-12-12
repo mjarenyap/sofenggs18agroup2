@@ -38,20 +38,25 @@
                 </ul>
                 <div class="content-wrapper visible" id="csoDetails" ng-show="activeModal('edit')">
                     <form id="modalEditUser" class="form-settings" method="post">
-                        {% verbatim %}
                         {% csrf_token %}
+                        {% verbatim %}
+
                         <div>
                             <b>Username</b>
                             <input id="oldUsername" type="hidden" ng-value="modalOldUsername">
                             <input id="username" class="inpEditMod" type="text" ng-model="modalUsername">
+                            <span class="underline"></span>
                         </div>
                         <div>
                             <b>New Password</b>
                             <input id="password" class="inpEditMod" type="password">
+                            <span class="underline"></span>
+
                         </div>
                         <div>
                             <b>Confirm Password</b>
                             <input class="inpEditMod" type="password">
+                            <span class="underline"></span>
                         </div>
 
                         <p class="form-error" id="err-mod-edit-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
@@ -62,30 +67,37 @@
                 </div>
                 <div class="content-wrapper visible" ng-show="activeModal('add')">
                     <form id="modalAddUser" class="form-settings"  method="post">
+                        {% endverbatim %}
                         {% csrf_token %}
                         <div>
                             <b>First Name</b>
                             <input id="firstName" class="inpAddMod" type="text">
+                            <span class="underline"></span>
                         </div>
                         <div>
                             <b>Last Name</b>
                             <input id="lastName" class="inpAddMod" type="text">
+                            <span class="underline"></span>
                         </div>
                         <div>
                             <b>Username</b>
                             <input id="username" class="inpAddMod" type="text">
+                            <span class="underline"></span>
                         </div>
                         <div>
                             <b>Email</b>
                             <input id="email" class="inpAddMod" type="text">
+                            <span class="underline"></span>
                         </div>
                         <div>
                             <b>Password</b>
                             <input id="password" class="inpAddMod" type="password">
+                            <span class="underline"></span>
                         </div>
                         <div>
                             <b>Confirm Password</b>
                             <input id="confPassword" class="inpAddMod" type="password">
+                            <span class="underline"></span>
                         </div>
                         <p class="form-error" id="err-mod-add-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
                         <p class="form-error" id="err-mod-add-eregex">Invalid email.</p>
@@ -388,14 +400,14 @@
             <form id="changePswdAdmin" method="post">
                 {% csrf_token %}
                 <input id="username" name="un" type="hidden" value="{{ user.username }}">
-                <h4 class="neutral">New Password</h4>
-                <input id="password" name="pw" type="password" placeholder="Type your new password" class="new-pass"/>
-                <br/>
                 <h4 class="neutral">Old Password</h4>
-                <input id="oldPassword" name="op" type="password" placeholder="Type your old password"/>
+                <input id="password" name="pw" type="password" placeholder="Type your old password" class="new-pass"/>
                 <br/>
-                <h4 class="neutral">Re-type old Password</h4>
-                <input id="oldPasswordRetype" type="password" placeholder="Re-type your old password"/>
+                <h4 class="neutral">New Password</h4>
+                <input id="oldPassword" name="op" type="password" placeholder="Type your new password"/>
+                <br/>
+                <h4 class="neutral">Re-type New Password</h4>
+                <input id="oldPasswordRetype" type="password" placeholder="Re-type your new password"/>
                 <div class="flex-end">
                     <button class="hallow">Discard</button>
                     <input type="submit" value="Save">
