@@ -36,6 +36,7 @@ table.post-acts-table td, table.org-table td, table.users-table td{
     font-size: 0.8em;
     border-bottom: thin solid #ddd;
 }
+/*
 table.post-acts-table tr th:nth-child(2){
     width: 15%;
 }
@@ -51,9 +52,27 @@ table.post-acts-table tr td:nth-child(1),
 table.org-table tr td:nth-child(1){
     font-weight: bold;
     color: var(--theme-color);
+}*/
+
+table.post-acts-table tr th:nth-child(3){
+    width: 15%;
 }
 
+table.post-acts-table tr td:nth-child(4),
+table.org-table tr td:nth-child(3),
+table.users-table tr td:nth-child(3){
+    font-weight: bold;
+    width: 35%;
+}
 
+table.post-acts-table tr td:nth-child(1),
+table.org-table tr td:nth-child(1),
+table.post-acts-table tr td:nth-child(2),
+table.org-table tr td:nth-child(2)
+{
+    font-weight: bold;
+    color: var(--theme-color);
+}
 
 /*
 table.post-acts-table tr:nth-child(even){
@@ -99,7 +118,10 @@ table.checklist-table{
     margin-top: 20px;
 }
 
-table.checklist-table tr td:nth-child(1){
+/*table.checklist-table tr td:nth-child(1){
+    font-weight: bold;
+}*/
+table.checklist-table tr td:nth-child(2){
     font-weight: bold;
 }
 
@@ -108,4 +130,8 @@ table.checklist-table tr td{
     color: #444;
     padding: 15px 20px;
     border-bottom: thin solid #ccc;
+}
+
+.fa-circle {
+    color: #18a8cc;
 }
