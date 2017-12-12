@@ -7,7 +7,12 @@
         <!-- Stylesheets -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link href="{% static 'dashboard/css/theme.css' %}" rel="stylesheet" type="text/css"/>
+        {% if request.user|has_group:"moderator" %}
+        <link href="{% static 'dashboard/css/table-style-mod.css' %}" rel="stylesheet" type="text/css"/>
+        {% else %}
         <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
+        {% endif %}
+
         <link href="{% static 'dashboard/css/tooltips.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
@@ -195,7 +200,7 @@
         <header>
             <h1>WELCOME TO DASHBOARD!</h1>
             <p>You can view all the post acts of different organizations.</p>
-            <div class="checklist-wrapper">
+            <!--<div class="checklist-wrapper">
                 <table class="checklist-table">
                     <h2>Checklist:</h2>
                     <tr>
@@ -211,7 +216,7 @@
                         <td>LSCS</td>
                     </tr>
                 </table>
-            </div>
+            </div>-->
         </header>
         <section class="filter-wrapper">
             <span>Month:</span>
@@ -243,6 +248,11 @@
             <table cellspacing="0" cellpadding="0" border="0" class="post-acts-table">
                 {% verbatim %}
                 <tr class="headers">
+                    {% endverbatim %}
+                    {% if request.user|has_group:"moderator" %}
+                    <th></th>
+                    {% endif %}
+                    {% verbatim %}
                     <th></th>
                     <th ng-click="sortType = 't'; sortReverse = !sortReverse">
                         Timestamp
@@ -285,6 +295,11 @@
                 {% verbatim %}
                 <tr ng-repeat="user_person in filtered_data = ( postact_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm)"
                     ng-click="showModal(user_person)">
+                    {% endverbatim %}
+                    {% if request.user|has_group:"moderator" %}
+                    <td><i class="fa fa-circle" ng-show="isPriority(user_person)"></i></td>
+                    {% endif %}
+                    {% verbatim %}
                     <td>{{$index + 1}}</td>
                     <td>{{ user_person.t }}</td>
                     <td>{{ user_person.n }}</td>

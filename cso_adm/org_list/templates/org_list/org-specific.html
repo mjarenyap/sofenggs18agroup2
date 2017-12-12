@@ -10,6 +10,14 @@
         <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/org-specific.css' %}" rel="stylesheet" type="text/css"/>
+        {% if request.user|has_group:"moderator" %}
+        <link href="{% static 'dashboard/css/comments.css' %}" rel="stylesheet" type="text/css"/>
+        {% endif %}
+        {% if request.user|has_group:"moderator" %}
+        <link href="{% static 'dashboard/css/table-style-mod.css' %}" rel="stylesheet" type="text/css"/>
+        {% else %}
+        <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
+        {% endif %}
 
         <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/angular.min.js' %}" type="text/javascript"></script>
@@ -149,6 +157,8 @@
                         <!--{% endif %}-->
                     </form>
                 </div>
+
+                <!-- MODAL FOR COMMENTS -->
                 <div class="content-wrapper visible" id="commentContent" ng-show="!showPAModal">
                     <div id="comment-wrapper-wrapper">
                         {% verbatim %}
@@ -158,6 +168,15 @@
                         </div>
                         {% endverbatim %}
                     </div>
+                    {% if request.user|has_group:"moderator" %}
+                    <div class="wrapper-add-comment">
+                        <form>
+                        <!--<input id="commentInput" type="text">-->
+                            <textarea rows="2" cols="90" maxlength="200" id="commentInput"></textarea>
+                            <button type="submit" id="submitComment" class="button">Comment</button>
+                        </form>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -269,6 +288,11 @@
             <table cellspacing="0" cellpadding="0" border="0" class="post-acts-table">
                 <!--{% verbatim %}-->
                 <tr class="headers">
+                    {% endverbatim %}
+                    {% if request.user|has_group:"moderator" %}
+                    <th></th>
+                    {% endif %}
+                    {% verbatim %}
                     <th></th>
                     <th ng-click="sortType = 't'; sortReverse = !sortReverse">
                         Timestamp
@@ -312,6 +336,11 @@
                     <!--ng-click="showModal(user_person)">-->
                 <tr ng-repeat="user_person in filtered_data = ( postact_data | orderBy:sortType:sortReverse | filter:filters | filter:filterTerm)"
                     ng-click="showModal(user_person)">
+                    {% endverbatim %}
+                    {% if request.user|has_group:"moderator" %}
+                    <td><i class="fa fa-circle" ng-show="isPriority(user_person)"></i></td>
+                    {% endif %}
+                    {% verbatim %}
                     <td>{{$index + 1}}</td>
                     <td>{{ user_person.t }}</td>
                     <td>{{ user_person.n }}</td>
