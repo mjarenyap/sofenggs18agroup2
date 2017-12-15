@@ -58,8 +58,6 @@ class SettingsView(UserPassesTestMixin, View):
         old_password = request.POST.get('op', False)
         new_password = request.POST.get('pw', False)
 
-        print(curr_username)
-
         # If the username and password objects exist in the request dictionary, then it is a login POST
         if username is not False and password is not False:
             user = authenticate(request, username=username, password=password)
