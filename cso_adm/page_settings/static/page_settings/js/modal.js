@@ -60,11 +60,11 @@ $(document).ready(function(){
             if (i != 0) {
                 $(inpEdit[i]).val("");
             }
-            $(inpEdit[i]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpEdit[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
         }
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
-        $("#modal-details-wrapper-settings").css("height", "410px");
+        $("#modal-details-wrapper-settings").css("height", "360px");
     });
 
     $("#btn-add-user").click(function() {
@@ -73,10 +73,10 @@ $(document).ready(function(){
 
         for(i = 0; i < inpAdd.length; i++) {
             $(inpAdd[i]).val("");
-            $(inpAdd[i]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
         }
 
-        $("#modal-details-wrapper-settings").css("height",  "630px");
+        $("#modal-details-wrapper-settings").css("height",  "560px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
@@ -150,22 +150,22 @@ $(document).ready(function(){
 
         // username check
         if(!usernameVal.match(userRegex)) {
-            $(inpAdd[2]).css("border", "thin solid palevioletred");
+            $(inpAdd[2]).css("border-bottom", "thin solid palevioletred");
             $("#err-mod-add-uregex").show();
             e.preventDefault(e);
         } else {
             $("#err-mod-add-uregex").hide();
-            $(inpAdd[2]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[2]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
         }
 
         // email check
         if(!emailRegex.test(emailVal)) {
             $("#err-mod-add-eregex").show();
-            $(inpAdd[3]).css("border", "thin solid palevioletred");
+            $(inpAdd[3]).css("border-bottom", "thin solid palevioletred");
             e.preventDefault(e);
         } else {
             $("#err-mod-add-eregex").hide();
-            $(inpAdd[3]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[3]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
         }
 
         // password check
@@ -173,8 +173,8 @@ $(document).ready(function(){
             $("#err-mod-add-pmatch").show();
             e.preventDefault(e);
         } else {
-            $(inpAdd[4]).css("border", "thin solid var(--theme-grey-neutral-3)");
-            $(inpAdd[5]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[4]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[5]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
             $("#err-mod-add-pmatch").hide();
         }
 
@@ -182,14 +182,14 @@ $(document).ready(function(){
             $("#err-mod-add-pregex").show();
             e.preventDefault(e);
         } else {
-            $(inpAdd[4]).css("border", "thin solid var(--theme-grey-neutral-3)");
-            $(inpAdd[5]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[4]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[5]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
             $("#err-mod-add-pregex").hide();
         }
 
         if(passVal1 != passVal2 || !passVal1.match(passRegex)) {
-            $(inpAdd[4]).css("border", "thin solid palevioletred");
-            $(inpAdd[5]).css("border", "thin solid palevioletred");
+            $(inpAdd[4]).css("border-bottom", "thin solid palevioletred");
+            $(inpAdd[5]).css("border-bottom", "thin solid palevioletred");
         }
 
         $("div.error#saving_banner").css("display", "flex");
@@ -258,19 +258,19 @@ $(document).ready(function(){
 
         // username check
         if(!usernameVal.match(userRegex)) {
-            $(inpAdd[0]).css("border", "thin solid palevioletred");
+            $(inpAdd[0]).css("border-bottom", "thin solid palevioletred");
             $("#err-mod-edit-uregex").show();
             e.preventDefault(e);
         } else {
-            $(inpAdd[0]).css("border", "thin solid var(--theme-grey-neutral-3)");
-            $(inpAdd[0]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[0]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[0]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
             $("#err-mod-edit-uregex").hide();
         }
 
         // password match check
         if(passVal1 != passVal2) {
-            $(inpAdd[1]).css("border", "thin solid palevioletred");
-            $(inpAdd[2]).css("border", "thin solid palevioletred");
+            $(inpAdd[1]).css("border-bottom", "thin solid palevioletred");
+            $(inpAdd[2]).css("border-bottom", "thin solid palevioletred");
             $("#err-mod-edit-pmatch").show();
             e.preventDefault(e);
         } else {
@@ -279,13 +279,13 @@ $(document).ready(function(){
 
         // password regex check
         if(!passVal1.match(passRegex)) {
-            $(inpAdd[1]).css("border", "thin solid palevioletred");
-            $(inpAdd[2]).css("border", "thin solid palevioletred");
+            $(inpAdd[1]).css("border-bottom", "thin solid palevioletred");
+            $(inpAdd[2]).css("border-bottom", "thin solid palevioletred");
             $("#err-mod-edit-pregex").show();
             e.preventDefault(e);
         } else {
-            $(inpAdd[1]).css("border", "thin solid var(--theme-grey-neutral-3)");
-            $(inpAdd[2]).css("border", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[1]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+            $(inpAdd[2]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
             $("#err-mod-edit-pregex").hide();
         }
 
@@ -334,7 +334,7 @@ $(document).ready(function(){
         $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 40) + 410) + "px");
     });
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
 //    $("#changePswdAdmin").submit(function(e){
 //        var un = $("#changePswdAdmin #username").val();
 //        var op = $("#changePswdAdmin #oldPassword").val();
@@ -363,7 +363,7 @@ $(document).ready(function(){
 //       });
 //    });
 
-=======
+// =======
     $("#set-default-term").submit(function(){
         var term = $("#submitTerm").find(":selected").text();
         var appElement = document.querySelector('[ng-app=dashboardApp]');
@@ -385,5 +385,5 @@ $(document).ready(function(){
         console.log("HEYYYYYY def");
         return false;
     });
->>>>>>> 5b0615523feec08b5663fc18d3459ff2f7795326
+// >>>>>>> 5b0615523feec08b5663fc18d3459ff2f7795326
 });

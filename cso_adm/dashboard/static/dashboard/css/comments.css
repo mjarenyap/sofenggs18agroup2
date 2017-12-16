@@ -1,0 +1,34 @@
+:root{
+    --theme-color: #738bd7;
+    --theme-dark-accent: #5f74b1;
+
+    --theme-dark-neutral: #202226;
+    --theme-grey-neutral: #6c6e71;
+    --theme-grey-neutral-2: #ddd;
+    --theme-grey-neutral-3: #ccc;
+    --theme-light-neutral: #ffffff;
+    --theme-light-neutral-2: #f1f2f7;
+
+    --chunk-padding: 40px 10%;
+}
+
+div#modal-details-wrapper div#comment-wrapper-wrapper {
+    max-height: 205px;
+}
+
+#commentInput {
+    padding: 10px;
+    margin: 15px 0 6px 0;
+    border: thin solid var(--theme-grey-neutral-3);
+    background-color: var(--theme-light-neutral-2);
+    color: var(--theme-grey-neutral);
+}
+
+div#modal-details-wrapper div.content-wrapper .wrapper-add-comment {
+    display: block;
+}
+
+#submitComment {
+    position: absolute;
+    right: 50px
+}

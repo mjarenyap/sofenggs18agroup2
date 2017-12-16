@@ -170,6 +170,11 @@ dashboardApp.controller('mainController', function($scope, $http) {
       $scope.modalRemarks = '';
       $('#submitRemarks').text("");
   };
+
+  $scope.isPriority = function(postAct) {
+      return postAct.cb == '';
+  }
+
   $scope.showModal = function(status) {
     console.log(status.hello);
     $http.get("/get_log/", {params: {"id": status.id}})
