@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -9,7 +10,7 @@ from django.http import HttpResponse
 
 # This is only for testing purposes. You may comment this out
 from django.views import View
-from dashboard.models import PostActsLog, Organization, Map
+from dashboard.models import PostActsLog, Organization, Map, OrgComment
 import json
 from dashboard import utility
 from dashboard import modelJSON
@@ -70,6 +71,23 @@ def get_org_comments(request, org):
         'status': 1,
         'message': "Ok",
         'comments': comments_set
+    }
+
+    return HttpResponse(json.dumps(response), content_type='application/json')
+
+def add_org_comment(request, org):
+    comment_msg = request.POST.get('comment', '')
+    comment = OrgComment()
+    comment.organization = Organization.objects.get(shortname__iexact = org)
+    comment.timestamp = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+    comment.username = request.user.username
+    comment.comment = comment_msg
+    comment.save()
+
+    response = {
+        'status': 1,
+        'message': "Ok",
+        'comment': comment.getFullJSON()
     }
 
     return HttpResponse(json.dumps(response), content_type='application/json')

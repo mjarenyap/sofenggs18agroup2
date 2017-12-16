@@ -261,9 +261,31 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
       $scope.showPAModal = false;
 
+  };
+
+  $scope.addComment = function() {
+      console.log($scope.comment);
+      if ($.trim($scope.comment) != "") {
+      var data = $.param({
+          comment: $.trim($scope.comment)
+      });
+
+      var config = {
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+          }
+      }
+      $http.post(org + "/add_org_comment/", data, config)
+          .success(function (response) {
+              console.log("success");
+              $scope.comments.push(JSON.parse(response.comment));
+              $scope.comment = '';
+          })
+          .error(function (response) {
+              console.log("failed");
+          });
   }
-
-
+  };
 
   $http.get(org + "/get_org_specific_contexts/", {params: {}})
           .success(function(response) {
