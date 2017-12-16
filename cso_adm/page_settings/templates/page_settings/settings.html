@@ -396,17 +396,17 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            <form id="changePswdAdmin" method="post">
+            <form id="changePswdAdmin" method="post" action="">
                 {% csrf_token %}
-                <input id="username" name="un" type="hidden" value="{{ user.username }}">
+                <input id="adminUsername" name="un" type="hidden" value="{{ user.username }}">
                 <h4 class="neutral">Old Password</h4>
-                <input id="password" name="pw" type="password" placeholder="Type your old password" class="new-pass"/>
+                <input id="adminOldPassword" name="op" type="password" placeholder="Type your old password" class="new-pass"/>
                 <br/>
                 <h4 class="neutral">New Password</h4>
-                <input id="oldPassword" name="op" type="password" placeholder="Type your new password"/>
+                <input id="adminNewPassword" name="pw" type="password" placeholder="Type your new password"/>
                 <br/>
                 <h4 class="neutral">Re-type New Password</h4>
-                <input id="oldPasswordRetype" type="password" placeholder="Re-type your new password"/>
+                <input id="adminNewPasswordRetype" type="password" placeholder="Re-type your new password"/>
                 <div class="flex-end">
                     <button class="hallow">Discard</button>
                     <input type="submit" value="Save">
