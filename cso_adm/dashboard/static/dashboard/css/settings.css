@@ -21,7 +21,6 @@ form.form-settings input[type="password"] {
     color: var(--theme-grey-neutral-3);
     position: relative;
     bottom: 4px;
-
 }
 
 form.form-settings input[type="text"]:focus,
@@ -59,6 +58,7 @@ form.form-settings input[type="password"]:focus+.underline{
 div#modal-details-wrapper-settings div.content-wrapper div b {
     width: 156px;
     margin-right: 24px;
+
 }
 
 div#modal-details-wrapper-settings button[type="submit"] {

@@ -94,6 +94,7 @@ $(document).ready(function(){
         }
 
         $("#modal-details-wrapper-settings").css("height",  "560px");
+// <<<<<<< HEAD
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
@@ -108,6 +109,8 @@ $(document).ready(function(){
         }
 
         $("#modal-details-wrapper-settings").css("height",  "360px");
+// =======
+// >>>>>>> 941c77c79d9934b35925c0c7139c56f87c20f122
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
