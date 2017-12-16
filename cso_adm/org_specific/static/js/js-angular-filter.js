@@ -102,7 +102,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   $scope.filterTerm = defaultTerm.split(' ')[1];
   // Checks all filters
   $scope.filters = function(postact) {
-    console.log("Checking Filters");
+    //console.log("Checking Filters");
     // console.log(postact.timestamp.split('/')[2].split(' ')[0]);
 
     if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker)
@@ -249,7 +249,16 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
   $scope.showCommentModal = function() {
       console.log("showcommentmodal");
-      console.log($scope.comments);
+
+      $http.get(org + "/get_org_comments/", {params: {}})
+          .success(function(response) {
+              console.log("success");
+              $scope.comments = JSON.parse(response.comments);
+            })
+            .error(function(response){
+                console.log("failed");
+            });
+
       $scope.showPAModal = false;
 
   }

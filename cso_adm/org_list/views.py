@@ -63,6 +63,17 @@ def get_response_context_specific(request, org):
     }
     return HttpResponse(json.dumps(response), content_type='application/json')
 
+def get_org_comments(request, org):
+    comments_set = modelJSON.get_all_org_comments(org)
+
+    response = {
+        'status': 1,
+        'message': "Ok",
+        'comments': comments_set
+    }
+
+    return HttpResponse(json.dumps(response), content_type='application/json')
+
 def get_log(request):
     print (request)
     id = request.GET.get("id", False)

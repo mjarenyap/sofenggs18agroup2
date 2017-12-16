@@ -162,8 +162,8 @@
                     <div id="comment-wrapper-wrapper">
                         {% verbatim %}
                         <div ng-repeat="com in comments | orderBy:commentSort:commentSortReverse" class="comment-wrapper">
-                            <p class="comment-user">{{com.username}}&nbsp&nbsp&nbsp&nbsp&nbsp<span>{{com.timestamp}}</span></p>
-                            <p class="comment-text">{{com.comment}}</p>
+                            <p class="comment-user">{{com.u}}&nbsp&nbsp&nbsp&nbsp&nbsp<span>{{com.t}}</span></p>
+                            <p class="comment-text">{{com.c}}</p>
                         </div>
                         {% endverbatim %}
                     </div>
