@@ -146,8 +146,7 @@
                         </div>
                         <div>
                             <b>Cluster</b>
-                            <select id="orgCluster" name="cluster" ng-init="newOrgCluster=clusterList.short[0]" ng-model="newOrgCluster"
-                                    ng-options="clu as clu.short for clu in clusterList track by clu.short">
+                            <select id="orgCluster" name="cluster" ng-model="modalOrgCluster" ng-options="clu as clu.short for clu in clusterList track by clu.short">
                             </select>
                         </div>
                         <!--<button type="submit" class="button">Save</button>-->
