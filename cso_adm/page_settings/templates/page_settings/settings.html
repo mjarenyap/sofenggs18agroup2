@@ -245,16 +245,16 @@
         <section class="settings-tab-wrapper">
             <nav>
                 <ul>
-                    <li class="active" id="audit">Audit Trail</li>
-                    <li id="manage">Manage Users</li>
+                    <!--<li class="active" id="audit">Audit Trail</li>-->
+                    <li class="active" id="manage">Manage Users</li>
                     <li id="organizations">Manage Organizations</li>
                     <li id="edit">Dashboard Settings</li>
                     <li id="changePass">Password Settings</li>
                 </ul>
             </nav>
         </section>
+        <!--
         <section class="fill" id="audit-trail">
-
             <table cellspacing="0" cellpadding="0" border="0" class="users-table">
                 <tr class="headers">
                     <th>Timestamp</th>
@@ -307,6 +307,7 @@
 
             </table>
         </section>
+        -->
         <section class="fill" id="manage-users">
             <div class="user-tray">
                 {% verbatim %}
@@ -341,7 +342,7 @@
                     <td>{{ checker.postActsChecked }}</td>
                     <td>{{ checker.lastLogin }}</td>
                     <td>
-                        <button class="btn-edit-user" ng-click="showModal(checker)">Edit User</button>
+                        <button class="btn-edit-user" ng-click="showModal(checker)">Edit</button>
                     </td>
                 </tr>
                 {% endverbatim %}
