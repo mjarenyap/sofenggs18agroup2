@@ -1,3 +1,4 @@
+import django.views.defaults
 from django.conf.urls import url
 from . import views
 
@@ -14,5 +15,8 @@ urlpatterns = [
     url(r'get_dashboard_contexts/$', views.get_response_context, name='get_dashboard_contexts'),
 
     # /update/
-    url(r'get_log/$', views.get_log, name='get_log')
+    url(r'get_log/$', views.get_log, name='get_log'),
+
+    # 404 fallback
+    # url(r'^404/$', django.views.defaults.page_not_found, name='404'),
 ]
