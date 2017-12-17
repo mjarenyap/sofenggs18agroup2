@@ -241,7 +241,7 @@
                 <option value="">All Months</option>
             </select>
 
-            <span>Term:</span>
+            <span>Activity Term:</span>
             <select ng-model="filterTerm" ng-options="term.short as term.long for term in termList">
                 <option value="">All Terms</option>
             </select>
@@ -328,11 +328,11 @@
                 </tr>
 
                 <div class="table-above">
-                    <p id="result-count" ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length != 0 && filtered_data.length != 1">
+                    <p id="result-count" ng-show="(uncheckedOnly || filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length != 0 && filtered_data.length != 1">
                         {{filtered_data.length}} results found.</p>
-                    <p id="result-count" ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 1">
+                    <p id="result-count" ng-show="(uncheckedOnly || filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 1">
                         {{filtered_data.length}} result found.</p>
-                    <p id="result-count" ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 0">
+                    <p id="result-count" ng-show="(uncheckedOnly || filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker || filterOrg) && filtered_data.length == 0">
                         No results found.</p>
                     {% endverbatim %}
                     {% if request.user|has_group:"moderator" %}
