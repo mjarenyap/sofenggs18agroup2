@@ -80,3 +80,52 @@ input[type="password"]:focus+.underline{
     vertical-align: middle;
     cursor: default;
 }
+
+/* switch */
+.table-above input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+.table-above label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 50px;
+	height: 25px;
+	background: grey;
+	display: block;
+	border-radius: 20px;
+	position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.table-above label:after {
+	content: '';
+	position: absolute;
+	top: 1.6px;
+	left: 1.5px;
+	width: 22px;
+	height: 22px;
+	background: #fff;
+	border-radius: 22px;
+	transition: 0.2s;
+}
+
+.table-above input:checked + label {
+	background: var(--theme-color);
+}
+
+.table-above input:checked + label:after {
+	left: calc(100% - 2px);
+	transform: translateX(-100%);
+}
+
+.table-above label:active:after {
+	width: 20px;
+}
+
+#checklabel {
+    display: inline-block;
+}
