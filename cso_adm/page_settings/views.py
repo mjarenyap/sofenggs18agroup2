@@ -20,15 +20,32 @@ from django.views import View
 from dashboard import modelJSON
 from dashboard import utility
 
+from dashboard.models import Organization, PostActsLog
 
 def get_response_context(request):
     mod_info_set = modelJSON.get_all_moderator_info_json()
     map_set = modelJSON.get_map_values()
+    cluster_set = modelJSON.get_all_cluster_json()
+
+    data_set = "["
+    for org in Organization.objects.all():
+        org_submitted = PostActsLog.objects.filter(organization__iexact=org.shortname).count()
+        data_set = data_set + "{\"abbrev\":\"" + org.shortname + "\","
+        data_set = data_set + "\"name\":\"" + org.name + "\","
+        data_set = data_set + "\"cluster\":\"" + org.cluster + "\","
+        data_set = data_set + "\"submitted\":" + str(org_submitted) + "},"
+    if len(data_set) > 1:
+        data_set = data_set[:-1]
+    data_set = data_set + "]"
+    print("JSON for Data: " + data_set)
+
     response = {
         'status': 1,
         'message': "Ok",
         'mod': mod_info_set,
-        'maps': map_set
+        'maps': map_set,
+        'orgs': data_set,
+        'cluster': cluster_set
     }
     return HttpResponse(json.dumps(response), content_type='application/json')
 
