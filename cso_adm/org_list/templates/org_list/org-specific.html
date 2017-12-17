@@ -172,9 +172,12 @@
                     {% if request.user|has_group:"moderator" %}
                     <div class="wrapper-add-comment">
                         <form>
+
                         <!--<input id="commentInput" type="text">-->
                             <textarea rows="3" cols="82" maxlength="200" id="commentInput" ng-model="comment"></textarea>
+
                             <button type="submit" id="submitComment" class="button" ng-click="addComment()">Comment</button>
+
                         </form>
                     </div>
                     {% endif %}
@@ -189,6 +192,11 @@
             </a>
             <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
             <ul>
+                {% if request.user|has_group:"moderator" %}
+                {% verbatim %}
+                <div id="unchecked">{{getUnchecked()}}</div>
+                {% endverbatim %}
+                {% endif %}
                 <a href="{% url 'dashboard:index' %}"><li>Home</li></a>
                 <a href="{% url 'org_list:general_orgs' %}"><li class="active">Organization List</li></a>
             </ul>
@@ -342,7 +350,7 @@
                     ng-click="showModal(user_person)">
                     {% endverbatim %}
                     {% if request.user|has_group:"moderator" %}
-                    <td><i class="fa fa-circle" ng-show="isPriority(user_person)"></i></td>
+                    <td><i class="fa fa-exclamation-circle" ng-show="isPriority(user_person)"></i></td>
                     {% endif %}
                     {% verbatim %}
                     <td>{{$index + 1}}</td>
@@ -354,10 +362,18 @@
                     <td>{{ user_person.cb }}</td>
                     <td>{{ user_person.d }}</td>
                 </tr>
-                <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
-                <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
-                <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 0">No results found.</p>
-        <!--{% endverbatim %}-->
+                <div>
+                    <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
+                    <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
+                    <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 0">No results found.</p>
+                    {% endverbatim %}
+                    {% if request.user|has_group:"moderator" %}
+                        <div id="results-right">
+                            <input id="check-unchecked" type="checkbox" ng-click="toggleUncheckedOnly()">Show only unchecked
+                        </div>
+                    {% endif %}
+                </div>
+        <!---->
             </table>
         </section>
     </body>
