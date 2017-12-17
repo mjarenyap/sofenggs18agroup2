@@ -280,4 +280,5 @@ def change_worksheet_settings(request):
                 m.value = "COLUMN " + request.POST.get(key, '')
                 print(m.value)
                 m.save()
+        utility.resync()
     return redirect(reverse('settings:settings'))
