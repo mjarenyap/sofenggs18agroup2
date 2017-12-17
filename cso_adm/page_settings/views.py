@@ -31,6 +31,7 @@ def get_response_context(request):
     for org in Organization.objects.all():
         org_submitted = PostActsLog.objects.filter(organization__iexact=org.shortname).count()
         data_set = data_set + "{\"abbrev\":\"" + org.shortname + "\","
+        data_set = data_set + "\"id\":" + str(org.id) + ","
         data_set = data_set + "\"name\":\"" + org.name + "\","
         data_set = data_set + "\"cluster\":\"" + org.cluster + "\","
         data_set = data_set + "\"submitted\":" + str(org_submitted) + "},"
@@ -311,5 +312,18 @@ def add_org(request):
     org.name = request.POST.get('name')
     org.cluster = request.POST.get('cluster')
     org.save()
-    
+
+    return redirect(reverse('settings:settings'))
+
+def edit_org(request):
+    for key in request.POST:
+        print(key)
+        print(request.POST.get(key))
+
+    org = Organization(id=int(request.POST.get('id')))
+    org.shortname = request.POST.get('shortname')
+    org.name = request.POST.get('name')
+    org.cluster = request.POST.get('cluster')
+    org.save()
+
     return redirect(reverse('settings:settings'))
