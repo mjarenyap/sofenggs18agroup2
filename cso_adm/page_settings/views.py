@@ -299,3 +299,17 @@ def change_worksheet_settings(request):
                 m.save()
         utility.resync()
     return redirect(reverse('settings:settings'))
+
+
+def add_org(request):
+    for key in request.POST:
+        print(key)
+        print(request.POST.get(key))
+
+    org = Organization()
+    org.shortname = request.POST.get('shortname')
+    org.name = request.POST.get('name')
+    org.cluster = request.POST.get('cluster')
+    org.save()
+    
+    return redirect(reverse('settings:settings'))

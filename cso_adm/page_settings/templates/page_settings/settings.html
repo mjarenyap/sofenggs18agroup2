@@ -150,23 +150,23 @@
             </form>
         </div>
         <div class="content-wrapper visible" ng-show="activeModal('addO')">
-            <form id="modalAddOrg" class="form-settings" method="post">
+            <form id="modalAddOrg" action="add_org/" class="form-settings" method="post">
                 {% endverbatim %}
                 {% csrf_token %}
                 <div>
                     <b>Organization Name</b>
-                    <input id="orgName" class="inpAddOrg" type="text">
+                    <input id="orgName" class="inpAddOrg" type="text" name="name">
                     <span class="underline"></span>
                 </div>
                 <div>
                     <b>Abbreviation</b>
-                    <input id="orgAbbrev" class="inpAddOrg" type="text">
+                    <input id="orgAbbrev" class="inpAddOrg" type="text" name="shortname">
                     <span class="underline"></span>
                 </div>
                 <div>
                     <b>Cluster</b>
-                    <select id="orgCluster" ng-init="newOrgCluster=clusterList.short[0]" ng-model="newOrgCluster"
-                            ng-options="clu.short as clu.short for clu in clusterList">
+                    <select id="orgCluster" name="cluster" ng-init="newOrgCluster=clusterList.short[0]" ng-model="newOrgCluster"
+                            ng-options="clu as clu.short for clu in clusterList track by clu.short">
                     </select>
                 </div>
 
@@ -174,7 +174,7 @@
                 <!--<p class="form-error" id="err-mod-add-eregex">Invalid email.</p>-->
                 <!--<p class="form-error" id="err-mod-add-pmatch">Passwords do not match.</p>-->
                 <!--<p class="form-error" id="err-mod-add-pregex">Password should have 6-25 characters and should only contain alphanumeric characters or '_'.</p>-->
-                <button type="submit" class="button">Save</button>
+                <input type="submit" class="button" value="Save"/>
             </form>
         </div>
         <div class="content-wrapper visible" ng-show="activeModal('delO')">

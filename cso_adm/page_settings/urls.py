@@ -21,4 +21,7 @@ urlpatterns = [
     url(r'set_term/$', views.set_default_term, name='set_term'),
 
     url(r'change_worksheet_settings/$', views.change_worksheet_settings, name='change_worksheet_settings'),
+
+
+    url(r'add_org/$', views.add_org, name='add_org'),
 ]

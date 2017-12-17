@@ -77,6 +77,15 @@ dashboardApp.controller('mainController', function($scope, $http) {
     $scope.delUsers = [ "hi ho" ];
     $scope.selectUsers = 0;
 
+    $scope.delOrgs = function(data) {
+        var arr = [];
+        for(var i in data) {
+            if(data[i].SELECTED=='Y'){
+                arr.push(data[i]);
+            }
+        }
+    };
+
     $scope.modalDelUser = function(data) {
         hideAllModals();
         $scope.showDelUserModal = true;
