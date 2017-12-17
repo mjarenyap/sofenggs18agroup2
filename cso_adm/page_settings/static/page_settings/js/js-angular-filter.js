@@ -164,7 +164,42 @@ dashboardApp.controller('mainController', function($scope, $http) {
         }
         $scope.delOrgs = arr;
         console.log("Delete org: " + $scope.delOrgs);
-    }
+
+        $("#btn-del-org-final").click(function() {
+            var flag = true;
+            var appElement = document.querySelector('[ng-app=dashboardApp]');
+            var $scope = angular.element(appElement).scope();
+
+            var post = '';
+
+            $.each(arr, function(index, content) {
+                post += '&org' + index + '=' + content.abbrev
+            });
+
+            console.log($("#modalDeleteOrg").serialize()
+                + post);
+
+            if(flag) {
+                $.ajax({
+                    type: "POST",
+                    url: "/settings/remove_org/",
+                    data: $("#modalDeleteOrg").serialize()
+                    + post,
+                    success: function (response) {
+                        if (response.status == 1) {
+                            $("p.messages#saving_msg").text("Saved Successfully.");
+
+                            window.location.href = "/settings/";
+                        } else {
+                            $("p.messages#saving_msg").text("Saved Failed.");
+                        }
+                    }
+                });
+            } else {
+                $("p.messages#saving_msg").text("No changes detected.");
+            }
+    });
+    };
 
     $scope.modalTest = function(data) {
         hideAllModals();

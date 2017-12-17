@@ -25,4 +25,5 @@ urlpatterns = [
 
     url(r'add_org/$', views.add_org, name='add_org'),
     url(r'edit_org/$', views.edit_org, name='edit_org'),
+    url(r'remove_org/$', views.remove_orgs, name='remove_org'),
 ]
