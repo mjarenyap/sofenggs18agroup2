@@ -32,13 +32,13 @@ table.post-acts-table th, table.org-table th, table.users-table th{
 }
 
 table.post-acts-table td, table.org-table td, table.users-table td{
-    padding: 25px 15px;
+    padding: 20px 15px;
     font-size: 0.8em;
     border-bottom: thin solid #ddd;
 }
 
 table.users-table td{
-    padding: 15px 15px;
+    padding: 20px 15px;
 }
 
 table.post-acts-table tr th:nth-child(2){
@@ -50,6 +50,10 @@ table.org-table tr td:nth-child(2),
 table.users-table tr td:nth-child(2){
     font-weight: bold;
     width: 35%;
+}
+
+table.users-table tr td:nth-child(2){
+    width: 20%;
 }
 
 table.post-acts-table tr td:nth-child(1),

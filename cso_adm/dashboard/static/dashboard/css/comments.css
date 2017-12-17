@@ -14,16 +14,17 @@
 
 div#modal-details-wrapper div#comment-wrapper-wrapper {
     max-height: 215px;
-    width: 655px;
+    width: 100%;
 }
 
 #commentInput {
     padding: 10px;
-    margin: 15px 0 6px 0;
+    /*margin: 15px 0 6px 0;*/
     border: thin solid var(--theme-grey-neutral-3);
     background-color: var(--theme-light-neutral-2);
     color: var(--theme-grey-neutral);
     font-size: 16px;
+    width: 96%;
 }
 
 div#modal-details-wrapper div#commentContent {
@@ -35,10 +36,11 @@ div#modal-details-wrapper div#commentContent {
 
 div#modal-details-wrapper div.content-wrapper .wrapper-add-comment {
     display: block;
+    width: 100%;
 }
 
 #submitComment {
     position: relative;
-    right: -88%;
+    float: right;
     margin-top: 11px;
 }
