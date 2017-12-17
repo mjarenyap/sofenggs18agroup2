@@ -386,14 +386,26 @@
             <table cellspacing="0" cellpadding="0" border="0" class="users-table">
                 <tr class="headers">
                     <th></th>
-                    <th>Organization Name</th>
-                    <th>Abbreviation</th>
-                    <th>Cluster</th>
-                    <th>Post-acts Submitted</th>
+                    <th ng-click="sortType2 = 'name'; sortReverse2 = !sortReverse2">Organization Name
+                        <span ng-show="sortType2 == 'name' && !sortReverse2" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType2 == 'name' && sortReverse2" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType2 = 'abbrev'; sortReverse2 = !sortReverse2">Abbreviation
+                        <span ng-show="sortType2 == 'abbrev' && !sortReverse2" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType2 == 'abbrev' && sortReverse2" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType2 = 'cluster'; sortReverse2 = !sortReverse2">Cluster
+                        <span ng-show="sortType2 == 'cluster' && !sortReverse2" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType2 == 'cluster' && sortReverse2" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType2 = 'submitted'; sortReverse2 = !sortReverse2">Post-acts Submitted
+                        <span ng-show="sortType2 == 'submitted' && !sortReverse2" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType2 == 'submitted' && sortReverse2" class="fa fa-caret-down"></span>
+                    </th>
                     <th></th>
                 </tr>
                 {% verbatim %}
-                <tr ng-repeat="org in orgList">
+                <tr ng-repeat="org in orgList | orderBy:sortType2:sortReverse2">
                     <td><input type="checkbox" ng-model="org.SELECTED" class="check-org" ng-true-value="'Y'"
                                ng-false-value="'N'" ng-change="updateSelectCountOrgs(orgList)"/></td>
                     <td>{{ org.name }}</td>
