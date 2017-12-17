@@ -229,7 +229,9 @@
         <header>
             <div class="flex-title-comment">
                 <h1 class="org-name">{{data.orgName}} ({{data.abbreviation}})</h1>
+                {% if request.user|has_group:"moderator" %}
                 <button id="btn-comments" ng-click="showCommentModal()">Comments</button>
+                {% endif %}
             </div>
             <div class="status">
                 <div>
