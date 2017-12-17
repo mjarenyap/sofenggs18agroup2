@@ -34,6 +34,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     $scope.modalPassword = '';
 
     // edit org modal content
+    $scope.modalOrgId = '';
     $scope.modalOrgName = '';
     $scope.modalOrgAbbrev = '';
     $scope.modalOrgCluster = '';
@@ -59,6 +60,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     $scope.showModalO = function(org) {
         hideAllModals();
         $scope.showEditOrgModal= true;
+        $scope.modalOrgId = org.id;
         $scope.modalOrgName = org.name;
         $scope.modalOrgAbbrev = org.abbrev;
         $scope.modalOrgCluster = org.cluster;
@@ -76,6 +78,15 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
     $scope.delUsers = [ "hi ho" ];
     $scope.selectUsers = 0;
+
+    $scope.delOrgs = function(data) {
+        var arr = [];
+        for(var i in data) {
+            if(data[i].SELECTED=='Y'){
+                arr.push(data[i]);
+            }
+        }
+    };
 
     $scope.modalDelUser = function(data) {
         hideAllModals();
