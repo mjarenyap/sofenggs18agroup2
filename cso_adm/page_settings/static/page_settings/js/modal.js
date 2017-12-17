@@ -55,8 +55,9 @@ $(document).ready(function(){
 
      /// settings page
     document.getElementById("btn-del-user").disabled = true;
+    document.getElementById("btn-del-org").disabled = true;
 
-    $(document).on("click", ".users-table button", function(e){
+    $(document).on("click", ".users-table button.btn-edit-user", function(e){
         var formErrors = $(".form-error").hide();
         var inpEdit = $(".inpEditMod");
 
@@ -73,6 +74,22 @@ $(document).ready(function(){
         $("#modal-details-wrapper-settings").css("height", "360px");
     });
 
+    $(document).on("click", ".users-table button.btn-edit-org", function(e){
+        var formErrors = $(".form-error").hide();
+        var inpEdit = $(".inpEditOrg");
+
+        console.log("click .users=table button");
+
+        for(i = 0; i < inpEdit.length; i++) {
+            $(inpEdit[i]).val(inpEdit[i].getAttribute('value'));
+            $(inpEdit[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+        }
+
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+        $("#modal-details-wrapper-settings").css("height", "360px");
+    });
+
     $("#btn-add-user").click(function() {
         $(".form-error").hide();
         var inpAdd = $(".inpAddMod");
@@ -83,20 +100,64 @@ $(document).ready(function(){
         }
 
         $("#modal-details-wrapper-settings").css("height",  "560px");
+// <<<<<<< HEAD
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
+
+    $("#btn-add-org").click(function() {
+        $(".form-error").hide();
+        var inpAdd = $(".inpAddOrg");
+
+        for(i = 0; i < inpAdd.length; i++) {
+            $(inpAdd[i]).val("");
+            $(inpAdd[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+        }
+
+        $("#modal-details-wrapper-settings").css("height",  "360px");
+// =======
+// >>>>>>> 941c77c79d9934b35925c0c7139c56f87c20f122
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
+
+    $("#btn-add-org").click(function() {
+        $(".form-error").hide();
+        var inpAdd = $(".inpAddOrg");
+
+        for(i = 0; i < inpAdd.length; i++) {
+            $(inpAdd[i]).val("");
+            $(inpAdd[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+        }
+
+        $("#modal-details-wrapper-settings").css("height",  "360px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
 
     var checkCount = 0;
-    $(document).on("click", "td input:checkbox", function(e) {
+    $(document).on("click", "td input.check-user:checkbox", function(e) {
         checkCount = 0;
-        $("tr input:checkbox").each(function() {
+        $("tr input.check-user:checkbox").each(function() {
             checkCount += (this.checked ? 1 : 0);
         });
         if(checkCount >= 1) {
             document.getElementById("btn-del-user").disabled = false;
         } else {
             document.getElementById("btn-del-user").disabled = true;
+        }
+    });
+
+    var checkCountOrg = 0;
+    $(document).on("click", "td input.check-org:checkbox", function(e) {
+        checkCount = 0;
+        $("tr input.check-org:checkbox").each(function() {
+            checkCountOrg += (this.checked ? 1 : 0);
+        });
+        if(checkCountOrg >= 1) {
+            document.getElementById("btn-del-org").disabled = false;
+        } else {
+            document.getElementById("btn-del-org").disabled = true;
         }
     });
 
@@ -131,7 +192,13 @@ $(document).ready(function(){
             $("p.messages#saving_msg").text("No changes detected.");
         }
 
-        $("#modal-details-wrapper-settings").css("height", ((checkCount * 30) + 270) + "px");
+        $("#modal-details-wrapper-settings").css("height", ((checkCount * 32) + 250) + "px");
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
+
+    $("#btn-del-org").click(function() {
+        $("#modal-details-wrapper-settings").css("height", ((checkCountOrg * 10) + 250) + "px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
@@ -249,7 +316,7 @@ $(document).ready(function(){
         }
 
         var formErrors = $("#modalAddUser .form-error:visible");
-        $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 45) + 630) + "px");
+        $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 20) + 630) + "px");
     });
 
     $("#modalEditUser").submit(function(e){
