@@ -43,6 +43,22 @@ dashboardApp.controller('mainController', function($scope, $http) {
     return str;
   }
 
+  $scope.unchecked = 100;
+
+  $scope.getUnchecked = function() {
+      if($scope.unchecked >= 100) {
+          return '99+';
+      } else {
+          $scope.unchecked;
+      }
+  }
+
+  $scope.uncheckedOnly = false;
+
+  $scope.toggleUncheckedOnly = function() {
+      $scope.uncheckedOnly = !$scope.uncheckedOnly;
+  }
+
   var include = function(item, val) {
 
     if(!val)
@@ -51,6 +67,12 @@ dashboardApp.controller('mainController', function($scope, $http) {
     var regex = new RegExp('.*(' + val + ').*', 'i');
 
     return item.n.search(regex) == 0;
+  };
+
+  var searchUnchecked = function(item) {
+    if($scope.uncheckedOnly)
+        return item.cb == '';
+    else return true;
   };
 
   var searchMonth = function(item, val) {
@@ -123,10 +145,10 @@ dashboardApp.controller('mainController', function($scope, $http) {
       return true;
 
 
-    return include(postact, transformSearch($scope.filterSearch)) && searchMonth(postact, $scope.filterMonth) &&
-        searchTerm(postact, $scope.filterTerm) && searchType(postact, $scope.filterType) &&
-        searchStatus(postact, $scope.filterStatus) && searchChecker(postact, $scope.filterChecker) &&
-        searchOrg(postact, $scope.filterOrg);
+    return include(postact, transformSearch($scope.filterSearch)) && searchUnchecked(postact) &&
+        searchMonth(postact, $scope.filterMonth) && searchTerm(postact, $scope.filterTerm) &&
+        searchType(postact, $scope.filterType) && searchStatus(postact, $scope.filterStatus) &&
+        searchChecker(postact, $scope.filterChecker) && searchOrg(postact, $scope.filterOrg);
   };
 
   // modal content

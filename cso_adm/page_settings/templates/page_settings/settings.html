@@ -16,6 +16,10 @@
 
     <script src="{% static 'dashboard/js/angular.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
+    <!--<script src="js/angular.js" type="text/javascript"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     <script src="{% static 'page_settings/js/js-angular-filter.js' %}" type="text/javascript"></script>
     <script src="{% static 'page_settings/js/modal.js' %}" type="text/javascript"></script>
     <script src="{% static 'dashboard/js/settings-normalize.js' %}" type="text/javascript"></script>
@@ -44,17 +48,17 @@
                         <div>
                             <b>Username</b>
                             <input id="oldUsername" type="hidden" ng-value="modalOldUsername">
-                            <input id="username" class="inpEditMod" type="text" ng-model="modalUsername">
+                            <input id="username" class="inpEditMod" type="text" ng-model="modalUsername" required>
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>New Password</b>
-                            <input id="password" class="inpEditMod" type="password">
+                            <input id="password" class="inpEditMod" type="password" required>
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Confirm Password</b>
-                            <input class="inpEditMod" type="password">
+                            <input class="inpEditMod" type="password" required>
                             <span class="underline"></span>
                         </div>
 
@@ -132,41 +136,42 @@
 
                         <div>
                             <b>Organization Name</b>
-                            <input id="editOrgName" class="inpEditOrg" type="text" ng-value="modalOrgName">
+                            <input id="orgName" class="inpAddOrg" type="text" name="name">
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Abbreviation</b>
-                            <input id="editOrgAbbrev" class="inpEditOrg" type="text" ng-value="modalOrgAbbrev">
+                            <input id="orgAbbrev" class="inpAddOrg" type="text" name="shortname">
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Cluster</b>
-                            <select id="editOrgCluster" ng-model="modalOrgCluster"
-                                    ng-options="clu.short as clu.short for clu in clusterList">
+                            <select id="orgCluster" name="cluster" ng-init="newOrgCluster=clusterList.short[0]" ng-model="newOrgCluster"
+                                    ng-options="clu as clu.short for clu in clusterList track by clu.short">
                             </select>
                         </div>
-                        <button type="submit" class="button">Save</button>
+                        <!--<button type="submit" class="button">Save</button>-->
+                        <input type="submit" class="button" value="Save"/>
                     </form>
                 </div>
                 <div class="content-wrapper visible" ng-show="activeModal('addO')">
-                    <form id="modalAddOrg" class="form-settings" method="post">
+                    <form id="modalAddOrg" action="add_org/" class="form-settings" method="post">
                         {% endverbatim %}
                         {% csrf_token %}
                         <div>
                             <b>Organization Name</b>
-                            <input id="orgName" class="inpAddOrg" type="text">
+                            <input id="orgName" class="inpAddOrg" type="text" name="name">
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Abbreviation</b>
-                            <input id="orgAbbrev" class="inpAddOrg" type="text">
+                            <input id="orgAbbrev" class="inpAddOrg" type="text" name="shortname">
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Cluster</b>
-                            <select id="orgCluster" ng-init="newOrgCluster=clusterList.short[0]" ng-model="newOrgCluster"
-                                    ng-options="clu.short as clu.short for clu in clusterList">
+                            <select id="orgCluster" name="cluster" ng-init="newOrgCluster=clusterList.short[0]" ng-model="newOrgCluster"
+                            ng-options="clu as clu.short for clu in clusterList track by clu.short">
                             </select>
                         </div>
 
@@ -174,7 +179,8 @@
                         <!--<p class="form-error" id="err-mod-add-eregex">Invalid email.</p>-->
                         <!--<p class="form-error" id="err-mod-add-pmatch">Passwords do not match.</p>-->
                         <!--<p class="form-error" id="err-mod-add-pregex">Password should have 6-25 characters and should only contain alphanumeric characters or '_'.</p>-->
-                        <button type="submit" class="button">Save</button>
+                        <!--<button type="submit" class="button">Save</button>-->
+                        <input type="submit" class="button" value="Save"/>
                     </form>
                 </div>
                 <div class="content-wrapper visible" ng-show="activeModal('delO')">
@@ -205,12 +211,12 @@
                 </div>
             </div>
         </div>
+
         <nav>
             <a href="{% url 'dashboard:index' %}" class="logo-banner">
                 <img src="{% static 'dashboard/assets/images/ADM-logo.png' %}" id="site-logo"/>
                 <p><b>CSO</b>Dashboard</p>
             </a>
-            <input type="text" id="search" placeholder="Search Post-acts..."/>
             {% if user.is_authenticated %}
             <form id="sign-out" action="" method="POST">
                 <button type="button" class="hallow">System Admin &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
@@ -308,7 +314,6 @@
                 <h3 ng-show="selectUsers == 1">All Users: 1 user selected</h3>
                 <h3 ng-show="selectUsers > 1">All Users: {{selectUsers}} users selected</h3>
                 {% endverbatim %}
-
                 <div>
                     <button id="btn-del-user" ng-click="modalDelUser(checkers)" class="grey">- Delete Users</button>
                     <button id="btn-add-user" ng-click="modalAddUserShow()">+ Add Users</button>
@@ -343,6 +348,7 @@
             </table>
         </section>
 
+
         <section class="fill" id="manage-orgs">
             <div class="user-tray">
                 {% verbatim %}
@@ -355,6 +361,7 @@
                     <button id="btn-del-org" ng-click="modalDelOrg(orgList)" class="grey">- Delete Org</button>
                     <button id="btn-add-org" ng-click="modalAddOrgShow()">+ Add Org</button>
                 </div>
+
             </div>
             <table cellspacing="0" cellpadding="0" border="0" class="users-table">
                 <tr class="headers">

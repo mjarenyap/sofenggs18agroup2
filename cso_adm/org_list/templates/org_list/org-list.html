@@ -24,6 +24,11 @@
             </a>
             <input type="text" id="search" placeholder="Search organizations..." ng-model="filterSearchOrg"/>
             <ul>
+                {% if request.user|has_group:"moderator" %}
+                {% verbatim %}
+                <div id="unchecked">{{getUnchecked()}}</div>
+                {% endverbatim %}
+                {% endif %}
                 <a href="{% url 'dashboard:index' %}">
                     <li>Home</li>
                 </a>
@@ -33,7 +38,7 @@
             </ul>
             {% if user.is_authenticated %}
             <form id="sign-out" action="" method="POST">
-                <button type="button" class="hallow">Fname Lname &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+                <button type="button" class="hallow">{{ user.first_name }} {{ user.last_name }}  &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
             </form>
             <form id="sign-in" action="" method="POST">
                 {% csrf_token %}
@@ -158,6 +163,7 @@
                 <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length != 0 && filteredOrgs.length != 1">{{filteredOrgs.length}} results found.</p>
                 <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length == 1">{{filteredOrgs.length}} result found.</p>
                 <p ng-show="(filterCluster || filterSearchOrg) && filteredOrgs.length == 0">No results found.</p>
+
                 {% endverbatim %}
             </table>
         </section>
