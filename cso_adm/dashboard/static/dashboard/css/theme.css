@@ -11,7 +11,7 @@
     --theme-light-neutral: #ffffff;
     --theme-light-neutral-2: #f1f2f7;
     
-    --chunk-padding: 40px 10%;
+    --chunk-padding: 40px 5%;
 }
 
 body, html{
@@ -88,6 +88,14 @@ button.grey:disabled{
     border: var(--theme-grey-neutral-2);
     background-color: var(--theme-grey-neutral-2);
     color: var(--theme-light-neutral);
+}
+
+button.plain-text{
+    border: thin solid transparent;
+    background-color: transparent;
+    color: #444;
+    padding: 10px;
+    font-size: 1em;
 }
 
 input#search{

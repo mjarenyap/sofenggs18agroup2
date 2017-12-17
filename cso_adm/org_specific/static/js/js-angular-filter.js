@@ -102,7 +102,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
   $scope.filterTerm = defaultTerm.split(' ')[1];
   // Checks all filters
   $scope.filters = function(postact) {
-    console.log("Checking Filters");
+    //console.log("Checking Filters");
     // console.log(postact.timestamp.split('/')[2].split(' ')[0]);
 
     if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker)
@@ -249,12 +249,46 @@ dashboardApp.controller('mainController', function($scope, $http) {
 
   $scope.showCommentModal = function() {
       console.log("showcommentmodal");
-      console.log($scope.comments);
+
+      $http.get(org + "/get_org_comments/", {params: {}})
+          .success(function(response) {
+              console.log("success");
+              console.log(response.comments);
+              $scope.comments = JSON.parse(response.comments);
+            })
+            .error(function(response){
+                console.log("failed");
+            });
+
       $scope.showPAModal = false;
 
+  };
+
+  $scope.addComment = function() {
+      console.log($scope.comment.replace(/\r\n|\r|\n/g,"\\n"));
+      $scope.comment = $scope.comment.replace(/\r\n|\r|\n/g,"\\n");
+      if ($.trim($scope.comment) != "") {
+      var data = $.param({
+          comment: $.trim($scope.comment)
+      });
+
+      var config = {
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+          }
+      }
+      $http.post(org + "/add_org_comment/", data, config)
+          .success(function (response) {
+              console.log("success");
+              console.log(response.comment);
+              $scope.comments.push(JSON.parse(response.comment));
+              $scope.comment = '';
+          })
+          .error(function (response) {
+              console.log("failed");
+          });
   }
-
-
+  };
 
   $http.get(org + "/get_org_specific_contexts/", {params: {}})
           .success(function(response) {

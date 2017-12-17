@@ -19,4 +19,6 @@ urlpatterns = [
     url(r'get_settings_contexts/$', views.get_response_context, name='get_settings_contexts'),
 
     url(r'set_term/$', views.set_default_term, name='set_term'),
+
+    url(r'change_worksheet_settings/$', views.change_worksheet_settings, name='change_worksheet_settings'),
 ]

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from dashboard.models import PostActsLog, Organization, Map
+from dashboard.models import PostActsLog, Organization, Map, OrgComment
+
 
 
 def get_all_log_json():
@@ -116,3 +117,15 @@ def get_map_values():
     print("JSON for Maps: " + map_set)
 
     return map_set
+
+def get_all_org_comments(org):
+    comments_set = "["
+    for comment in OrgComment.objects.filter(organization__shortname=org):
+        comments_set = comments_set + str(comment.getJSON())
+    if len(comments_set) > 1:
+        comments_set = comments_set[:-1]
+        comments_set = comments_set + "]"
+    print("3")
+    print("JSON for " + org + " comments: " + comments_set.replace('\\\\\n', '@@'))
+
+    return comments_set
