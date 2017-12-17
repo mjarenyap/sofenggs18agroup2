@@ -323,16 +323,35 @@
             <table cellspacing="0" cellpadding="0" border="0" class="users-table">
                 <tr class="headers">
                     <th></th>
-                    <th>Username</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Post-acts Checked</th>
-                    <th>Last login</th>
+                    <th ng-click="sortType1 = 'username'; sortReverse1 = !sortReverse1">Username
+                        <span ng-show="sortType1 == 'username' && !sortReverse1" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType1 == 'username' && sortReverse1" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType1 = 'firstName'; sortReverse1 = !sortReverse1">First Name
+                        <span ng-show="sortType1 == 'firstName' && !sortReverse1" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType1 == 'firstName' && sortReverse1" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType1 = 'lastName'; sortReverse1 = !sortReverse1">Last Name
+                        <span ng-show="sortType1 == 'lastName' && !sortReverse1" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType1 == 'lastName' && sortReverse1" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType1 = 'email'; sortReverse1 = !sortReverse1">Email
+                        <span ng-show="sortType1 == 'email' && !sortReverse1" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType1 == 'email' && sortReverse1" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType1 = 'postActsChecked'; sortReverse1 = !sortReverse1">Post-acts Checked
+                        <span ng-show="sortType1 == 'postActsChecked' && !sortReverse1" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType1 == 'postActsChecked' && sortReverse1" class="fa fa-caret-down"></span>
+                    </th>
+                    <th ng-click="sortType1 = 'lastLogin'; sortReverse1 = !sortReverse1">Last login
+                        <span ng-show="sortType1 == 'lastLogin' && !sortReverse1" class="fa fa-caret-up"></span>
+                        <span ng-show="sortType1 == 'lastLogin' && sortReverse1" class="fa fa-caret-down"></span>
+                    </th>
                     <th></th>
                 </tr>
                 {% verbatim %}
-                <tr ng-repeat="checker in checkers">
+                <tr ng-repeat="checker in checkers | orderBy:sortType1:sortReverse1">
+                <!--<tr ng-repeat="checker in checkers">-->
                     <td><input type="checkbox" class="check-user" ng-model="checker.SELECTED" ng-true-value="'Y'"
                                ng-false-value="'N'" ng-change="updateSelectCount(checkers)"/></td>
                     <td>{{ checker.username }}</td>
