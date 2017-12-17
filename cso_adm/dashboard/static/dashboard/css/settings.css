@@ -18,15 +18,15 @@ form.form-settings input[type="password"] {
     border-bottom: thin solid var(--theme-grey-neutral-3);
     padding: 5px 10px;
     width: 180px;
-    color: var(--theme-grey-neutral-3);
+    color: var(--theme-grey-neutral);;
     position: relative;
     bottom: 4px;
 }
 
-form.form-settings input[type="text"]:focus,
+/*form.form-settings input[type="text"]:focus,
 form.form-settings input[type="password"]:focus {
     color: var(--theme-grey-neutral);
-}
+}*/
 
 h4.neutral {
     width: 170px;
@@ -56,7 +56,7 @@ form.form-settings input[type="password"]:focus+.underline{
 }
 
 div#modal-details-wrapper-settings div.content-wrapper div b {
-    width: 156px;
+    width: 160px;
     margin-right: 24px;
 }
 

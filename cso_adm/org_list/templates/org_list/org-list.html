@@ -10,6 +10,10 @@
         <link href="{% static 'dashboard/css/pseudo.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'dashboard/css/modal-style.css' %}" rel="stylesheet" type="text/css"/>
 
+        {% if request.user|has_group:"moderator" %}
+        <link href="{% static 'dashboard/css/modal-mod.css' %}" rel="stylesheet" type="text/css"/>
+        {% endif %}
+
         <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/angular.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'dashboard/js/normalize.js' %}" type="text/javascript"></script>
@@ -27,7 +31,7 @@
             <ul>
                 {% if request.user|has_group:"moderator" %}
                 {% verbatim %}
-                <div id="unchecked">{{getUnchecked()}}</div>
+                <div id="unchecked" ng-show="unchecked > 0">{{getUnchecked()}}</div>
                 {% endverbatim %}
                 {% endif %}
                 <a href="{% url 'dashboard:index' %}">
