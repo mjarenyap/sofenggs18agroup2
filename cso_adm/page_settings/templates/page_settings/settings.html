@@ -128,25 +128,24 @@
                     </form>
                 </div>
 
-
                 <div class="content-wrapper visible" ng-show="activeModal('editO')">
-                    <form id="modalEditOrg" class="form-settings" method="post">
+                    <form id="modalEditOrg" action="edit_org/" class="form-settings" method="post">
                         {% csrf_token %}
                         {% verbatim %}
-
+                        <input id="editOrgId" type="hidden" ng-value="modalOrgId" name="id" />
                         <div>
                             <b>Organization Name</b>
-                            <input id="orgName" class="inpEditOrg" type="text" name="name" value={{modalOrgName}}>
+                            <input id="editOrgName" class="inpEditOrg" type="text" name="name" ng-value="modalOrgName">
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Abbreviation</b>
-                            <input id="orgAbbrev" class="inpEditOrg" type="text" name="shortname" value={{modalOrgAbbrev}}>
+                            <input id="editOrgAbbrev" class="inpEditOrg" type="text" name="shortname" ng-value="modalOrgAbbrev">
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Cluster</b>
-                            <select id="orgCluster" name="cluster" ng-model="modalOrgCluster" ng-options="clu as clu.short for clu in clusterList track by clu.short">
+                            <select id="editOrgCluster" name="cluster" ng-model="modalOrgCluster" ng-options="clu as clu.short for clu in clusterList track by clu.short">
                             </select>
                         </div>
                         <!--<button type="submit" class="button">Save</button>-->
