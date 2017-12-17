@@ -129,7 +129,6 @@
             <form id="modalEditOrg" class="form-settings" method="post">
                 {% csrf_token %}
                 {% verbatim %}
-
                 <div>
                     <b>Organization Name</b>
                     <input id="editOrgName" class="inpEditOrg" type="text" ng-value="modalOrgName">
@@ -498,6 +497,7 @@
         </form>
     </div>
 </section>
+
 <section id="change-password" class="fill">
     <h3>Change Password</h3>
     {% if messages %}
