@@ -15,9 +15,7 @@
         <link href="{% static 'dashboard/css/settings.css' %}" rel="stylesheet" type="text/css"/>
 
         <script src="{% static 'dashboard/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
-        <!--<script src="js/angular.js" type="text/javascript"></script>-->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="{% static 'dashboard/js/angular.min.js' %}" type="text/javascript"></script>
 
         <script src="{% static 'page_settings/js/js-angular-filter.js' %}" type="text/javascript"></script>
         <script src="{% static 'page_settings/js/modal.js' %}" type="text/javascript"></script>
@@ -285,7 +283,7 @@
             </div>
             <hr>
             <div id="settings-worksheet-settings">
-                <form id="change-sheet-settings" action="edit_sheet" method="post">
+                <form id="change-sheet-settings" action="change_worksheet_settings/" method="post">
                     {% csrf_token %}
                     {% verbatim %}
                     <h3>Worksheet settings</h3>
@@ -293,90 +291,90 @@
                     <div class="settings-content-wrapper">
                         <div class="settings-input">
                             <h4 class="neutral">Google Sheet Key:</h4>
-                            <input type="text" value="{{worksheetKey}}"/>
+                            <input name="worksheet_key" type="text" value="{{worksheetKey}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Sheet Name:</h4>
-                            <input type="text" value="{{sheetName}}"/>
+                            <input name="sheet_name" type="text" value="{{sheetName}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Starting row:</h4>
-                            <input type="text" value="{{startRow}}"/>
+                            <input name="start_row" type="text" value="{{startRow}}"/>
                         </div>
                     </div>
                     <h3>Attribute columns</h3>
                     <div class="settings-content-wrapper">
                         <div class="settings-input">
                             <h4 class="neutral">Timestamp:</h4>
-                            <input type="text" value="{{timestampCol}}"/>
+                            <input name="col_timestamp" type="text" value="{{timestampCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Activity Title:</h4>
-                            <input type="text" value="{{titleCol}}"/>
+                            <input name="col_activity_title" type="text" value="{{titleCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Term:</h4>
-                            <input type="text" value="{{termCol}}"/>
+                            <input name="col_term" type="text" value="{{termCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Organization:</h4>
-                            <input type="text" value="{{orgCol}}"/>
+                            <input name="col_organization" type="text" value="{{orgCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Tie Up Organizations:</h4>
-                            <input type="text" value="{{tuOrgsCol}}"/>
+                            <input name="col_tie_up_orgs" type="text" value="{{tuOrgsCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Submission Type:</h4>
-                            <input type="text" value="{{typeCol}}"/>
+                            <input name="col_submission_type" type="text" value="{{typeCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">ENP:</h4>
-                            <input type="text" value="{{enpCol}}"/>
+                            <input name="col_enp" type="text" value="{{enpCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">ANP:</h4>
-                            <input type="text" value="{{anpCol}}"/>
+                            <input name="col_anp" type="text" value="{{anpCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">ENMP:</h4>
-                            <input type="text" value="{{enmpCol}}"/>
+                            <input name="col_enmp" type="text" value="{{enmpCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">ANMP:</h4>
-                            <input type="text" value="{{anmpCol}}"/>
+                            <input name="col_anmp" type="text" value="{{anmpCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Expenses Incurred:</h4>
-                            <input type="text" value="{{expenseCol}}"/>
+                            <input name="col_expenses_incurred" type="text" value="{{expenseCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Submitted By:</h4>
-                            <input type="text" value="{{subByCol}}"/>
+                            <input name="col_submitted_by" type="text" value="{{subByCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Contact Number:</h4>
-                            <input type="text" value="{{contactCol}}"/>
+                            <input name="col_contact_no" type="text" value="{{contactCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Email:</h4>
-                            <input type="text" value="{{emailCol}}"/>
+                            <input name="col_email" type="text" value="{{emailCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Status:</h4>
-                            <input type="text" value="{{statusCol}}"/>
+                            <input name="col_status" type="text" value="{{statusCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Checked By:</h4>
-                            <input type="text" value="{{checkedCol}}"/>
+                            <input name="col_checked_by" type="text" value="{{checkedCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Date Checked:</h4>
-                            <input type="text" value="{{dateCol}}"/>
+                            <input name="col_date_checked" type="text" value="{{dateCol}}"/>
                         </div>
                         <div class="settings-input">
                             <h4 class="neutral">Remarks:</h4>
-                            <input type="text" value="{{remarksCol}}"/>
+                            <input name="col_remarks" type="text" value="{{remarksCol}}"/>
                         </div>
                     </div>
                     <!--<button id="btn-modal-test" ng-click="modalTest()">Open Test Modal</button>-->

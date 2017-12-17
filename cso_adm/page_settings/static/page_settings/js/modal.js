@@ -389,7 +389,7 @@ $(document).ready(function(){
 
     $("#change-sheet-settings").submit(function(){
         console.log("HEYYYYYY def");
-        return false;
+
     });
 // >>>>>>> 5b0615523feec08b5663fc18d3459ff2f7795326
 });

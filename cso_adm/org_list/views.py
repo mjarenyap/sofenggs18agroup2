@@ -82,7 +82,7 @@ def add_org_comment(request, org):
     comment.timestamp = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     comment.username = request.user.username
     comment.comment = comment_msg
-    # comment.save()
+    comment.save()
 
     response = {
         'status': 1,
