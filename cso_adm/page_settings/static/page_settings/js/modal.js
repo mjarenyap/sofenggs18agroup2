@@ -22,6 +22,12 @@ function clean(str) {
 }
 
 $(document).ready(function(){
+    $("#discard-pwform-changes").on("click", function(event){
+        $("#changePswdAdmin")[0].reset();
+
+        event.preventDefault()
+    });
+
     $("div#modal-details-wrapper ul.tab-wrapper li").click(function(e){
         if(!$(e.target).hasClass("closeModal") && !$(e.target).hasClass("fa")) {
             $("div#modal-details-wrapper ul.tab-wrapper li").removeClass("active");

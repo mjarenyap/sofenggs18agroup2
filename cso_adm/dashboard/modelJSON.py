@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from dashboard.models import PostActsLog, Organization, Map, OrgComment
 
 
+
 def get_all_log_json():
     logs_set = "["
     for log in PostActsLog.objects.all():
@@ -93,7 +94,9 @@ def get_all_moderator_info_json():
         mod_info_set = mod_info_set + "\"email\":\"" + mod.email + "\","
         mod_info_set = mod_info_set + "\"username\":\"" + mod.username + "\","
         mod_info_set = mod_info_set + "\"postActsChecked\":\"" + str(
-            PostActsLog.objects.filter(checked_by=mod.get_full_name()).count()) + "\"},"
+            PostActsLog.objects.filter(checked_by=mod.get_full_name()).count()) + "\","
+        mod_info_set = mod_info_set + "\"lastLogin\":\"" + ('{:%Y/%m/%d %H:%M}'.format(
+            mod.last_login.astimezone()) if mod.last_login else "Hasn't logged in yet") + "\"},"
 
     if len(mod_info_set) > 1:
         mod_info_set = mod_info_set[:-1]
@@ -114,7 +117,6 @@ def get_map_values():
     print("JSON for Maps: " + map_set)
 
     return map_set
-
 
 def get_all_org_comments(org):
     comments_set = "["

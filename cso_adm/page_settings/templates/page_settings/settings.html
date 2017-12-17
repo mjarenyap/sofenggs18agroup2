@@ -44,18 +44,18 @@
                         <div>
                             <b>Username</b>
                             <input id="oldUsername" type="hidden" ng-value="modalOldUsername">
-                            <input id="username" class="inpEditMod" type="text" ng-model="modalUsername">
+                            <input id="username" class="inpEditMod" type="text" ng-model="modalUsername" required>
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>New Password</b>
-                            <input id="password" class="inpEditMod" type="password">
+                            <input id="password" class="inpEditMod" type="password" required>
                             <span class="underline"></span>
 
                         </div>
                         <div>
                             <b>Confirm Password</b>
-                            <input class="inpEditMod" type="password">
+                            <input class="inpEditMod" type="password" required>
                             <span class="underline"></span>
                         </div>
 
@@ -71,32 +71,32 @@
                         {% csrf_token %}
                         <div>
                             <b>First Name</b>
-                            <input id="firstName" class="inpAddMod" type="text">
+                            <input id="firstName" class="inpAddMod" type="text" required>
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Last Name</b>
-                            <input id="lastName" class="inpAddMod" type="text">
+                            <input id="lastName" class="inpAddMod" type="text" required>
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Username</b>
-                            <input id="username" class="inpAddMod" type="text">
+                            <input id="username" class="inpAddMod" type="text" required>
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Email</b>
-                            <input id="email" class="inpAddMod" type="text">
+                            <input id="email" class="inpAddMod" type="text" required>
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Password</b>
-                            <input id="password" class="inpAddMod" type="password">
+                            <input id="password" class="inpAddMod" type="password" required>
                             <span class="underline"></span>
                         </div>
                         <div>
                             <b>Confirm Password</b>
-                            <input id="confPassword" class="inpAddMod" type="password">
+                            <input id="confPassword" class="inpAddMod" type="password" required>
                             <span class="underline"></span>
                         </div>
                         <p class="form-error" id="err-mod-add-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
@@ -246,6 +246,7 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Post-acts Checked</th>
+                    <th>Last login</th>
                     <th></th>
                 </tr>
                 {% verbatim %}
@@ -256,6 +257,7 @@
                     <td>{{ checker.lastName }}</td>
                     <td>{{ checker.email }}</td>
                     <td>{{ checker.postActsChecked }}</td>
+                    <td>{{ checker.lastLogin }}</td>
                     <td><button ng-click="showModal(checker)">Edit User</button></td>
                 </tr>
                 {% endverbatim %}
@@ -400,15 +402,15 @@
                 {% csrf_token %}
                 <input id="adminUsername" name="un" type="hidden" value="{{ user.username }}">
                 <h4 class="neutral">Old Password</h4>
-                <input id="adminOldPassword" name="op" type="password" placeholder="Type your old password" class="new-pass"/>
+                <input id="adminOldPassword" name="op" type="password" placeholder="Type your old password" class="new-pass" required/>
                 <br/>
                 <h4 class="neutral">New Password</h4>
-                <input id="adminNewPassword" name="pw" type="password" placeholder="Type your new password"/>
+                <input id="adminNewPassword" name="pw" type="password" placeholder="Type your new password" required/>
                 <br/>
                 <h4 class="neutral">Re-type New Password</h4>
-                <input id="adminNewPasswordRetype" type="password" placeholder="Re-type your new password"/>
+                <input id="adminNewPasswordRetype" type="password" placeholder="Re-type your new password" required/>
                 <div class="flex-end">
-                    <button class="hallow">Discard</button>
+                    <button id="discard-pwform-changes" class="hallow">Discard</button>
                     <input type="submit" value="Save">
                 </div>
             </form>
