@@ -23,5 +23,9 @@ urlpatterns = [
     url(r'get_org_list_contexts/$', views.get_response_context, name='get_org_list_contexts'),
 
     # /get log/
-    url(r'get_log/$', views.get_log, name='get_log')
+    url(r'get_log/$', views.get_log, name='get_log'),
+
+    url(r'^([A-Z][\w]+)/get_org_comments/$', views.get_org_comments, name='get_org_comments'),
+
+    url(r'^([A-Z][\w]+)/add_org_comment/$', views.add_org_comment, name='add_org_comment'),
 ]
