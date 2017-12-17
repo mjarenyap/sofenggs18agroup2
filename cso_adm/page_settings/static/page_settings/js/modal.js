@@ -71,7 +71,7 @@ $(document).ready(function(){
         }
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
-        $("#modal-details-wrapper-settings").css("height", "360px");
+        $("#modal-details-wrapper-settings").css("height", "370px");
     });
 
     $(document).on("click", ".users-table button.btn-edit-org", function(e){
@@ -87,7 +87,7 @@ $(document).ready(function(){
 
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
-        $("#modal-details-wrapper-settings").css("height", "360px");
+        $("#modal-details-wrapper-settings").css("height", "370px");
     });
 
     $("#btn-add-user").click(function() {
@@ -114,7 +114,7 @@ $(document).ready(function(){
             $(inpAdd[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
         }
 
-        $("#modal-details-wrapper-settings").css("height",  "360px");
+        $("#modal-details-wrapper-settings").css("height",  "370px");
 // =======
 // >>>>>>> 941c77c79d9934b35925c0c7139c56f87c20f122
         $("div#modal-wrapper").css("display", "flex");
@@ -130,7 +130,21 @@ $(document).ready(function(){
             $(inpAdd[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
         }
 
-        $("#modal-details-wrapper-settings").css("height",  "360px");
+        $("#modal-details-wrapper-settings").css("height",  "370px");
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
+
+    $("#btn-add-org").click(function() {
+        $(".form-error").hide();
+        var inpAdd = $(".inpAddOrg");
+
+        for(i = 0; i < inpAdd.length; i++) {
+            $(inpAdd[i]).val("");
+            $(inpAdd[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+        }
+
+        $("#modal-details-wrapper-settings").css("height",  "370px");
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
@@ -261,6 +275,7 @@ $(document).ready(function(){
         }
 
         if(passVal1 != passVal2 || !passVal1.match(passRegex)) {
+            e.preventDefault(e);
             $(inpAdd[4]).css("border-bottom", "thin solid palevioletred");
             $(inpAdd[5]).css("border-bottom", "thin solid palevioletred");
         }

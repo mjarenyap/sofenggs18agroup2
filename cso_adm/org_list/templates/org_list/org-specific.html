@@ -14,6 +14,7 @@
         {% endif %}
         {% if request.user|has_group:"moderator" %}
         <link href="{% static 'dashboard/css/table-style-mod.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'dashboard/css/modal-mod.css' %}" rel="stylesheet" type="text/css"/>
         {% else %}
         <link href="{% static 'dashboard/css/table-style.css' %}" rel="stylesheet" type="text/css"/>
         {% endif %}
@@ -135,25 +136,29 @@
                             <b>Remarks</b>
                             {% endverbatim %}
                             {% if request.user|has_group:"moderator" %}
-                                <p id="submitRemarks" contenteditable="true">
-                            {% else %}
-                                <p id="submitRemarks" contenteditable="false">
-                            {% endif %}
-                            {% verbatim %}
+                            <input id="submitRemarks" type="text">
+                            <span class="underline"></span>
+                                {% else %}
+                            <p id="submitRemarks" contenteditable="false">
+                                {% endif %}
+                                {% verbatim %}
                                 {{modalRemarks}}
                             </p>
                         </div>
                         <br/>
                         {% endverbatim %}
-                        <!--{% if user.is_authenticated %}-->
                         {% if request.user|has_group:"moderator" %}
+
+                        <h3>Confirmation Details</h3>
+                        <hr>
+                        <div>
+                            <b>Confirm Password</b>
+                            <input type="password">
+                            <span class="underline"></span>
+                        </div>
                         <input type="submit" value="Save"/>
                         <input id="discard" type="button" value="Discard" class="hallow"/>
                         {% endif %}
-                        <!--{% csrf_token %}-->
-                        <!--<button type="submit" class="button grey">Discard</button>-->
-                        <!--<button type="submit" class="button">Save</button>-->
-                        <!--{% endif %}-->
                     </form>
                 </div>
 
@@ -172,9 +177,12 @@
                     {% if request.user|has_group:"moderator" %}
                     <div class="wrapper-add-comment">
                         <form>
+
                         <!--<input id="commentInput" type="text">-->
                             <textarea rows="3" cols="82" maxlength="200" id="commentInput" ng-model="comment"></textarea>
+
                             <button type="submit" id="submitComment" class="button" ng-click="addComment()">Comment</button>
+
                         </form>
                     </div>
                     {% endif %}
@@ -189,6 +197,11 @@
             </a>
             <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
             <ul>
+                {% if request.user|has_group:"moderator" %}
+                {% verbatim %}
+                <div id="unchecked" ng-show="unchecked > 0">{{getUnchecked()}}</div>
+                {% endverbatim %}
+                {% endif %}
                 <a href="{% url 'dashboard:index' %}"><li>Home</li></a>
                 <a href="{% url 'org_list:general_orgs' %}"><li class="active">Organization List</li></a>
             </ul>
@@ -349,7 +362,7 @@
                     ng-click="showModal(user_person)">
                     {% endverbatim %}
                     {% if request.user|has_group:"moderator" %}
-                    <td><i class="fa fa-circle" ng-show="isPriority(user_person)"></i></td>
+                    <td><i class="fa fa-exclamation-circle" ng-show="isPriority(user_person)"></i></td>
                     {% endif %}
                     {% verbatim %}
                     <td>{{$index + 1}}</td>
@@ -361,10 +374,19 @@
                     <td>{{ user_person.cb }}</td>
                     <td>{{ user_person.d }}</td>
                 </tr>
-                <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
-                <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
-                <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 0">No results found.</p>
-        <!--{% endverbatim %}-->
+                <div class="table-above">
+                    <p id="result-count" ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
+                    <p id="result-count" ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
+                    <p id="result-count" ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 0">No results found.</p>
+                    {% endverbatim %}
+                    {% if request.user|has_group:"moderator" %}
+                    <div id="results-right">
+                        <input type="checkbox" id="check-unchecked" ng-click="toggleUncheckedOnly()">
+                        <label for="check-unchecked">Toggle</label><p id="checklabel">Show only unchecked</p>
+                    </div>
+                    {% endif %}
+                </div>
+        <!---->
             </table>
         </section>
     </body>
