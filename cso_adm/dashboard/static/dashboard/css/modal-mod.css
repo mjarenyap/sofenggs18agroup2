@@ -1,0 +1,82 @@
+:root{
+    --theme-color: #738bd7;
+    --theme-dark-accent: #5f74b1;
+
+    --theme-dark-neutral: #202226;
+    --theme-grey-neutral: #6c6e71;
+    --theme-grey-neutral-2: #ddd;
+    --theme-grey-neutral-3: #ccc;
+    --theme-light-neutral: #ffffff;
+    --theme-light-neutral-2: #f1f2f7;
+
+    --chunk-padding: 40px 10%;
+}
+
+div#modal-wrapper div#modal-details-wrapper {
+    height: 630px;
+}
+
+div#modal-wrapper div#modal-details-wrapper hr {
+    border-style: solid;
+    border-color: var(--theme-grey-neutral-2);
+}
+
+div#modal-details-wrapper div.content-wrapper form input[type="text"],
+div#modal-details-wrapper div.content-wrapper form input[type="password"] {
+    border: none;
+    border-bottom: thin solid var(--theme-grey-neutral-3);
+    padding: 5px 10px;
+    width: 300px;
+    transition: ease all 0.3s;
+    -webkit-transition: ease all 0.3s;
+    -o-transition: ease all 0.3s;
+    -ms-transition: ease all 0.3s;
+    -moz-transition: ease all 0.3s;
+}
+
+div#modal-details-wrapper div.content-wrapper form input[type="text"]:hover,
+div#modal-details-wrapper div.content-wrapper form input[type="password"]:hover {
+    border-bottom: thin solid #9fabce;
+}
+
+input[type="text"]:focus+.underline,
+input[type="password"]:focus+.underline{
+    transform: scale(1);
+}
+
+
+
+.underline {
+    background-color: var(--theme-color);
+    display: inline-block;
+    height: 1px;
+    left: 314px;
+    margin-top: 29px;
+    position: absolute;
+    /* top: 183px; */
+    -webkit-transform: scale(0, 1);
+    transform: scale(0, 1);
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    width: 315px;
+}
+
+
+
+/*UNCHECKED*/
+#unchecked {
+    background-color: #ff6c66;
+    padding: 5px;
+    border-radius: 30%;
+    color: var(--theme-light-neutral);
+    display: inline-block;
+    position: relative;
+    bottom: 6px;
+    left: 15px;
+    font-size: 11px;
+    height: 15px;
+    width: 17px;
+    justify-content: center;
+    vertical-align: middle;
+    cursor: default;
+}

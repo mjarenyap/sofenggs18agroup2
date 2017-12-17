@@ -135,6 +135,20 @@ $(document).ready(function(){
         $("div#modal-details-wrapper").css("display", "block");
     });
 
+    $("#btn-add-org").click(function() {
+        $(".form-error").hide();
+        var inpAdd = $(".inpAddOrg");
+
+        for(i = 0; i < inpAdd.length; i++) {
+            $(inpAdd[i]).val("");
+            $(inpAdd[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+        }
+
+        $("#modal-details-wrapper-settings").css("height",  "360px");
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
+
     var checkCount = 0;
     $(document).on("click", "td input.check-user:checkbox", function(e) {
         checkCount = 0;

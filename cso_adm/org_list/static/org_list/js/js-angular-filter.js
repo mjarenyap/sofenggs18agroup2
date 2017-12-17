@@ -41,6 +41,17 @@ dashboardApp.controller('mainController', function($scope, $http, $window) {
 
     return str;
   }
+
+  $scope.unchecked = 100;
+
+  $scope.getUnchecked = function() {
+      if($scope.unchecked >= 100) {
+          return '99+';
+      } else {
+          $scope.unchecked;
+      }
+  }
+
   var include = function(item, val) {
 
     if(!val)
