@@ -164,7 +164,7 @@ $(document).ready(function(){
 
     var checkCountOrg = 0;
     $(document).on("click", "td input.check-org:checkbox", function(e) {
-        checkCount = 0;
+        checkCountOrg = 0;
         $("tr input.check-org:checkbox").each(function() {
             checkCountOrg += (this.checked ? 1 : 0);
         });

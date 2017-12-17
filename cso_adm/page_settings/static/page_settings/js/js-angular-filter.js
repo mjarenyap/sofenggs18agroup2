@@ -13,7 +13,7 @@ dashboardApp.config(function($sceDelegateProvider) {
 
 dashboardApp.controller('mainController', function($scope, $http) {
 
-    $scope.getTrustedUploadSrc = function(id) {
+    $scope.getTMrustedUploadSrc = function(id) {
         return "/upload/" + id;
     };
 
