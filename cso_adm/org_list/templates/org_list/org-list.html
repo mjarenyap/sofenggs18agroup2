@@ -29,11 +29,13 @@
             </a>
             <input type="text" id="search" placeholder="Search organizations..." ng-model="filterSearchOrg"/>
             <ul>
+                <!--
                 {% if request.user|has_group:"moderator" %}
                 {% verbatim %}
                 <div id="unchecked" ng-show="unchecked > 0">{{getUnchecked()}}</div>
                 {% endverbatim %}
                 {% endif %}
+                -->
                 <a href="{% url 'dashboard:index' %}">
                     <li>Home</li>
                 </a>
