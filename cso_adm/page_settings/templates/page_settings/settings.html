@@ -246,6 +246,7 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Post-acts Checked</th>
+                    <th>Last login</th>
                     <th></th>
                 </tr>
                 {% verbatim %}
@@ -256,6 +257,7 @@
                     <td>{{ checker.lastName }}</td>
                     <td>{{ checker.email }}</td>
                     <td>{{ checker.postActsChecked }}</td>
+                    <td>{{ checker.lastLogin }}</td>
                     <td><button ng-click="showModal(checker)">Edit User</button></td>
                 </tr>
                 {% endverbatim %}
