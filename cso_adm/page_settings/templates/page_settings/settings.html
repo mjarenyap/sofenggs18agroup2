@@ -62,14 +62,16 @@
                     <span class="underline"></span>
                 </div>
 
-                <p class="form-error" id="err-mod-edit-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
+                <p class="form-error" id="err-mod-edit-uregex">Username should have 6-25 characters only have
+                    alphanumeric characters and '_'.</p>
                 <p class="form-error" id="err-mod-edit-pmatch">Passwords do not match.</p>
-                <p class="form-error" id="err-mod-edit-pregex">Password should have 6-25 characters and should only contain alphanumeric characters or '_'.</p>
+                <p class="form-error" id="err-mod-edit-pregex">Password should have 6-25 characters and should only
+                    contain alphanumeric characters or '_'.</p>
                 <button type="submit" class="button">Save</button>
             </form>
         </div>
         <div class="content-wrapper visible" ng-show="activeModal('add')">
-            <form id="modalAddUser" class="form-settings"  method="post">
+            <form id="modalAddUser" class="form-settings" method="post">
                 {% endverbatim %}
                 {% csrf_token %}
                 <div>
@@ -102,10 +104,12 @@
                     <input id="confPassword" class="inpAddMod" type="password">
                     <span class="underline"></span>
                 </div>
-                <p class="form-error" id="err-mod-add-uregex">Username should have 6-25 characters only have alphanumeric characters and '_'.</p>
+                <p class="form-error" id="err-mod-add-uregex">Username should have 6-25 characters only have
+                    alphanumeric characters and '_'.</p>
                 <p class="form-error" id="err-mod-add-eregex">Invalid email.</p>
                 <p class="form-error" id="err-mod-add-pmatch">Passwords do not match.</p>
-                <p class="form-error" id="err-mod-add-pregex">Password should have 6-25 characters and should only contain alphanumeric characters or '_'.</p>
+                <p class="form-error" id="err-mod-add-pregex">Password should have 6-25 characters and should only
+                    contain alphanumeric characters or '_'.</p>
                 <button type="submit" class="button">Add</button>
             </form>
         </div>
@@ -142,14 +146,15 @@
                 </div>
                 <div>
                     <b>Cluster</b>
-                    <select id="editOrgCluster" ng-model="modalOrgCluster" ng-options="clu.short as clu.short for clu in clusterList">
+                    <select id="editOrgCluster" ng-model="modalOrgCluster"
+                            ng-options="clu.short as clu.short for clu in clusterList">
                     </select>
                 </div>
                 <button type="submit" class="button">Save</button>
             </form>
         </div>
         <div class="content-wrapper visible" ng-show="activeModal('addO')">
-            <form id="modalAddOrg" class="form-settings"  method="post">
+            <form id="modalAddOrg" class="form-settings" method="post">
                 {% endverbatim %}
                 {% csrf_token %}
                 <div>
@@ -164,7 +169,8 @@
                 </div>
                 <div>
                     <b>Cluster</b>
-                    <select id="orgCluster" ng-init="newOrgCluster=clusterList.short[0]" ng-model="newOrgCluster" ng-options="clu.short as clu.short for clu in clusterList">
+                    <select id="orgCluster" ng-init="newOrgCluster=clusterList.short[0]" ng-model="newOrgCluster"
+                            ng-options="clu.short as clu.short for clu in clusterList">
                     </select>
                 </div>
 
@@ -237,7 +243,7 @@
             <li class="active" id="audit">Audit Trail</li>
             <li id="manage">Manage Users</li>
             <li id="organizations">Manage Organizations</li>
-            <li id="edit">Edit Settings</li>
+            <li id="edit">Dashboard Settings</li>
             <li id="changePass">Password Settings</li>
         </ul>
     </nav>
@@ -321,15 +327,18 @@
             <th></th>
         </tr>
         {% verbatim %}
-        <tr ng-repeat="checker in checkers" >
-            <td><input type="checkbox" class="check-user" ng-model="checker.SELECTED" ng-true-value="'Y'" ng-false-value="'N'" ng-change="updateSelectCount(checkers)"/></td>
+        <tr ng-repeat="checker in checkers">
+            <td><input type="checkbox" class="check-user" ng-model="checker.SELECTED" ng-true-value="'Y'"
+                       ng-false-value="'N'" ng-change="updateSelectCount(checkers)"/></td>
             <td>{{ checker.username }}</td>
             <td>{{ checker.firstName }}</td>
             <td>{{ checker.lastName }}</td>
             <td>{{ checker.email }}</td>
             <td>{{ checker.postActsChecked }}</td>
             <td>{{ checker.lastLogin }}</td>
-            <td><button class="btn-edit-user" ng-click="showModal(checker)">Edit User</button></td>
+            <td>
+                <button class="btn-edit-user" ng-click="showModal(checker)">Edit User</button>
+            </td>
         </tr>
         {% endverbatim %}
     </table>
@@ -358,19 +367,21 @@
             <th></th>
         </tr>
         {% verbatim %}
-        <tr ng-repeat="org in orgList" >
-            <td><input type="checkbox" ng-model="org.SELECTED" class="check-org" ng-true-value="'Y'" ng-false-value="'N'" ng-change="updateSelectCountOrgs(orgList)"/></td>
+        <tr ng-repeat="org in orgList">
+            <td><input type="checkbox" ng-model="org.SELECTED" class="check-org" ng-true-value="'Y'"
+                       ng-false-value="'N'" ng-change="updateSelectCountOrgs(orgList)"/></td>
             <td>{{ org.name }}</td>
             <td>{{ org.abbrev }}</td>
             <td>{{ org.cluster }}</td>
             <td>{{ org.submitted }}</td>
-            <td><button class="btn-edit-org" ng-click="showModalO(org)">Edit</button></td>
+            <td>
+                <button class="btn-edit-org" ng-click="showModalO(org)">Edit</button>
+            </td>
         </tr>
         {% endverbatim %}
     </table>
 </section>
 
-<!--&gt;>>>>>> 3483bbca824745121edc38dcfb9de947674554cf-->
 <section id="edit-settings" class="fill">
     <div id="settings-default-term">
         <form id="set-default-term" action="set_term/" method="post">
@@ -382,18 +393,121 @@
                 <select id="submitTerm" ng-model="defaultTerm" name="term"
                         ng-options="term for term in termList track by term">
                 </select>
-                <!--<<<<<<< HEAD-->
             </div>
             <div class="flex-end">
                 <button class="hallow discard" type="reset">Discard</button>
                 <button type="submit">Save</button>
             </div>
+            {% endverbatim %}
+        </form>
+    </div>
+    <hr>
+    <div id="settings-worksheet-settings">
+        <form id="change-sheet-settings" action="change_worksheet_settings/" method="post">
+            {% csrf_token %}
+            {% verbatim %}
+            <h3>Worksheet settings</h3>
+            <h6>Instructions</h6>
+            <div class="settings-content-wrapper">
+                <div class="settings-input">
+                    <h4 class="neutral">Google Sheet Key:</h4>
+                    <input name="worksheet_key" type="text" value="{{worksheetKey}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Sheet Name:</h4>
+                    <input name="sheet_name" type="text" value="{{sheetName}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Starting row:</h4>
+                    <input name="start_row" type="text" value="{{startRow}}"/>
+                </div>
+            </div>
+            <h3>Attribute columns</h3>
+            <div class="settings-content-wrapper">
+                <div class="settings-input">
+                    <h4 class="neutral">Timestamp:</h4>
+                    <input name="col_timestamp" type="text" value="{{timestampCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Activity Title:</h4>
+                    <input name="col_activity_title" type="text" value="{{titleCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Term:</h4>
+                    <input name="col_term" type="text" value="{{termCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Organization:</h4>
+                    <input name="col_organization" type="text" value="{{orgCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Tie Up Organizations:</h4>
+                    <input name="col_tie_up_orgs" type="text" value="{{tuOrgsCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Submission Type:</h4>
+                    <input name="col_submission_type" type="text" value="{{typeCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">ENP:</h4>
+                    <input name="col_enp" type="text" value="{{enpCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">ANP:</h4>
+                    <input name="col_anp" type="text" value="{{anpCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">ENMP:</h4>
+                    <input name="col_enmp" type="text" value="{{enmpCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">ANMP:</h4>
+                    <input name="col_anmp" type="text" value="{{anmpCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Expenses Incurred:</h4>
+                    <input name="col_expenses_incurred" type="text" value="{{expenseCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Submitted By:</h4>
+                    <input name="col_submitted_by" type="text" value="{{subByCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Contact Number:</h4>
+                    <input name="col_contact_no" type="text" value="{{contactCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Email:</h4>
+                    <input name="col_email" type="text" value="{{emailCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Status:</h4>
+                    <input name="col_status" type="text" value="{{statusCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Checked By:</h4>
+                    <input name="col_checked_by" type="text" value="{{checkedCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Date Checked:</h4>
+                    <input name="col_date_checked" type="text" value="{{dateCol}}"/>
+                </div>
+                <div class="settings-input">
+                    <h4 class="neutral">Remarks:</h4>
+                    <input name="col_remarks" type="text" value="{{remarksCol}}"/>
+                </div>
+            </div>
+            <!--<button id="btn-modal-test" ng-click="modalTest()">Open Test Modal</button>-->
+            <div class="flex-end">
+                <button class="hallow discard" type="reset">Discard</button>
+                <button type="submit">Save</button>
+            </div>
+            {% endverbatim %}
         </form>
     </div>
 </section>
 <section id="change-password" class="fill">
     <h3>Change Password</h3>
-    {% endverbatim %}
     {% if messages %}
     <div class="error">
         {% for message in messages %}
@@ -404,275 +518,20 @@
     {% endif %}
     <form id="changePswdAdmin" method="post" action="">
         {% csrf_token %}
-        <!--<<<<<<< HEAD
-                        <input id="adminUsername" name="un" type="hidden" value="{{ user.username }}">
-                        <h4 class="neutral">Old Password</h4>
-                        <input id="adminOldPassword" name="op" type="password" placeholder="Type your old password" class="new-pass"/>
-                        <br/>
-                        <h4 class="neutral">New Password</h4>
-                        <input id="adminNewPassword" name="pw" type="password" placeholder="Type your new password"/>
-                        <br/>
-                        <h4 class="neutral">Re-type New Password</h4>
-                        <input id="adminNewPasswordRetype" type="password" placeholder="Re-type your new password"/>
-        =======-->
-        <input id="username" name="un" type="hidden" value="{{ user.username }}">
+        <input id="adminUsername" name="un" type="hidden" value="{{ user.username }}">
         <h4 class="neutral">Old Password</h4>
-        <input id="password" name="pw" type="password" placeholder="Type your old password" class="new-pass"/>
+        <input id="adminOldPassword" name="op" type="password" placeholder="Type your old password" class="new-pass"/>
         <br/>
         <h4 class="neutral">New Password</h4>
-        <input id="oldPassword" name="op" type="password" placeholder="Type your new password"/>
+        <input id="adminNewPassword" name="pw" type="password" placeholder="Type your new password"/>
         <br/>
         <h4 class="neutral">Re-type New Password</h4>
-        <input id="oldPasswordRetype" type="password" placeholder="Re-type your new password"/>
+        <input id="adminNewPasswordRetype" type="password" placeholder="Re-type your new password"/>
         <div class="flex-end">
-            <button class="hallow">Discard</button>
+            <button class="hallow" type="reset">Discard</button>
             <input type="submit" value="Save">
         </div>
     </form>
-    </div>
-    <hr>
-    <div id="settings-worksheet-settings">
-        <form id="change-sheet-settings" action="edit_sheet" method="post">
-            {% csrf_token %}
-            {% verbatim %}
-            <h3>Worksheet settings</h3>
-            <h6>Instructions</h6>
-            <div class="settings-content-wrapper">
-                <div class="settings-input">
-                    <h4 class="neutral">Google Sheet Key:</h4>
-                    <input type="text" value="{{worksheetKey}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Sheet Name:</h4>
-                    <input type="text" value="{{sheetName}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Starting row:</h4>
-                    <input type="text" value="{{startRow}}"/>
-                </div>
-            </div>
-            <h3>Attribute columns</h3>
-            <div class="settings-content-wrapper">
-                <div class="settings-input">
-                    <h4 class="neutral">Timestamp:</h4>
-                    <input type="text" value="{{timestampCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Activity Title:</h4>
-                    <input type="text" value="{{titleCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Term:</h4>
-                    <input type="text" value="{{termCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Organization:</h4>
-                    <input type="text" value="{{orgCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Tie Up Organizations:</h4>
-                    <input type="text" value="{{tuOrgsCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Submission Type:</h4>
-                    <input type="text" value="{{typeCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">ENP:</h4>
-                    <input type="text" value="{{enpCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">ANP:</h4>
-                    <input type="text" value="{{anpCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">ENMP:</h4>
-                    <input type="text" value="{{enmpCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">ANMP:</h4>
-                    <input type="text" value="{{anmpCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Expenses Incurred:</h4>
-                    <input type="text" value="{{expenseCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Submitted By:</h4>
-                    <input type="text" value="{{subByCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Contact Number:</h4>
-                    <input type="text" value="{{contactCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Email:</h4>
-                    <input type="text" value="{{emailCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Status:</h4>
-                    <input type="text" value="{{statusCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Checked By:</h4>
-                    <input type="text" value="{{checkedCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Date Checked:</h4>
-                    <input type="text" value="{{dateCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <h4 class="neutral">Remarks:</h4>
-                    <input type="text" value="{{remarksCol}}"/>
-                </div>
-                <div class="settings-input">
-                    <!--=======
-                                </div>
-                    <<<<<<< HEAD
-                                <div class="flex-end">
-                                    <button class="hallow discard" type="reset">Discard</button>
-                                    <button type="submit">Save</button>
-                    =======
-                                <hr>
-                                <div id="settings-worksheet-settings">
-                                    <form id="change-sheet-settings" action="change_worksheet_settings/" method="post">
-                                        {% csrf_token %}
-                                        {% verbatim %}
-                                        <h3>Worksheet settings</h3>
-                                        <h6>Instructions</h6>
-                                        <div class="settings-content-wrapper">
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Google Sheet Key:</h4>
-                                                <input name="worksheet_key" type="text" value="{{worksheetKey}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Sheet Name:</h4>
-                                                <input name="sheet_name" type="text" value="{{sheetName}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Starting row:</h4>
-                                                <input name="start_row" type="text" value="{{startRow}}"/>
-                                            </div>
-                                        </div>
-                                        <h3>Attribute columns</h3>
-                                        <div class="settings-content-wrapper">
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Timestamp:</h4>
-                                                <input name="col_timestamp" type="text" value="{{timestampCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Activity Title:</h4>
-                                                <input name="col_activity_title" type="text" value="{{titleCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Term:</h4>
-                                                <input name="col_term" type="text" value="{{termCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Organization:</h4>
-                                                <input name="col_organization" type="text" value="{{orgCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Tie Up Organizations:</h4>
-                                                <input name="col_tie_up_orgs" type="text" value="{{tuOrgsCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Submission Type:</h4>
-                                                <input name="col_submission_type" type="text" value="{{typeCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">ENP:</h4>
-                                                <input name="col_enp" type="text" value="{{enpCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">ANP:</h4>
-                                                <input name="col_anp" type="text" value="{{anpCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">ENMP:</h4>
-                                                <input name="col_enmp" type="text" value="{{enmpCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">ANMP:</h4>
-                                                <input name="col_anmp" type="text" value="{{anmpCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Expenses Incurred:</h4>
-                                                <input name="col_expenses_incurred" type="text" value="{{expenseCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Submitted By:</h4>
-                                                <input name="col_submitted_by" type="text" value="{{subByCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Contact Number:</h4>
-                                                <input name="col_contact_no" type="text" value="{{contactCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Email:</h4>
-                                                <input name="col_email" type="text" value="{{emailCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Status:</h4>
-                                                <input name="col_status" type="text" value="{{statusCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Checked By:</h4>
-                                                <input name="col_checked_by" type="text" value="{{checkedCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Date Checked:</h4>
-                                                <input name="col_date_checked" type="text" value="{{dateCol}}"/>
-                                            </div>
-                                            <div class="settings-input">
-                                                <h4 class="neutral">Remarks:</h4>
-                                                <input name="col_remarks" type="text" value="{{remarksCol}}"/>
-                                            </div>
-                                        </div>
-                                        <!--<button id="btn-modal-test" ng-click="modalTest()">Open Test Modal</button>-->
-                    <div class="flex-end">
-                        <button class="hallow discard">Discard</button>
-                        <button type="submit">Save</button>
-                    </div>
-                    {% endverbatim %}
-                </div>
-            </div>
-        </form>
-    </div>
-
-
 </section>
-
-<!--<section id="change-password" class="fill">
-=======
-<section id="change-password" class="fill">
->>>>>>> 3483bbca824745121edc38dcfb9de947674554cf
-    <h3>Change Password</h3>
-    {% if messages %}
-    <div class="error">
-        {% for message in messages %}
-        <p class="messages">Password reset failed. The old password you entered was incorrect.</p>
-        <p id="form-close"><i class="fa fa-times-circle"></i></p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <form id="changePswdAdmin" method="post">
-        {% csrf_token %}
-        <input id="username" name="un" type="hidden" value="{{ user.username }}">
-        <h4 class="neutral">Old Password</h4>
-        <input id="password" name="pw" type="password" placeholder="Type your old password" class="new-pass"/>
-        <br/>
-        <h4 class="neutral">New Password</h4>
-        <input id="oldPassword" name="op" type="password" placeholder="Type your new password"/>
-        <br/>
-        <h4 class="neutral">Re-type New Password</h4>
-        <input id="oldPasswordRetype" type="password" placeholder="Re-type your new password"/>
-        <div class="flex-end">
-            <button class="hallow">Discard</button>
-            <input type="submit" value="Save">
-        </div>
-    </form>
-<<<<<<< HEAD
-</section>-->
 </body>
 </html>

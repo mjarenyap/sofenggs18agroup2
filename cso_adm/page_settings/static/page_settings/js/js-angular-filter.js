@@ -209,6 +209,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
             console.log("success");
             var obj_mod = JSON.parse(response.mod);
             var obj_map = JSON.parse(response.maps);
+            $scope.orgList = JSON.parse(response.orgs);
+            $scope.clusterList = JSON.parse(response.cluster);
             console.log(obj_map);
             setMapAttr(obj_map);
             $scope.checkers = obj_mod;
