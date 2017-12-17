@@ -227,7 +227,10 @@
             {% endif %}
         </nav>
         <header>
-            <h1 class="org-name">{{data.orgName}} ({{data.abbreviation}})</h1>
+            <div class="flex-title-comment">
+                <h1 class="org-name">{{data.orgName}} ({{data.abbreviation}})</h1>
+                <button id="btn-comments" ng-click="showCommentModal()">Comments</button>
+            </div>
             <div class="status">
                 <div>
                     <p>Early Complete</p>
@@ -258,9 +261,11 @@
                     <h2>{{data.nc}}</h2>
                 </div>
             </div>
+            <!--
             <div class="comments">
                 <button id="btn-comments" ng-click="showCommentModal()">Comments</button>
             </div>
+            -->
         </header>
         <section class="filter-wrapper">
             <span>Month:</span>

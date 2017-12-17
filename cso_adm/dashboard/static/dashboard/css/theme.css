@@ -61,7 +61,7 @@ input[type="text"], input[type="tel"], input[type="number"],
 input[type="email"], input[type="password"]{
     border: thin solid var(--theme-grey-neutral-3);
     background-color: var(--theme-light-neutral-2);
-    color: var(--theme-grey-neutral);
+    color: #555;
 }
 
 input[type="button"], input[type="submit"], button, button.hallow,
@@ -141,8 +141,8 @@ header{
 }
 
 header h1.org-name{
-    margin-bottom: 30px;
     text-align: center;
+    margin-right: 60px;
 }
 
 header div.status{
@@ -294,6 +294,13 @@ div.user-tray{
 div.flex-end{
     display: flex;
     justify-content: flex-end;
+}
+
+div.flex-title-comment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 div.settings-content-wrapper{
