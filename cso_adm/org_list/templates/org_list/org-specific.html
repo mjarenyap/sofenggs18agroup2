@@ -172,8 +172,10 @@
                     {% if request.user|has_group:"moderator" %}
                     <div class="wrapper-add-comment">
                         <form>
+                            
                             <textarea rows="2" cols="90" maxlength="200" id="commentInput" ng-model="comment"></textarea>
                             <button type="submit" id="submitComment" class="button" ng-click="addComment()">Comment</button>
+
                         </form>
                     </div>
                     {% endif %}
