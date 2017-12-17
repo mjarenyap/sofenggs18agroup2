@@ -181,7 +181,7 @@
             </ul>
             {% if user.is_authenticated %}
             <form id="sign-out" action="" method="POST">
-                <button type="button" class="hallow">Fname Lname &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+                <button type="button" class="hallow">{{ user.first_name }} {{ user.last_name }} &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
             </form>
             <form id="sign-in" action="" method="POST">
                 {% csrf_token %}
