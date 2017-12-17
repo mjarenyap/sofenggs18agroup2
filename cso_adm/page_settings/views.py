@@ -20,15 +20,33 @@ from django.views import View
 from dashboard import modelJSON
 from dashboard import utility
 
+from dashboard.models import Organization, PostActsLog
 
 def get_response_context(request):
     mod_info_set = modelJSON.get_all_moderator_info_json()
     map_set = modelJSON.get_map_values()
+    cluster_set = modelJSON.get_all_cluster_json()
+
+    data_set = "["
+    for org in Organization.objects.all():
+        org_submitted = PostActsLog.objects.filter(organization__iexact=org.shortname).count()
+        data_set = data_set + "{\"abbrev\":\"" + org.shortname + "\","
+        data_set = data_set + "\"id\":" + str(org.id) + ","
+        data_set = data_set + "\"name\":\"" + org.name + "\","
+        data_set = data_set + "\"cluster\":\"" + org.cluster + "\","
+        data_set = data_set + "\"submitted\":" + str(org_submitted) + "},"
+    if len(data_set) > 1:
+        data_set = data_set[:-1]
+    data_set = data_set + "]"
+    print("JSON for Data: " + data_set)
+
     response = {
         'status': 1,
         'message': "Ok",
         'mod': mod_info_set,
-        'maps': map_set
+        'maps': map_set,
+        'orgs': data_set,
+        'cluster': cluster_set
     }
     return HttpResponse(json.dumps(response), content_type='application/json')
 
@@ -282,3 +300,62 @@ def change_worksheet_settings(request):
                 m.save()
         utility.resync()
     return redirect(reverse('settings:settings'))
+
+
+def add_org(request):
+    for key in request.POST:
+        print(key)
+        print(request.POST.get(key))
+
+    org = Organization()
+    org.shortname = request.POST.get('shortname')
+    org.name = request.POST.get('name')
+    org.cluster = request.POST.get('cluster')
+    org.save()
+
+    return redirect(reverse('settings:settings'))
+
+def edit_org(request):
+    for key in request.POST:
+        print(key)
+        print(request.POST.get(key))
+
+    org = Organization(id=int(request.POST.get('id')))
+    org.shortname = request.POST.get('shortname')
+    org.name = request.POST.get('name')
+    org.cluster = request.POST.get('cluster')
+    org.save()
+
+    return redirect(reverse('settings:settings'))
+
+def remove_orgs(request):
+    orgname = request.POST.get('org0', False)
+
+    if orgname is not False:
+        orgs_deleted = 0
+
+        # For every succeeding user
+        while orgname is not False:
+            try:
+                org = Organization.objects.get(shortname=orgname)
+
+                # Purge the user
+                org.delete()
+
+                # Increment the deleted users
+                orgs_deleted += 1
+
+                # Try to go to the next user
+                key = 'org' + str(orgs_deleted)
+
+                # Get the relevant credentials from the POST request
+                orgname = request.POST.get(key, False)
+            except Organization.DoesNotExist:
+                break
+
+        # Then go back to the previous URL with the updated values
+        response = {'status': 1, 'message': "Ok", 'url': reverse('settings:settings')}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        return redirect(reverse('settings:settings'))
