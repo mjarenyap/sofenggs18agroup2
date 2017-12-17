@@ -253,6 +253,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
       $http.get(org + "/get_org_comments/", {params: {}})
           .success(function(response) {
               console.log("success");
+              console.log(response.comments);
               $scope.comments = JSON.parse(response.comments);
             })
             .error(function(response){
@@ -264,7 +265,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
   };
 
   $scope.addComment = function() {
-      console.log($scope.comment);
+      console.log($scope.comment.replace(/\r\n|\r|\n/g,"\\n"));
+      $scope.comment = $scope.comment.replace(/\r\n|\r|\n/g,"\\n");
       if ($.trim($scope.comment) != "") {
       var data = $.param({
           comment: $.trim($scope.comment)
@@ -278,6 +280,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
       $http.post(org + "/add_org_comment/", data, config)
           .success(function (response) {
               console.log("success");
+              console.log(response.comment);
               $scope.comments.push(JSON.parse(response.comment));
               $scope.comment = '';
           })

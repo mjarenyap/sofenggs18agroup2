@@ -161,7 +161,6 @@ class OrgComment(models.Model):
 
     def getJSON(self):
         s = '{'
-        s = s + "\"id\":" + str(self.id) + ","
         s = s + "\"t\":\"" + self.timestamp + "\","
         s = s + "\"u\":\"" + self.username + "\","
         s = s + "\"c\":\"" + self.comment.replace("\"", "\\\"") + "\"},"
@@ -170,7 +169,6 @@ class OrgComment(models.Model):
 
     def getFullJSON(self):
         s = '{'
-        s = s + "\"id\":" + str(self.id) + ","
         s = s + "\"t\":\"" + self.timestamp + "\","
         s = s + "\"u\":\"" + self.username + "\","
         s = s + "\"c\":\"" + self.comment.replace("\"", "\\\"") + "\"}"

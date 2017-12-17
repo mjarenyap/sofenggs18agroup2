@@ -123,6 +123,7 @@ def get_all_org_comments(org):
     if len(comments_set) > 1:
         comments_set = comments_set[:-1]
         comments_set = comments_set + "]"
-    print("JSON for " + org + " comments: " + comments_set)
+    print("3")
+    print("JSON for " + org + " comments: " + comments_set.replace('\\\\\n', '@@'))
 
     return comments_set

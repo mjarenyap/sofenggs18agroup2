@@ -159,14 +159,16 @@
 
                 <!-- MODAL FOR COMMENTS -->
                 <div class="content-wrapper visible" id="commentContent" ng-show="!showPAModal">
+                    {% verbatim %}
                     <div id="comment-wrapper-wrapper">
-                        {% verbatim %}
-                        <div ng-repeat="com in comments | orderBy:commentSort:commentSortReverse" class="comment-wrapper">
-                            <p class="comment-user">{{com.u}}&nbsp&nbsp&nbsp&nbsp&nbsp<span>{{com.t}}</span></p>
+
+                        <div ng-repeat="com in comments | orderBy:commentSort:commentSortReverse" class="comment-wrapper"  title="{{com.t}}">
+                            <p class="comment-user">{{com.u}}&nbsp&nbsp&nbsp&nbsp&nbsp</p>
                             <p class="comment-text">{{com.c}}</p>
                         </div>
-                        {% endverbatim %}
+
                     </div>
+                    {% endverbatim %}
                     {% if request.user|has_group:"moderator" %}
                     <div class="wrapper-add-comment">
                         <form>
