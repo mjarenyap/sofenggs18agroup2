@@ -64,6 +64,10 @@ dashboardApp.controller('mainController', function($scope, $http) {
         $scope.modalOrgName = org.name;
         $scope.modalOrgAbbrev = org.abbrev;
         $scope.modalOrgCluster = org.cluster;
+
+        console.log($scope.modalOrgName);
+        console.log($scope.modalOrgAbbrev);
+        console.log($scope.modalOrgCluster);
     }
 
     $scope.modalAddUserShow = function() {

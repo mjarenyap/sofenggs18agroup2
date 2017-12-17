@@ -199,7 +199,7 @@
             <ul>
                 {% if request.user|has_group:"moderator" %}
                 {% verbatim %}
-                <div id="unchecked">{{getUnchecked()}}</div>
+                <div id="unchecked" ng-show="unchecked > 0">{{getUnchecked()}}</div>
                 {% endverbatim %}
                 {% endif %}
                 <a href="{% url 'dashboard:index' %}"><li>Home</li></a>
@@ -288,7 +288,7 @@
                 <option value="">All Months</option>
             </select>
 
-            <span>Term:</span>
+            <span>Activity Term:</span>
             <select ng-model="filterTerm" ng-options="term.short as term.long for term in termList">
                 <option value="">All Terms</option>
             </select>
@@ -374,15 +374,16 @@
                     <td>{{ user_person.cb }}</td>
                     <td>{{ user_person.d }}</td>
                 </tr>
-                <div>
-                    <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
-                    <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
-                    <p ng-show="(filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 0">No results found.</p>
+                <div class="table-above">
+                    <p id="result-count" ng-show="(uncheckedOnly || filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length != 0 && filtered_data.length != 1">{{filtered_data.length}} results found.</p>
+                    <p id="result-count" ng-show="(uncheckedOnly || filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 1">{{filtered_data.length}} result found.</p>
+                    <p id="result-count" ng-show="(uncheckedOnly || filterMonth || filterTerm || filterSearch || filterType || filterStatus || filterChecker) && filtered_data.length == 0">No results found.</p>
                     {% endverbatim %}
                     {% if request.user|has_group:"moderator" %}
-                        <div id="results-right">
-                            <input id="check-unchecked" type="checkbox" ng-click="toggleUncheckedOnly()">Show only unchecked
-                        </div>
+                    <div id="results-right">
+                        <input type="checkbox" id="check-unchecked" ng-click="toggleUncheckedOnly()">
+                        <label for="check-unchecked">Toggle</label><p id="checklabel">Show only unchecked</p>
+                    </div>
                     {% endif %}
                 </div>
         <!---->
