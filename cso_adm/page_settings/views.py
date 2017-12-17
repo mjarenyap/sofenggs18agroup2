@@ -268,7 +268,7 @@ def change_worksheet_settings(request):
             for key in request.POST:
                 if key.startswith('col_'):
                     m = Map.objects.get(key=key[4:])
-                    m.value = request.POST.get(key, '')
+                    m.value = "COLUMN " + request.POST.get(key, '')
                     print(m.value)
                     m.save()
 
@@ -277,7 +277,8 @@ def change_worksheet_settings(request):
         for key in request.POST:
             if key.startswith('col_'):
                 m = Map.objects.get(key=key[4:])
-                m.value = request.POST.get(key, '')
+                m.value = "COLUMN " + request.POST.get(key, '')
                 print(m.value)
                 m.save()
+        utility.resync()
     return redirect(reverse('settings:settings'))

@@ -129,6 +129,10 @@ def resync():
 
             i = i + 1
 
+
+        log.save()
+        cnt = cnt + 1
+
     except Exception as e:
         print("ERROR: " + str(e))
         print(">> Sync failed.")
