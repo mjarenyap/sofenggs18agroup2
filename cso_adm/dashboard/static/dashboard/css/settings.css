@@ -19,7 +19,8 @@ form.form-settings input[type="password"] {
     padding: 5px 10px;
     width: 180px;
     color: var(--theme-grey-neutral-3);
-
+    position: relative;
+    bottom: 4px;
 }
 
 form.form-settings input[type="text"]:focus,
@@ -36,29 +37,38 @@ h4.neutral {
 
 form.form-settings input[type="text"]:focus+.underline,
 form.form-settings input[type="password"]:focus+.underline{
-  transform: scale(1);
+    transform: scale(1);
 }
 
 .underline {
-  background-color: var(--theme-color);
-  display: inline-block;
-  height: 1px;
-  left: 260px;
-  margin-top: 28px;
-  position: absolute;
-  /*top: 183px;*/
-  -webkit-transform: scale(0, 1);
-  transform: scale(0, 1);
-  -webkit-transition: all 0.2s linear;
-  transition: all 0.2s linear;
-  width: 199px;
+    background-color: var(--theme-color);
+    display: inline-block;
+    height: 1px;
+    left: 246px;
+    margin-top: 25px;
+    position: absolute;
+    /* top: 183px; */
+    -webkit-transform: scale(0, 1);
+    transform: scale(0, 1);
+    -webkit-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    width: 199px;
 }
 
 div#modal-details-wrapper-settings div.content-wrapper div b {
-    width: 150px;
+    width: 156px;
+    margin-right: 24px;
 }
 
 div#modal-details-wrapper-settings button[type="submit"] {
     position: absolute;
     right: 40px;
+}
+
+#modal-details-wrapper-settings {
+    width: 530px;
+}
+
+div#modal-details-wrapper-settings ul.tab-wrapper {
+    width: 500px;
 }

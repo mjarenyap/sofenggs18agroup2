@@ -159,20 +159,22 @@
 
                 <!-- MODAL FOR COMMENTS -->
                 <div class="content-wrapper visible" id="commentContent" ng-show="!showPAModal">
+                    {% verbatim %}
                     <div id="comment-wrapper-wrapper">
-                        {% verbatim %}
-                        <div ng-repeat="com in comments | orderBy:commentSort:commentSortReverse" class="comment-wrapper">
-                            <p class="comment-user">{{com.username}}&nbsp&nbsp&nbsp&nbsp&nbsp<span>{{com.timestamp}}</span></p>
-                            <p class="comment-text">{{com.comment}}</p>
+
+                        <div ng-repeat="com in comments | orderBy:commentSort:commentSortReverse" class="comment-wrapper"  title="{{com.t}}">
+                            <p class="comment-user">{{com.u}}&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+                            <p class="comment-text">{{com.c}}</p>
                         </div>
-                        {% endverbatim %}
+
                     </div>
+                    {% endverbatim %}
                     {% if request.user|has_group:"moderator" %}
                     <div class="wrapper-add-comment">
                         <form>
                         <!--<input id="commentInput" type="text">-->
-                            <textarea rows="2" cols="90" maxlength="200" id="commentInput"></textarea>
-                            <button type="submit" id="submitComment" class="button">Comment</button>
+                            <textarea rows="3" cols="82" maxlength="200" id="commentInput" ng-model="comment"></textarea>
+                            <button type="submit" id="submitComment" class="button" ng-click="addComment()">Comment</button>
                         </form>
                     </div>
                     {% endif %}
@@ -192,9 +194,12 @@
             </ul>
             {% if user.is_authenticated %}
             <form id="sign-out" action="" method="POST">
+                <button type="button" class="hallow">Fname Lname &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+            </form>
+            <form id="sign-in" action="" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="logout"/>
-                <button type="submit">Sign out</button>
+                <button class="plain-text">Sign out</button>
             </form>
             {% else %}
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>

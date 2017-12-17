@@ -33,9 +33,12 @@
             </ul>
             {% if user.is_authenticated %}
             <form id="sign-out" action="" method="POST">
+                <button type="button" class="hallow">Fname Lname &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
+            </form>
+            <form id="sign-in" action="" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="logout"/>
-                <button type="submit">Sign out</button>
+                <button class="plain-text">Sign out</button>
             </form>
             {% else %}
             <button class="hallow">Sign in &nbsp;&nbsp;<i class="fa fa-caret-down"></i></button>
@@ -63,7 +66,7 @@
             {% endif %}
         </nav>
         <header>
-            <h1>THIS IS THE ORGANIZATION LIST PAGE</h1>
+            <h1>ORGANIZATION LIST</h1>
         </header>
         <section class="filter-wrapper">
             <span>Cluster:</span>
