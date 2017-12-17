@@ -22,6 +22,12 @@ function clean(str) {
 }
 
 $(document).ready(function(){
+    $("#discard-pwform-changes").on("click", function(event){
+        $("#changePswdAdmin")[0].reset();
+
+        event.preventDefault()
+    });
+
     $("div#modal-details-wrapper ul.tab-wrapper li").click(function(e){
         if(!$(e.target).hasClass("closeModal") && !$(e.target).hasClass("fa")) {
             $("div#modal-details-wrapper ul.tab-wrapper li").removeClass("active");
@@ -310,7 +316,7 @@ $(document).ready(function(){
         }
 
         var formErrors = $("#modalAddUser .form-error:visible");
-        $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 45) + 630) + "px");
+        $("#modal-details-wrapper-settings").css("height", ((formErrors.length * 20) + 630) + "px");
     });
 
     $("#modalEditUser").submit(function(e){
@@ -450,7 +456,7 @@ $(document).ready(function(){
 
     $("#change-sheet-settings").submit(function(){
         console.log("HEYYYYYY def");
-        return false;
+
     });
 // >>>>>>> 5b0615523feec08b5663fc18d3459ff2f7795326
 });

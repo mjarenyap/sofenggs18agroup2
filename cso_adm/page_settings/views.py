@@ -18,6 +18,7 @@ from dashboard.models import Map
 from django.urls import reverse
 from django.views import View
 from dashboard import modelJSON
+from dashboard import utility
 
 
 def get_response_context(request):
@@ -234,4 +235,49 @@ def set_default_term(request):
         map = Map.objects.get(key='default_term')
         map.value = term
         map.save()
+    return redirect(reverse('settings:settings'))
+
+
+def change_worksheet_settings(request):
+    for val in request.POST:
+        print(val)
+    worksheet_key = request.POST.get('worksheet_key', '')
+    sheet_name = request.POST.get('sheet_name', '')
+    start_row = request.POST.get('start_row', '')
+
+    current_worksheet_key = Map.objects.get(key='worksheet_key').value
+    current_sheet_name = Map.objects.get(key='sheet_name').value
+    if current_worksheet_key != worksheet_key or current_sheet_name != sheet_name:
+        if utility.check_worksheet(worksheet_key, sheet_name):
+            m = Map.objects.get(key='worksheet_key')
+            m.value = worksheet_key
+            print(m.value)
+            m.save()
+
+            m = Map.objects.get(key='sheet_name')
+            m.value = sheet_name
+            print(m.value)
+            m.save()
+
+            m = Map.objects.get(key='start_row')
+            m.value = start_row
+            print(m.value)
+            m.save()
+
+            # save other attributes
+            for key in request.POST:
+                if key.startswith('col_'):
+                    m = Map.objects.get(key=key[4:])
+                    m.value = request.POST.get(key, '')
+                    print(m.value)
+                    m.save()
+
+            utility.change_worksheet()
+    else:
+        for key in request.POST:
+            if key.startswith('col_'):
+                m = Map.objects.get(key=key[4:])
+                m.value = request.POST.get(key, '')
+                print(m.value)
+                m.save()
     return redirect(reverse('settings:settings'))
