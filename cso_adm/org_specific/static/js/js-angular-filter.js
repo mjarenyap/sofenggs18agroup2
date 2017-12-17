@@ -128,7 +128,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     //console.log("Checking Filters");
     // console.log(postact.timestamp.split('/')[2].split(' ')[0]);
 
-    if(!$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker)
+    if(!$scope.uncheckedOnly && !$scope.filterSearch && !$scope.filterMonth && !$scope.filterTerm && !$scope.filterType && !$scope.filterStatus && !$scope.filterChecker)
       return true;
 
     return include(postact, transformSearch($scope.filterSearch)) && searchUnchecked(postact) && searchMonth(postact, $scope.filterMonth) &&
