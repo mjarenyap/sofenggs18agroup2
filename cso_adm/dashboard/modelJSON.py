@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from dashboard.models import PostActsLog, Organization, Map
+from dashboard.models import PostActsLog, Organization, Map, OrgComment
+
 
 def get_all_log_json():
     logs_set = "["
@@ -12,6 +13,7 @@ def get_all_log_json():
 
     return logs_set
 
+
 def get_org_log_json(org):
     logs_set = "["
     for log in PostActsLog.objects.filter(organization=org):
@@ -22,6 +24,7 @@ def get_org_log_json(org):
     print("JSON for " + org + " Logs: " + logs_set)
 
     return logs_set
+
 
 def get_all_org_json():
     organization_set = "["
@@ -80,6 +83,7 @@ def get_all_moderator_json():
 
     return mod_set
 
+
 def get_all_moderator_info_json():
     mod_info_set = "["
     mods = User.objects.filter(groups__name='moderator')
@@ -88,7 +92,8 @@ def get_all_moderator_info_json():
         mod_info_set = mod_info_set + "\"lastName\":\"" + mod.last_name + "\","
         mod_info_set = mod_info_set + "\"email\":\"" + mod.email + "\","
         mod_info_set = mod_info_set + "\"username\":\"" + mod.username + "\","
-        mod_info_set = mod_info_set + "\"postActsChecked\":\"" + str(PostActsLog.objects.filter(checked_by=mod.get_full_name()).count()) + "\"},"
+        mod_info_set = mod_info_set + "\"postActsChecked\":\"" + str(
+            PostActsLog.objects.filter(checked_by=mod.get_full_name()).count()) + "\"},"
 
     if len(mod_info_set) > 1:
         mod_info_set = mod_info_set[:-1]
@@ -96,6 +101,7 @@ def get_all_moderator_info_json():
     print("JSON for Moderator Info: " + mod_info_set)
 
     return mod_info_set
+
 
 def get_map_values():
     map_set = "{"
@@ -108,3 +114,16 @@ def get_map_values():
     print("JSON for Maps: " + map_set)
 
     return map_set
+
+
+def get_all_org_comments(org):
+    comments_set = "["
+    for comment in OrgComment.objects.filter(organization__shortname=org):
+        comments_set = comments_set + str(comment.getJSON())
+    if len(comments_set) > 1:
+        comments_set = comments_set[:-1]
+        comments_set = comments_set + "]"
+    print("3")
+    print("JSON for " + org + " comments: " + comments_set.replace('\\\\\n', '@@'))
+
+    return comments_set

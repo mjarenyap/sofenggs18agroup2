@@ -18,6 +18,7 @@ from dashboard.models import Map
 from django.urls import reverse
 from django.views import View
 from dashboard import modelJSON
+from dashboard import utility
 
 
 def get_response_context(request):
@@ -235,3 +236,38 @@ def set_default_term(request):
         map.value = term
         map.save()
     return redirect(reverse('settings:settings'))
+
+
+def change_worksheet_settings(request):
+    worksheet_key = request.POST.get('worksheet_key', '')
+    sheet_name = request.POST.get('sheet_name', '')
+    start_row = request.POST.get('start_row', '')
+
+    timestamp = request.POST.get('worksheet_key', '')
+    activity_title = request.POST.get('worksheet_key', '')
+    term = request.POST.get('worksheet_key', '')
+    organization = request.POST.get('worksheet_key', '')
+
+    current_worksheet_key = Map.objects.get(key='worksheet_key').value
+    current_sheet_name = Map.objects.get(key='sheet_name').value
+
+    if current_worksheet_key != worksheet_key or current_sheet_name != sheet_name:
+        if utility.check_worksheet(worksheet_key, sheet_name):
+            m = Map.objects.get(key='worksheet_key')
+            m.value = worksheet_key
+            m.save()
+
+            m = Map.objects.get(key='sheet_name')
+            m.value = sheet_name
+            m.save()
+
+            m = Map.objects.get(key='start_row')
+            m.value = sheet_name
+            m.save()
+
+            # save other attributes
+
+            utility.change_worksheet()
+    else:
+        ""
+        # save other attributes

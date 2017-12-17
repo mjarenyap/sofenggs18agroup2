@@ -16,7 +16,7 @@ Cluster = (
 class Organization(models.Model):
     name = models.CharField(default="", max_length=255)
     shortname = models.CharField(default="", max_length=255)
-    cluster = models.CharField(default="", max_length=255, choices=Cluster)
+    cluster = models.CharField(default="", max_length=255)
 
     def getJSON(self):
         s = "{"
@@ -31,8 +31,10 @@ class Organization(models.Model):
         s = s + "\"long\":\"" + self.name + "\","
         s = s + "\"cluster\":\"" + self.cluster + "\"},"
         return s
+
     def __str__(self):
         return self.name
+
 
 class PostActsLog(models.Model):
     row_number = models.IntegerField(default=-1)
@@ -65,7 +67,8 @@ class PostActsLog(models.Model):
         s = '{'
         s = s + "\\\"id\\\":" + str(self.id) + ","
         try:
-            s = s + "\\\"t\\\":\\\"" + datetime.datetime.strptime(self.timestamp, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\\\","
+            s = s + "\\\"t\\\":\\\"" + datetime.datetime.strptime(self.timestamp, '%m/%d/%Y %H:%M:%S').strftime(
+                '%Y/%m/%d %H:%M:%S') + "\\\","
         except:
             s = s + "\\\"t\\\":\\\"" + self.timestamp + "\\\","
         s = s + "\\\"n\\\":\\\"" + self.activity_title.replace("\"", "\\\\\\\"") + "\\\","
@@ -75,7 +78,8 @@ class PostActsLog(models.Model):
         s = s + "\\\"s\\\":\\\"" + self.status + "\\\","
         s = s + "\\\"cb\\\":\\\"" + self.checked_by + "\\\","
         try:
-            s = s + "\\\"d\\\":\\\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\\\"},"
+            s = s + "\\\"d\\\":\\\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime(
+                '%Y/%m/%d %H:%M:%S') + "\\\"},"
         except:
             s = s + "\\\"d\\\":\\\"" + self.date_checked + "\\\"},"
 
@@ -85,7 +89,8 @@ class PostActsLog(models.Model):
         s = '{'
         s = s + "\"id\":" + str(self.id) + ","
         try:
-            s = s + "\"t\":\"" + datetime.datetime.strptime(self.timestamp, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\","
+            s = s + "\"t\":\"" + datetime.datetime.strptime(self.timestamp, '%m/%d/%Y %H:%M:%S').strftime(
+                '%Y/%m/%d %H:%M:%S') + "\","
         except:
             s = s + "\"t\":\"" + self.timestamp + "\","
         s = s + "\"n\":\"" + self.activity_title.replace("\"", "\\\"") + "\","
@@ -95,7 +100,8 @@ class PostActsLog(models.Model):
         s = s + "\"s\":\"" + self.status + "\","
         s = s + "\"cb\":\"" + self.checked_by + "\","
         try:
-            s = s + "\"d\":\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\"},"
+            s = s + "\"d\":\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime(
+                '%Y/%m/%d %H:%M:%S') + "\"},"
         except:
             s = s + "\"d\":\"" + self.date_checked + "\"},"
 
@@ -105,7 +111,8 @@ class PostActsLog(models.Model):
         s = '{'
         s = s + "\"id\":" + str(self.id) + ","
         try:
-            s = s + "\"t\":\"" + datetime.datetime.strptime(self.timestamp, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\","
+            s = s + "\"t\":\"" + datetime.datetime.strptime(self.timestamp, '%m/%d/%Y %H:%M:%S').strftime(
+                '%Y/%m/%d %H:%M:%S') + "\","
         except:
             s = s + "\"t\":\"" + self.timestamp + "\","
         s = s + "\"n\":\"" + self.activity_title.replace("\"", "\\\"") + "\","
@@ -115,7 +122,8 @@ class PostActsLog(models.Model):
         s = s + "\"s\":\"" + self.status + "\","
         s = s + "\"cb\":\"" + self.checked_by + "\","
         try:
-            s = s + "\"d\":\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S') + "\","
+            s = s + "\"d\":\"" + datetime.datetime.strptime(self.date_checked, '%m/%d/%Y %H:%M:%S').strftime(
+                '%Y/%m/%d %H:%M:%S') + "\","
         except:
             s = s + "\"d\":\"" + self.date_checked + "\","
         s = s + "\"tie\":\"" + self.tie_up_orgs.replace("\"", "\\\"") + "\","
@@ -136,6 +144,7 @@ class PostActsLog(models.Model):
     def get_absolute_url(self):
         return reverse('dashboard', kwargs={'id': self.id})
 
+
 class Map(models.Model):
     key = models.CharField(default="", max_length=255)
     value = models.CharField(default="", max_length=255)
@@ -144,3 +153,27 @@ class Map(models.Model):
         return self.key
 
 
+class OrgComment(models.Model):
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    timestamp = models.CharField(default="", max_length=255)
+    username = models.CharField(default="", max_length=255)
+    comment = models.CharField(default="", max_length=255)
+
+    def getJSON(self):
+        s = '{'
+        s = s + "\"t\":\"" + self.timestamp + "\","
+        s = s + "\"u\":\"" + self.username + "\","
+        s = s + "\"c\":\"" + self.comment.replace("\"", "\\\"") + "\"},"
+
+        return s
+
+    def getFullJSON(self):
+        s = '{'
+        s = s + "\"t\":\"" + self.timestamp + "\","
+        s = s + "\"u\":\"" + self.username + "\","
+        s = s + "\"c\":\"" + self.comment.replace("\"", "\\\"") + "\"}"
+
+        return s
+
+    def __str__(self):
+        return self.organization.name + " - " + self.username
