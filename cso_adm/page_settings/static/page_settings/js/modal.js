@@ -94,6 +94,23 @@ $(document).ready(function(){
         }
 
         $("#modal-details-wrapper-settings").css("height",  "560px");
+// <<<<<<< HEAD
+        $("div#modal-wrapper").css("display", "flex");
+        $("div#modal-details-wrapper").css("display", "block");
+    });
+
+    $("#btn-add-org").click(function() {
+        $(".form-error").hide();
+        var inpAdd = $(".inpAddOrg");
+
+        for(i = 0; i < inpAdd.length; i++) {
+            $(inpAdd[i]).val("");
+            $(inpAdd[i]).css("border-bottom", "thin solid var(--theme-grey-neutral-3)");
+        }
+
+        $("#modal-details-wrapper-settings").css("height",  "360px");
+// =======
+// >>>>>>> 941c77c79d9934b35925c0c7139c56f87c20f122
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
