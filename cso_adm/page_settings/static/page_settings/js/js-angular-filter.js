@@ -17,8 +17,8 @@ dashboardApp.controller('mainController', function($scope, $http) {
         return "/upload/" + id;
     };
 
-    $scope.sortType = 't';  // set the default sort type
-    $scope.sortReverse = true;    // set the default sort order
+    $scope.sortType1 = 'username';  // set the default sort type
+    $scope.sortReverse1 = true;    // set the default sort order
 
     $scope.showAddUserModal = false;
     $scope.showDelUserModal = false;
