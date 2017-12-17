@@ -21,7 +21,6 @@ form.form-settings input[type="password"] {
     color: var(--theme-grey-neutral-3);
     position: relative;
     bottom: 4px;
-
 }
 
 form.form-settings input[type="text"]:focus,
