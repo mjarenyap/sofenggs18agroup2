@@ -18,6 +18,7 @@ dashboardApp.controller('mainController', function($scope, $http) {
     };
 
     $scope.sortType1 = 'username';  // set the default sort type
+    $scope.sortType2 = 'name';
     $scope.sortReverse1 = true;    // set the default sort order
 
     $scope.showAddUserModal = false;
