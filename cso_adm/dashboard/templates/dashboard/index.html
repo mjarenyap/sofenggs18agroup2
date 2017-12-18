@@ -167,11 +167,6 @@
             </a>
             <input type="text" id="search" placeholder="Search Post-acts..." ng-model="filterSearch"/>
             <ul>
-                {% if request.user|has_group:"moderator" %}
-                {% verbatim %}
-                <div id="unchecked" ng-show="unchecked > 0">{{getUnchecked()}}</div>
-                {% endverbatim %}
-                {% endif %}
                 <a href="{% url 'dashboard:index' %}">
                     <li class="active">Home</li>
                 </a>
