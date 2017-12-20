@@ -39,16 +39,16 @@ $(document).ready(function(){
         }
 
     });
-    
+
     $("table.post-acts-table tr td").click(function(){
         $("div#modal-wrapper").css("display", "flex");
         $("div#modal-details-wrapper").css("display", "block");
     });
-    
+
     $("div#modal-wrapper i.close").click(function(){
         $("div#modal-wrapper").css("display", "none");
     });
-    
+
     $("div#modal-details-wrapper #discard").click(function(){
         $("div#modal-wrapper").css("display", "none");
     });
@@ -180,12 +180,12 @@ $(document).ready(function(){
         var appElement = document.querySelector('[ng-app=dashboardApp]');
         var $scope = angular.element(appElement).scope();
 
-        $scope.$apply(function() {
-            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
-                flag = false;
-            }
-            console.log("EYY");
-        });
+        // $scope.$apply(function() {
+        //     if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+        //         flag = false;
+        //     }
+        //     console.log("EYY");
+        // });
 
         if(flag) {
             $.ajax({
@@ -288,6 +288,7 @@ $(document).ready(function(){
         var un = $("#modalAddUser #username").val();
         var em = $("#modalAddUser #email").val();
         var pw = $("#modalAddUser #password").val();
+        var cp = $("#modalAddUser #confPassword").val();
 
         console.log("Test " + $("#modalAddUser").serialize()
                     + '&fn=' + $.trim(fn)
@@ -300,34 +301,39 @@ $(document).ready(function(){
         var appElement = document.querySelector('[ng-app=dashboardApp]');
         var $scope = angular.element(appElement).scope();
 
-        $scope.$apply(function() {
-            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
-                flag = false;
-            }
-            console.log("EYY");
-        });
-        if(flag) {
-            $.ajax({
-                type: "POST",
-                url: "/settings/add/",
-                data: $("#modalAddUser").serialize()
-                    + '&fn=' + $.trim(fn)
-                    + '&ln=' + $.trim(ln)
-                    + '&un=' + $.trim(un)
-                    + '&em=' + $.trim(em)
-                    + '&pw=' + $.trim(pw),
-                success: function (response) {
-                    if (response.status == 1) {
-                        $("p.messages#saving_msg").text("Saved Successfully.");
+        // $scope.$apply(function() {
+        //     if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+        //         flag = false;
+        //     }
+        //     console.log("EYY");
+        // });
+        if (pw == cp
+            && un.match(userRegex)
+            && em.match(emailRegex)
+            && pw.match(passRegex)) {
+            if(flag) {
+                $.ajax({
+                    type: "POST",
+                    url: "/settings/add/",
+                    data: $("#modalAddUser").serialize()
+                        + '&fn=' + $.trim(fn)
+                        + '&ln=' + $.trim(ln)
+                        + '&un=' + $.trim(un)
+                        + '&em=' + $.trim(em)
+                        + '&pw=' + $.trim(pw),
+                    success: function (response) {
+                        if (response.status == 1) {
+                            $("p.messages#saving_msg").text("Saved Successfully.");
 
-                        window.location.href = "/settings/";
-                    } else {
-                        $("p.messages#saving_msg").text("Saved Failed.");
+                            window.location.href = "/settings/";
+                        } else {
+                            $("p.messages#saving_msg").text("Saved Failed.");
+                        }
                     }
-                }
-            });
-        } else {
-            $("p.messages#saving_msg").text("No changes detected.");
+                });
+            } else {
+                $("p.messages#saving_msg").text("No changes detected.");
+            }
         }
 
         var formErrors = $("#modalAddUser .form-error:visible");
@@ -380,42 +386,50 @@ $(document).ready(function(){
         var ou = $("#modalEditUser #oldUsername").val();
         var un = $("#modalEditUser #username").val();
         var pw = $("#modalEditUser #password").val();
+        var cp = $("#modalEditUser #confirmPassword").val();
 
         console.log("Test " + $("#modalEditUser").serialize()
                     + '&ou=' + $.trim(ou)
                     + '&un=' + $.trim(un)
-                    + '&pw=' + $.trim(pw));
+                    + '&pw=' + $.trim(pw)
+                    + '&cp=' + $.trim(cp));
 
         var flag = true;
         var appElement = document.querySelector('[ng-app=dashboardApp]');
         var $scope = angular.element(appElement).scope();
 
-        $scope.$apply(function() {
-            if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
-                flag = false;
-            }
-            console.log("EYY");
-        });
-        if(flag) {
-            $.ajax({
-                type: "POST",
-                url: "/settings/edit/",
-                data: $("#modalEditUser").serialize()
-                    + '&ou=' + $.trim(ou)
-                    + '&un=' + $.trim(un)
-                    + '&pw=' + $.trim(pw),
-                success: function (response) {
-                    if (response.status == 1) {
-                        $("p.messages#saving_msg").text("Saved Successfully.");
+        // $scope.$apply(function() {
+        //     if($scope.modalObj.s == status && $scope.modalObj.mk == remarks) {
+        //         flag = false;
+        //     }
+        //     console.log("EYY");
+        // });
+        if (pw == cp
+            && pw.match(passRegex)
+            && un.match(userRegex)) {
+            // alert("Hey")
 
-                        window.location.href = "/settings/";
-                    } else {
-                        $("p.messages#saving_msg").text("Saved Failed.");
+            if(flag) {
+                $.ajax({
+                    type: "POST",
+                    url: "/settings/edit/",
+                    data: $("#modalEditUser").serialize()
+                        + '&un=' + $.trim(un)
+                        + '&ou=' + $.trim(ou)
+                        + '&pw=' + $.trim(pw),
+                    success: function (response) {
+                        if (response.status == 1) {
+                            $("p.messages#saving_msg").text("Saved Successfully.");
+
+                            window.location.href = "/settings/";
+                        } else {
+                            $("p.messages#saving_msg").text("Saved Failed.");
+                        }
                     }
-                }
-            });
-        } else {
-            $("p.messages#saving_msg").text("No changes detected.");
+                });
+            } else {
+                $("p.messages#saving_msg").text("No changes detected.");
+            }
         }
 
         var formErrors = $("#modalEditUser .form-error:visible");
